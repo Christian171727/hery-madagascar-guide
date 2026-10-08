@@ -270,10 +270,10 @@ export function getHeryChatReply(message, language = "en") {
 
   // A greeting/thank-you only wins when it is the WHOLE message.
   // "Hello, how much is ...?" should be answered as a price enquiry.
-  if (matches(q, ["hello", "hi", "hey", "bonjour", "bonsoir", "salut", "salama", "manao ahoana", "hallo", "hola", "ciao", "привет", "здравствуйте", "こんにちは", "你好"])) {
+  if (["hello", "hi", "hey", "bonjour", "bonsoir", "salut", "salama", "manao ahoana", "hallo", "hola", "ciao", "привет", "здравствуйте", "こんにちは", "你好"].some(term => clean(term) === q)) {
     return { intent: "greeting", text: hello[lang] };
   }
-  if (matches(q, ["merci", "thank you", "thanks", "misaotra", "gracias", "grazie", "danke", "спасибо", "ありがとう", "谢谢"])) {
+  if (["merci", "thank you", "thanks", "misaotra", "gracias", "grazie", "danke", "спасибо", "ありがとう", "谢谢"].some(term => clean(term) === q)) {
     return reply("thanks");
   }
 
@@ -287,7 +287,8 @@ export function getHeryChatReply(message, language = "en") {
   if (matches(q, ["price", "pricing", "cost", "how much", "rate", "tarif", "prix", "devis", "cout", "combien", "vidiny", "sarany", "taham bidy", "preis", "kosten", "prezzo", "costo", "precio", "cuanto cuesta", "цена", "стоимость", "料金", "价格", "多少钱"])) return reply("price");
   if (matches(q, ["book", "booking", "book a", "reserve", "reservation", "reservations", "reserver", "reservez", "réservation", "réserver", "buchen", "buchung", "prenotazione", "prenotare", "reserva", "reservar", "mamandrika", "famandrihana", "заказать", "забронировать", "予約", "预订"])) return reply("booking");
   if (matches(q, ["whatsapp", "email", "e mail", "contact", "contactez", "contactar", "contacter", "telephone", "phone", "tel", "numero", "nomerao", "antso", "contatto", "контакт", "联系方式", "联系", "メール"])) return reply("contact");
-  if (matches(q, ["who is hery", "who are you", "qui est hery", "c est qui hery", "iza i hery", "wer ist hery", "chi e hery", "quien es hery", "кто такой hery", "hery とは", "hery 是谁", "hery"])) return reply("who");
+  if (matches(q, ["who is hery", "who are you", "qui est hery", "c est qui hery", "iza i hery", "wer ist hery", "chi e hery", "quien es hery", "кто такой hery", "hery とは", "hery 是谁"])) return reply("who");
+  if (q === "hery") return reply("who");
 
   if (matches(q, ["astrophotography", "astrophotographie", "astrophotografie", "astrofotografia", "astrofotografía", "astro", "milky way", "voie lactee", "starry sky", "night sky", "night photography", "kintana", "lanitra amin ny alina", "vahindanitra", "天体写真", "天文摄影", "星空", "银河", "астрофотография"])) return reply("astro");
   if (matches(q, ["photography", "photographer", "photographers", "photograph", "photos", "photo", "photographe", "photographie", "photographier", "fotografia", "fotografía", "fotograf", "fotografo", "sary", "mpaka sary", "写真", "摄影", "фотография", "фото"])) return reply("photo");
