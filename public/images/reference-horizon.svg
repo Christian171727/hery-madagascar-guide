@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" fill="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="180" y1="470" x2="1100" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#d6a953" stop-opacity=".02"/>
+      <stop offset=".44" stop-color="#d1a155" stop-opacity=".50"/>
+      <stop offset="1" stop-color="#f5d18a" stop-opacity=".92"/>
+    </linearGradient>
+    <linearGradient id="ocean" x1="840" y1="440" x2="1200" y2="555" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0e4658" stop-opacity=".08"/>
+      <stop offset=".58" stop-color="#0b3e50" stop-opacity=".81"/>
+      <stop offset="1" stop-color="#062b3e" stop-opacity=".98"/>
+    </linearGradient>
+    <radialGradient id="warm" cx="0" cy="0" r="1" gradientTransform="translate(915 320) rotate(90) scale(310 410)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f9deb2" stop-opacity=".20"/>
+      <stop offset="1" stop-color="#f9deb2" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <ellipse cx="915" cy="320" rx="410" ry="310" fill="url(#warm)"/>
+  <g stroke="#cba36b" stroke-width="1.6" opacity=".28" transform="translate(820 263)">
+    <circle r="112"/><circle r="92"/><circle r="67"/><circle r="21"/>
+    <path d="M-140 0H140M0-140V140M-96-96L96 96M96-96L-96 96" stroke-width="1"/>
+    <path d="M0-126L19-19L0-31L-19-19Z M126 0L19 19L31 0L19-19Z M0 126L-19 19L0 31L19 19Z M-126 0L-19-19L-31 0L-19 19Z" fill="#cba36b" fill-opacity=".27"/>
+    <path d="M0-104L12-12L0 0L-12-12Z M104 0L12 12L0 0L12-12Z M0 104L-12 12L0 0L12 12Z M-104 0L-12-12L0 0L-12 12Z" fill="#cba36b" fill-opacity=".46"/>
+  </g>
+  <g stroke="url(#gold)" stroke-width="1.7" opacity=".65">
+    <path d="M-70 520C170 565 280 446 462 467C643 488 726 547 906 452C1049 376 1145 374 1270 365"/>
+    <path d="M-70 541C175 587 310 477 476 490C649 506 740 559 920 482C1066 420 1153 408 1270 394"/>
+    <path d="M-50 560C225 606 343 498 500 512C673 525 771 568 942 506C1086 450 1168 442 1280 425"/>
+    <path d="M-50 491C142 523 298 423 455 437C627 456 738 513 891 426C1063 328 1156 339 1270 332"/>
+  </g>
+  <path d="M485 582C704 508 824 589 1005 450C1077 394 1149 364 1215 345L1231 573Z" fill="url(#ocean)"/>
+  <path d="M493 560C731 479 818 562 1005 429C1076 381 1161 344 1219 338" stroke="#e6bd74" stroke-width="1.8" opacity=".82"/>
+  <path d="M576 566C787 503 884 579 1035 476C1111 424 1166 422 1233 407" stroke="#ecc888" stroke-width="1.2" opacity=".46"/>
+</svg>
