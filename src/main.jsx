@@ -1396,7 +1396,7 @@ function Header({
             <option value="fr">FR</option>
             <option value="mg">MG</option>
             <option value="ru">RU</option>
-            <option value="ja">JP</option>
+            <option value="ja">JA</option>
             <option value="de">DE</option>
             <option value="it">IT</option>
             <option value="es">ES</option>
@@ -3944,6 +3944,7 @@ createRoot(
 ).render(
   <App />
 );
+
 
 
 
