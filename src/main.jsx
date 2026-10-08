@@ -1297,6 +1297,7 @@ function App() {
 
         <Contact
           t={t}
+          lang={lang}
         />
       </main>
 
@@ -2990,7 +2991,7 @@ function References() {
    CONTACT EMAILJS
 ========================================================= */
 
-function Contact({ t }) {
+function Contact({ t, lang }) {
   const [form, setForm] =
     useState({
       name: "",
@@ -3003,6 +3004,55 @@ function Contact({ t }) {
 
   const [loading, setLoading] =
     useState(false);
+
+  const whatsappLanguages = {
+    en: {
+      title: "Chat with HERY",
+      description: "Let's plan your Madagascar experience.",
+      message: "Hello HERY! I'd like to know more about your Madagascar experiences.",
+    },
+    fr: {
+      title: "Discuter avec HERY",
+      description: "Préparons ensemble votre voyage à Madagascar.",
+      message: "Bonjour HERY ! Je souhaite en savoir plus sur vos expériences à Madagascar.",
+    },
+    mg: {
+      title: "Miresaha amin'i HERY",
+      description: "Andao hiara-handamina ny dianao eto Madagasikara.",
+      message: "Salama HERY! Te hahalala bebe kokoa momba ny fitsangatsanganana eto Madagasikara aho.",
+    },
+    ru: {
+      title: "Написать HERY",
+      description: "Спланируем ваше путешествие по Мадагаскару.",
+      message: "Здравствуйте, HERY! Я хотел(а) бы узнать больше о поездках по Мадагаскару.",
+    },
+    ja: {
+      title: "HERYに相談する",
+      description: "マダガスカル旅行を一緒に計画しましょう。",
+      message: "こんにちは、HERY！マダガスカルでの体験について詳しく知りたいです。",
+    },
+    de: {
+      title: "Mit HERY chatten",
+      description: "Planen wir Ihre Madagaskar-Reise.",
+      message: "Hallo HERY! Ich möchte mehr über Ihre Madagaskar-Erlebnisse erfahren.",
+    },
+    it: {
+      title: "Scrivi a HERY",
+      description: "Organizziamo il tuo viaggio in Madagascar.",
+      message: "Ciao HERY! Vorrei saperne di più sulle esperienze in Madagascar.",
+    },
+    es: {
+      title: "Habla con HERY",
+      description: "Organicemos tu viaje a Madagascar.",
+      message: "¡Hola HERY! Me gustaría saber más sobre las experiencias en Madagascar.",
+    },
+    zh: {
+      title: "联系 HERY",
+      description: "一起规划您的马达加斯加之旅。",
+      message: "您好 HERY！我想了解更多马达加斯加旅行体验。",
+    },
+  };
+  const whatsappText = whatsappLanguages[lang] || whatsappLanguages.en;
 
   async function submit(event) {
     event.preventDefault();
@@ -3116,12 +3166,24 @@ function Contact({ t }) {
 
         <div className="contact-direct">
           <a
-            href="https://wa.me/261345808504?text=Bonjour%20HERY%2C%20je%20souhaite%20avoir%20des%20informations%20sur%20une%20exp%C3%A9rience%20%C3%A0%20Madagascar."
+            className="whatsapp-card"
+            href={`https://wa.me/261345808504?text=${encodeURIComponent(whatsappText.message)}`}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
           >
-            <MessageCircle size={18} />
-            WhatsApp direct
+            <span className="whatsapp-card-icon" aria-hidden="true">
+              <MessageCircle size={25} strokeWidth={2.1} />
+            </span>
+            <span className="whatsapp-card-copy">
+              <span className="whatsapp-card-kicker">WHATSAPP · HERY</span>
+              <strong>{whatsappText.title}</strong>
+              <span className="whatsapp-card-description">
+                {whatsappText.description}
+              </span>
+            </span>
+            <span className="whatsapp-card-arrow" aria-hidden="true">
+              <ArrowRight size={19} />
+            </span>
           </a>
         </div>
       </div>
