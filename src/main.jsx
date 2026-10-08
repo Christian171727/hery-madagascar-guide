@@ -421,32 +421,32 @@ const copy = {
       "Momba an’i HERY",
       "Fahaizana",
       "Toerana",
-      "Photographie",
-      "Astrophotographie",
+      "Fakàna sary",
+      "Sary amin’ny alina",
       "Fiarovana",
       "Kolontsaina",
-      "Services",
-      "Blog",
+      "Serivisy",
+      "Lahatsoratra",
       "FAQ",
-      "Contact",
+      "Hifandray",
     ],
 
     heroKicker:
-      "MADAGASCAR LOCAL GUIDE",
+      "MPITARI-DALANA ETO MADAGASIKARA",
 
     heroTitle: (
       <>
-        Discover Madagascar
+        Fantaro i Madagasikara
         <br />
-        <em>step by step.</em>
+        <em>tsikelikely.</em>
       </>
     ),
 
     heroSub:
-      "Wildlife encounters. Night skies. Living landscapes.",
+      "Bibidia miavaka. Lanitra feno kintana. Tontolo velona.",
 
     heroText:
-      "Traikefa eny an-kianja mampifandray ny fitarihana, fijerena bibidia, photographie, astrophotographie ary fahafantarana ny biodiversité eto Madagascar.",
+      "Traikefa eny ifotony mampiray ny fitarihan-dalana, ny fijerena bibidia, ny fakàna sary, ny lanitra amin’ny alina ary ny fahafantarana ny harena voajanahary eto Madagasikara.",
 
     explore:
       "Hijery an’i Madagascar",
@@ -458,13 +458,13 @@ const copy = {
       "IZA I HERY?",
 
     aboutTitle:
-      "Guide local. Traikefa tena eny an-kianja.",
+      "Mpitari-dalana eto an-toerana. Traikefa tena izy eny ifotony.",
 
     aboutText:
-      "HERY dia guide local monina ao Morondava / Menabe, mifantoka amin’ny natiora, bibidia, photographie, astrophotographie, biodiversité ary conservation.",
+      "HERY dia mpitari-dalana monina ao Morondava / Menabe, manampahaizana amin’ny natiora, bibidia, fakàna sary, lanitra amin’ny alina, harena voajanahary ary fiarovana ny tontolo iainana.",
 
     profile:
-      "Guide local & mpitari-dalana",
+      "Mpitari-dalana sy mpiara-dia eny ifotony",
 
     destTitle:
       "Toerana azo tsidihina",
@@ -476,7 +476,7 @@ const copy = {
       "Hijery ny toerana rehetra",
 
     stories:
-      "Carnet de terrain & guides",
+      "Tantara sy torohevitra eny ifotony",
 
     storiesSub:
       "Torohevitra, zavatra hita ary tantara momba an’i Madagascar.",
@@ -488,26 +488,26 @@ const copy = {
       "NY DIA MANARAKA",
 
     offerTitle:
-      "Discover Madagascar step by step.",
+      "Fantaro i Madagasikara tsikelikely.",
 
     offerText:
-      "Traikefa manokana, flexible ary manaja ny tontolo iainana.",
+      "Traikefa mifanaraka amin’ny fanirianao ary manaja ny tontolo iainana.",
 
     contact:
       "Hifandray amin’i HERY",
 
     stats: [
       "Traikefa eny an-kianja",
-      "Photographie",
-      "Conservation",
+      "Fakàna sary",
+      "Fiarovana ny natiora",
       "Fomba local",
     ],
 
     servicesTitle:
-      "Services & expériences",
+      "Tolotra sy traikefa",
 
     faqTitle:
-      "Fanontaniana matetika",
+      "Fanontaniana mahazatra",
 
     contactTitle:
       "Omano ny traikefanao eto Madagascar",
@@ -531,25 +531,28 @@ const copy = {
       "Alefa...",
 
     sent:
-      "Voaray soa aman-tsara ny hafatra.",
+      "Nalefa soa aman-tsara ny hafatra.",
 
     error:
       "Tsy afaka nandefa hafatra. Hamarino ny EmailJS.",
 
     footer:
-      "Wildlife encounters. Night skies. Living landscapes.",
+      "Bibidia miavaka. Lanitra feno kintana. Tontolo velona.",
+
+    photoTitle: "Fakàna sary eny ifotony",
+    photoText: "Bibidia, vorona, hazavan’ny maraina sy hariva ary lanitry ny alina: traikefa miavaka amin’ny fakàna sary eto Madagasikara.",
 
     astroTitle:
-      "Astrophotographie",
+      "Sary amin’ny alina",
 
     astroText:
-      "Jereo ny hakanton’ny lanitra malagasy, ny Voie lactée, ny kintana ary ny paysages amin’ny alina.",
+      "Ankafizo ny lanitry ny alina eto Madagasikara: ny Vahindanitra, ny kintana, ny tontolo amin’ny alina ary ny fakàna sary amin’ny fotoana lava.",
 
     conservationTitle:
       "Tsy haingo fotsiny ny natiora. Izy no tantara.",
 
     cultureTitle:
-      "Fantaro i Madagascar mihoatra noho ny carte postale.",
+      "Fantaro i Madagasikara mihoatra noho izay hita amin’ny sary fotsiny.",
 
     discover:
       "Hijery",
@@ -561,7 +564,7 @@ const copy = {
       "Mitadiava Morondava, Kirindy, Tsingy...",
 
     chatbotWelcome:
-      "Salama 👋 Izaho no HERY Assistant. Afaka manampy anao momba ny toerana, excursions, photographie, astrophotographie ary ny dianao eto Madagascar aho.",
+      "Salama 👋 Izaho no mpanampy HERY. Afaka manampy anao hahalala ireo toerana tsidihina, fitsangatsanganana, fakàna sary ary ny dianao eto Madagasikara aho.",
 
     chatbotPlaceholder:
       "Soraty eto ny fanontanianao...",
@@ -570,13 +573,13 @@ const copy = {
       "HERY Assistant",
 
     chatbotSub:
-      "Guide local • Madagascar",
+      "Mpitari-dalana • Madagasikara",
 
     quickQuestions: [
       "Iza i HERY?",
       "Te hitsidika an’i Morondava aho",
-      "Photographe aho",
-      "Te hanao astrophotographie aho",
+      "Mpaka sary aho",
+      "Te haka sary amin’ny alina aho",
     ],
   },
 
@@ -1061,6 +1064,75 @@ const faqs = [
   ],
 ];
 
+
+/* =========================================================
+   ADDITIONAL MALAGASY TEXT — KEEP DEFAULT ENGLISH INTACT
+========================================================= */
+
+const mgUI = {
+  hero: { scroll: "Midina", where: "Ho aiza?", experience: "Traikefa", wildlifePhoto: "Bibidia sy sary", night: "Alina", astro: "Sary amin’ny alina", start: "Hanomboka" },
+  trust: ["Traikefa voakarakara", "Mety ho an’ny mpaka sary", "Manaja ny natiora", "Fahalalana ny toerana"],
+  about: { photo: "Fakàna sary", biodiversity: "Harena voajanahary", discover: "Fantaro i HERY" },
+  expertise: {
+    kicker: "FAHALALANA ENY IFOTONY",
+    head1: "Andry dimy,",
+    head2: "fomba fijery iray.",
+    intro: "Traikefa tena izy, mifototra amin’ny fahalalana sy ny fiainana eny ifotony.",
+    pillars: [
+      ["Bibidia", "Fijerena bibidia sy vorona, fiainana amin’ny alina ary fitsidihana manaja ny natiora."],
+      ["Fakàna sary", "Hazavan’ny maraina sy hariva, bibidia ary fanampiana ny mpaka sary."],
+      ["Sary amin’ny alina", "Vahindanitra, kintana, tontolo amin’ny alina ary fakàna sary maharitra."],
+      ["Fiarovana ny natiora", "Fiarovana iarahan’ny mponina, famerenana ala ary fanentanana."],
+      ["Kolontsaina", "Lova Sakalava, fiainana amorontsiraka, fady ary fanajana ny fiarahamonina."],
+    ],
+  },
+  destinations: [
+    "Baobaba, kolontsaina, morontsiraka ary ny faritra andrefan’i Madagasikara",
+    "Bibidia, ala ary fitsidihana amin’ny alina",
+    "Tontolo miavaka sy hazavan’ny masoandro milentika tsy hay hadinoina",
+    "Vatolampy tsy manam-paharoa, ala, fitsangatsanganana ary bibidia",
+    "Renirano, lakana ary fiainan’ny mponina",
+    "Harena voajanahary sy bibidia any atsinanana",
+    "Ala mando, gidro ary karazan-javamananaina maro",
+    "Ala maina sy bibidia miavaka",
+    "Dia an-drenirano sy tontolo mahafinaritra",
+    "Fiainana an-nosy sy fitsidihana amorontsiraka",
+    "Morontsiraka, kolontsaina ary natiora",
+    "Tontolo, vohitra ary lalana mankany atsimon’i Madagasikara",
+  ],
+  photos: [
+    ["Bibidia eto Madagasikara", "BIBIDIA", "Bibidia · Madagasikara", "Fantaro ireo bibidia tsy fahita firy amin’ny fitsidihana manaja ny fonenany."],
+    ["Baobaba eto Madagasikara", "BAOBABA", "Hazavan’ny hariva · Andrefana", "Ankafizo ny hakanton’ireo baobaba sy ny hazavana volamena amin’ny hariva."],
+    ["Alan’i Madagasikara", "ALA", "Harena voajanahary · Atsinanana", "Mitsidiha ala feno karazan-javamananaina sy tontolo voajanahary miavaka."],
+    ["Morontsirak’i Madagasikara", "MORONTSIRAKA", "Fiainana an-nosy · Madagasikara", "Fantaro ny tora-pasika, ranomasina manga ary ny fiainan’ny mponina amorontsiraka."],
+  ],
+  astro: { kicker: "LANITRY NY ALINA", features: ["Vahindanitra", "Fakàna sary maharitra", "Fakàna sary amin’ny alina", "Baobaba sy lanitra feno kintana"] },
+  conservation: { kicker: "FIAROVANA NY NATIORA", text: "Mifantoka amin’ny harena voajanahary sy ny fiarovana iarahan’ny mponina ny fomba fiasan’i HERY, miaraka amin’ny fanentanana sy famerenana ala.", project: "Fiarovana ny aye-aye sy famerenana amin’ny laoniny ny ala", respect: "Fanajana", sub: "ny bibidia sy ny mponina" },
+  culture: { kicker: "KOLONTSAINA", text: "Lova Sakalava, fiainana amorontsiraka, fady sy fanajana ny fomba amam-panao, ny fiainana ambanivohitra ary ny fiovan’ny tontolo iainana.", quote: "“Ho anao manokana. Mora amboarina. Eny ifotony. Mampianatra. Manaja ny fiarahamonina.”" },
+  services: {
+    kicker: "TRAIKEFA HERY",
+    intro: "Tolotra sy traikefa mifanaraka amin’ny zavatra mahaliana anao sy ny zava-misy eny ifotony.",
+    cards: [
+      ["Fitarihan-dalana manokana", "Fiarahana amin’ny mpitari-dalana araka ny filànao."],
+      ["Fitsidihana bibidia", "Fijerena bibidia sy fahafantarana ny fonenany voajanahary."],
+      ["Fitsangatsanganana haka sary", "Fitsidihana ho an’ny mpaka sary amin’ny fotoana tsara indrindra."],
+      ["Dia any andrefan’i Madagasikara", "Morondava, Menabe ary ireo toerana mahafinaritra any andrefana."],
+      ["Fanampiana eny an-toerana", "Fanomanana sy fandrindrana ny zavatra ilaina mandritra ny dia."],
+      ["Traikefa namboarina ho anao", "Fitsangatsanganana mifanaraka amin’ny zavatra tianao ho hita."],
+    ],
+  },
+  faq: [
+    ["Iza i HERY?", "HERY dia mpitari-dalana monina ao Morondava / Menabe. Mifantoka amin’ny natiora, fakàna sary, harena voajanahary ary fiarovana ny tontolo iainana izy."],
+    ["Inona avy ny traikefa azo atao?", "Fitarihan-dalana manokana, fitsidihana bibidia, fakàna sary, dia any andrefana, fanampiana eny an-toerana ary fitsangatsanganana araka ny safidinao."],
+    ["Afaka mandray anjara ve ny mpaka sary?", "Eny. Misy fitsangatsanganana manokana amin’ny fakàna sary, amin’ny maraina sy hariva ary amin’ny alina."],
+    ["Afaka mangataka dia mifanaraka amin’ny safidiko ve aho?", "Eny. Lazao amin’ny formulaire ny toerana, daty ary zavatra tianao ho hita, dia hiara-handamina izany aminao i HERY."],
+    ["Ahoana no andraisan’i HERY anjara amin’ny fiarovana ny natiora?", "Manome lanja ny fiarovana ny ala sy bibidia, ny fanentanana ny mponina ary ny fitsidihana tsy manimba ny tontolo iainana izy."],
+  ],
+  references: { kicker: "LOHARANOM-PANAZAVANA", title: "Traikefa tena izy eny ifotony.", text: "Pejy ahitana fanazavana momba an’i HERY: TripAdvisor Madagascar Local Tours, TripAdvisor Driver/Guide in Morondava ary Instagram @mdg_tour." },
+  footer: { explore: "Tsidiho", about: "Momba an’i HERY", destinations: "Toerana", photography: "Fakàna sary", blog: "Lahatsoratra", services: "Serivisy", guiding: "Fitarihan-dalana", wildlife: "Fitsidihana bibidia", contact: "Hifandray", rights: "Zo rehetra voatokana." },
+  blog: { kicker: "TANTARA ENY IFOTONY", back: "Hiverina amin’ny lahatsoratra", time: "famakiana" },
+  contact: { name: "Ny anaranao", email: "you@example.com", message: "Lazao eto ny dianao na ny fanontanianao..." },
+};
 
 /* =========================================================
    REVEAL ANIMATION
