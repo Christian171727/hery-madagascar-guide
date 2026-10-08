@@ -48,3 +48,32 @@ test("unverified subjects are not guessed", () => {
 test("contact details are grounded", () => {
   assert.match(getHeryChatReply("WhatsApp", "fr").text, /261 34 58 085 04/);
 });
+
+test("Malagasy thanks and courtesy phrases receive an appropriate answer", () => {
+  for (const text of ["misaotra betsaka", "Tena misaotra!", "misaotra indrindra", "Mankasitraka"]) {
+    const reply = getHeryChatReply(text, "mg");
+    assert.equal(reply.intent, "thanks", text);
+    assert.match(reply.text, /Tsy misy fisaorana/);
+  }
+});
+
+test("courtesy expressions work in other supported languages", () => {
+  for (const [text, lang] of [
+    ["Merci beaucoup", "fr"],
+    ["Thank you very much", "en"],
+    ["Muchas gracias", "es"],
+    ["Grazie mille", "it"],
+    ["Vielen Dank", "de"],
+    ["Большое спасибо", "ru"],
+    ["ありがとうございます", "ja"],
+    ["非常感谢", "zh"],
+  ]) {
+    assert.equal(getHeryChatReply(text, lang).intent, "thanks", text);
+  }
+});
+
+test("thanks followed by a real question is answered by topic", () => {
+  assert.equal(getHeryChatReply("Misaotra betsaka, ohatrinona ny sarany?", "mg").intent, "price");
+  assert.equal(getHeryChatReply("Thank you, how much for Kirindy?", "en").intent, "price");
+  assert.equal(getHeryChatReply("Merci beaucoup, je veux réserver", "fr").intent, "booking");
+});
