@@ -3595,7 +3595,10 @@ function Footer({ t, go, isMG }) {
 
 
 /* =========================================================
-   SMART function Chat({ open, setOpen, lang, t }) {
+   SMART CHATBOT — HERY ASSISTANT
+========================================================= */
+
+function Chat({ open, setOpen, lang, t }) {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [typing, setTyping] = useState(false);
@@ -3773,14 +3776,6 @@ function Footer({ t, go, isMG }) {
       >
         {open ? <X size={22} /> : <MessageCircle size={23} />}
         {!open && <span className="chat-pulse" />}
-      </button>
-    </>
-  );
-}
-
-
-className="chat-pulse" />
-        )}
       </button>
     </>
   );
