@@ -112,14 +112,14 @@ const copy = {
 
     heroTitle: (
       <>
-        Discover Madagascar
+        Découvrez Madagascar
         <br />
-        <em>step by step.</em>
+        <em>pas à pas.</em>
       </>
     ),
 
     heroSub:
-      "Wildlife encounters. Night skies. Living landscapes.",
+      "Rencontres avec la faune. Ciels étoilés. Paysages vivants.",
 
     heroText:
       "Une expérience de terrain mêlant guidage local, observation de la faune, photographie, astrophotographie et découverte de la biodiversité malgache.",
@@ -127,7 +127,7 @@ const copy = {
     explore: "Explorer Madagascar",
     photo: "Voir la photographie",
 
-    aboutKicker: "QUI EST HERY Nomenjanahary Fanomezantsoa Malazamana?",
+    aboutKicker: "QUI EST HERY ?",
 
     aboutTitle:
       "Un guide local. Une véritable expérience de terrain.",
@@ -160,7 +160,7 @@ const copy = {
       "VOTRE PROCHAINE AVENTURE",
 
     offerTitle:
-      "Discover Madagascar step by step.",
+      "Découvrez Madagascar pas à pas.",
 
     offerText:
       "Une expérience personnalisée, flexible et respectueuse du terrain.",
@@ -209,7 +209,7 @@ const copy = {
       "Impossible d’envoyer le message. Vérifiez la configuration EmailJS.",
 
     footer:
-      "Wildlife encounters. Night skies. Living landscapes.",
+      "Rencontres avec la faune. Ciels étoilés. Paysages vivants.",
 
     astroTitle:
       "Astrophotographie",
@@ -871,32 +871,32 @@ const destinations = [
 const services = [
   [
     "Private guiding",
-    "Accompagnement personnalisé sur le terrain.",
+    "Personalized guidance and support in the field.",
     Compass,
   ],
   [
     "Wildlife trips",
-    "Observation de la faune et découverte des habitats.",
+    "Wildlife observation and discovery of natural habitats.",
     Leaf,
   ],
   [
     "Photography trips",
-    "Sorties adaptées aux photographes et aux meilleurs moments de lumière.",
+    "Photography outings timed for the best natural light.",
     Camera,
   ],
   [
     "Western Madagascar circuits",
-    "Morondava, Menabe et grands paysages de l’Ouest.",
+    "Morondava, Menabe and western Madagascar's remarkable landscapes.",
     Mountain,
   ],
   [
     "Local logistics",
-    "Accompagnement et orientation pour les réalités du terrain.",
+    "Practical local guidance and on-the-ground coordination.",
     MapPin,
   ],
   [
     "Custom experiences",
-    "Une expérience construite selon vos envies.",
+    "A tailor-made experience shaped around your interests.",
     Heart,
   ],
 ];
@@ -1043,6 +1043,14 @@ const posts = [
 ========================================================= */
 
 const faqs = [
+  ["Who is HERY?", "HERY is a local guide based in Morondava / Menabe, Madagascar. His field-based approach focuses on nature, photography, biodiversity and conservation."],
+  ["What experiences are available?", "HERY offers private guiding, wildlife trips, photography outings, western Madagascar circuits, local logistics and tailor-made experiences."],
+  ["Can photographers join the trips?", "Yes. Photography-focused experiences can include golden-hour landscapes, wildlife and night photography, with guidance suited to photographers."],
+  ["Can I request a custom trip?", "Yes. Describe your plans, interests and travel dates using the contact form. HERY can discuss a trip tailored to your needs."],
+  ["How does HERY approach conservation?", "HERY emphasizes community conservation, awareness, forest restoration and respectful wildlife encounters."],
+];
+
+const faqsFr = [
   [
     "Qui est HERY ?",
     "HERY est un guide local basé à Morondava / Menabe, avec une approche terrain centrée sur la nature, la photographie, la biodiversité et la conservation.",
@@ -1065,6 +1073,78 @@ const faqs = [
   ],
 ];
 
+
+/* Separate French page translations; English remains the default. */
+const frExtras = {
+  trust: ["Expériences sélectionnées", "Adapté aux photographes", "Approche respectueuse", "Connaissance locale"],
+  hero: { scroll: "Défiler", where: "Où aller ?", experience: "Expérience", wildlifePhoto: "Faune et photographie", night: "Nuit", astro: "Astrophotographie", start: "Commencer" },
+  about: { photo: "Photographie", biodiversity: "Biodiversité", discover: "Découvrir HERY" },
+  expertise: {
+    kicker: "EXPERTISE DE TERRAIN",
+    head1: "Cinq domaines,",
+    head2: "une perspective locale.",
+    intro: "Une approche fondée sur l'expérience et la connaissance du terrain.",
+    pillars: [
+      ["Faune sauvage", "Observation de la faune, des oiseaux et de la vie nocturne dans le respect de la nature."],
+      ["Photographie", "Lumières dorées, faune, oiseaux et accompagnement des photographes."],
+      ["Astrophotographie", "Voie lactée, étoiles, paysages nocturnes et poses longues."],
+      ["Conservation", "Conservation communautaire, restauration forestière et sensibilisation."],
+      ["Culture", "Patrimoine Sakalava, vie côtière, fady, respect et Madagascar rural."],
+    ],
+  },
+  destinations: [
+    "Baobabs, culture, côte et ouest de Madagascar",
+    "Faune sauvage, forêt et expériences nocturnes",
+    "Paysages emblématiques et lumières dorées inoubliables",
+    "Formations géologiques, forêt, aventure et faune",
+    "Paysages fluviaux, pirogues et vie locale",
+    "Biodiversité et faune de l'est",
+    "Forêt tropicale, lémuriens et biodiversité",
+    "Forêt sèche et faune sauvage",
+    "Voyages fluviaux et paysages",
+    "Vie insulaire et découverte de la côte",
+    "Côte, culture et nature",
+    "Paysages, villages et route du sud",
+  ],
+  astro: { kicker: "CIELS NOCTURNES", features: ["Voie lactée", "Poses longues", "Photographie de nuit", "Baobabs sous les étoiles"] },
+  conservation: {
+    kicker: "CONSERVATION",
+    text: "Une approche centrée sur la biodiversité et la conservation communautaire, avec sensibilisation, restauration forestière et expériences de terrain.",
+    project: "Projet pilote de conservation de l'aye-aye et de restauration forestière",
+    respect: "Respect", sub: "de la faune et des communautés",
+  },
+  culture: {
+    kicker: "CULTURE",
+    text: "Patrimoine Sakalava, vie côtière, fady et respect, vie rurale et évolutions environnementales.",
+    quote: "« Personnel. Flexible. Sur le terrain. Éducatif. Respectueux des communautés. »",
+  },
+  services: {
+    kicker: "EXPÉRIENCES HERY",
+    intro: "Des expériences conçues autour du terrain et de vos centres d'intérêt.",
+    cards: [
+      ["Guidage privé", "Accompagnement personnalisé sur le terrain."],
+      ["Observation de la faune", "Observation de la faune et découverte des habitats."],
+      ["Sorties photo", "Sorties adaptées aux photographes et aux meilleurs moments de lumière."],
+      ["Circuits dans l'ouest de Madagascar", "Morondava, Menabe et grands paysages de l'Ouest."],
+      ["Logistique locale", "Accompagnement et orientation selon les réalités du terrain."],
+      ["Expériences sur mesure", "Une expérience construite selon vos envies."],
+    ],
+  },
+  faq: faqsFr,
+  references: {
+    kicker: "RÉFÉRENCES",
+    title: "Une expérience ancrée sur le terrain.",
+    text: "Références citées dans le portfolio : TripAdvisor Madagascar Local Tours, TripAdvisor Driver/Guide in Morondava et Instagram @mdg_tour.",
+  },
+  footer: {
+    explore: "Explorer", about: "À propos", destinations: "Destinations",
+    photography: "Photographie", blog: "Blog", services: "Services",
+    guiding: "Guidage", wildlife: "Sorties faune", contact: "Contact",
+    rights: "Tous droits réservés.",
+  },
+  blog: { kicker: "CARNET DE TERRAIN", back: "Retour aux articles", time: "de lecture" },
+  contact: { name: "Votre nom", email: "vous@exemple.com", message: "Parlez-nous de votre projet..." },
+};
 
 /* =========================================================
    ADDITIONAL MALAGASY TEXT — KEEP DEFAULT ENGLISH INTACT
