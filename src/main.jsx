@@ -1341,21 +1341,24 @@ function App() {
         <PhotoSection
           t={t}
           go={go}
+          isMG={isMG}
         />
 
-        <AstroSection t={t} />
+        <AstroSection t={t} isMG={isMG} />
 
-        <Conservation t={t} />
+        <Conservation t={t} isMG={isMG} />
 
-        <Culture t={t} />
+        <Culture t={t} isMG={isMG} />
 
         <Services
           t={t}
           go={go}
+          isMG={isMG}
         />
 
         <Blog
           t={t}
+          isMG={isMG}
         />
 
         <Offer
@@ -1365,19 +1368,22 @@ function App() {
 
         <FAQ
           t={t}
+          isMG={isMG}
         />
 
-        <References />
+        <References isMG={isMG} />
 
         <Contact
           t={t}
           lang={lang}
+          isMG={isMG}
         />
       </main>
 
       <Footer
         t={t}
         go={go}
+        isMG={isMG}
       />
 
       <Chat
@@ -1959,7 +1965,7 @@ function Destination({
    PHOTOGRAPHY
 ========================================================= */
 
-function PhotoSection({ t }) {
+function PhotoSection({ t, isMG }) {
   const photos = [
     {
       image: imgs.wildlife,
@@ -1994,6 +2000,16 @@ function PhotoSection({ t }) {
       description: "Coastal landscapes, tropical atmosphere and island life.",
     },
   ];
+
+  const displayPhotos = isMG
+    ? photos.map((photo, index) => ({
+        ...photo,
+        title: mgUI.photos[index][0],
+        label: mgUI.photos[index][1],
+        location: mgUI.photos[index][2],
+        description: mgUI.photos[index][3],
+      }))
+    : photos;
 
   const [selected, setSelected] = useState(null);
 
@@ -2043,7 +2059,7 @@ function PhotoSection({ t }) {
       <section id="photography" className="section gallery-section">
         <div className="section-head reveal">
           <div>
-            <span className="eyebrow">PHOTOGRAPHY</span>
+            <span className="eyebrow">{isMG ? "FAKÀNA SARY" : "PHOTOGRAPHY"}</span>
 
             <h2>
               {t.photoTitle || "Photography in the field"}
@@ -2066,7 +2082,7 @@ function PhotoSection({ t }) {
         </div>
 
         <div className="premium-photo-grid">
-          {photos.map((photo, index) => (
+          {displayPhotos.map((photo, index) => (
             <motion.article
               key={photo.title}
               className="premium-photo-card reveal"
@@ -2140,7 +2156,7 @@ function PhotoSection({ t }) {
           className="photo-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={photos[selected].title}
+          aria-label={displayPhotos[selected].title}
           onMouseDown={(event) => {
             if (event.target === event.currentTarget) {
               closePhoto();
@@ -2152,15 +2168,15 @@ function PhotoSection({ t }) {
               type="button"
               className="photo-lightbox-close"
               onClick={closePhoto}
-              aria-label="Close"
+              aria-label={isMG ? "Hikatona" : "Close"}
             >
               ×
             </button>
 
             <div className="photo-lightbox-image-wrap">
               <img
-                src={photos[selected].image}
-                alt={photos[selected].title}
+                src={displayPhotos[selected].image}
+                alt={displayPhotos[selected].title}
                 className="photo-lightbox-image"
               />
             </div>
@@ -2168,7 +2184,7 @@ function PhotoSection({ t }) {
             <div className="photo-lightbox-info">
               <div className="photo-lightbox-meta">
                 <span className="photo-lightbox-label">
-                  {photos[selected].label}
+                  {displayPhotos[selected].label}
                 </span>
 
                 <span className="photo-lightbox-count">
@@ -2177,13 +2193,13 @@ function PhotoSection({ t }) {
                 </span>
               </div>
 
-              <h3>{photos[selected].title}</h3>
+              <h3>{displayPhotos[selected].title}</h3>
 
               <span className="photo-lightbox-location">
-                {photos[selected].location}
+                {displayPhotos[selected].location}
               </span>
 
-              <p>{photos[selected].description}</p>
+              <p>{displayPhotos[selected].description}</p>
 
               <span className="photo-lightbox-brand">
                 HERY · MADAGASCAR LOCAL GUIDE
@@ -2197,7 +2213,7 @@ function PhotoSection({ t }) {
                 onClick={previousPhoto}
                 aria-label="Previous photo"
               >
-                ← <span>Previous</span>
+                ← <span>{isMG ? "Teo aloha" : "Previous"}</span>
               </button>
 
               <button
@@ -2206,7 +2222,7 @@ function PhotoSection({ t }) {
                 onClick={nextPhoto}
                 aria-label="Next photo"
               >
-                <span>Next</span> →
+                <span>{isMG ? "Manaraka" : "Next"}</span> →
               </button>
             </div>
           </div>
@@ -2216,7 +2232,7 @@ function PhotoSection({ t }) {
   );
 }
 
-function AstroSection({ t }) {
+function AstroSection({ t, isMG }) {
   return (
     <section
       id="astrophotography"
@@ -2234,7 +2250,7 @@ function AstroSection({ t }) {
 
       <div className="split-copy reveal">
         <span className="eyebrow light">
-          NIGHT SKIES
+          {isMG ? mgUI.astro.kicker : "NIGHT SKIES"}
         </span>
 
         <h2>
@@ -2248,22 +2264,22 @@ function AstroSection({ t }) {
         <div className="feature-list">
           <span>
             <Moon />
-            Milky Way
+            {isMG ? mgUI.astro.features[0] : "Milky Way"}
           </span>
 
           <span>
             <Star />
-            Long exposures
+            {isMG ? mgUI.astro.features[1] : "Long exposures"}
           </span>
 
           <span>
             <Camera />
-            Night photography
+            {isMG ? mgUI.astro.features[2] : "Night photography"}
           </span>
 
           <span>
             <Sparkles />
-            Baobab nightscapes
+            {isMG ? mgUI.astro.features[3] : "Baobab nightscapes"}
           </span>
         </div>
       </div>
@@ -2276,7 +2292,7 @@ function AstroSection({ t }) {
    CONSERVATION
 ========================================================= */
 
-function Conservation({ t }) {
+function Conservation({ t, isMG }) {
   return (
     <section
       id="conservation"
@@ -2284,7 +2300,7 @@ function Conservation({ t }) {
     >
       <div className="conservation-copy reveal">
         <span className="eyebrow">
-          CONSERVATION
+          {isMG ? mgUI.conservation.kicker : "CONSERVATION"}
         </span>
 
         <h2>
@@ -2292,11 +2308,7 @@ function Conservation({ t }) {
         </h2>
 
         <p>
-          Approche orientée biodiversité
-          et conservation communautaire,
-          avec sensibilisation,
-          restauration forestière et
-          expérience de terrain.
+          {isMG ? mgUI.conservation.text : "Approche orientée biodiversité et conservation communautaire, avec sensibilisation, restauration forestière et expérience de terrain."}
         </p>
 
         <div className="conservation-card">
@@ -2308,8 +2320,7 @@ function Conservation({ t }) {
             </b>
 
             <span>
-              Pilot aye-aye conservation
-              & forest restoration
+              {isMG ? mgUI.conservation.project : "Pilot aye-aye conservation & forest restoration"}
             </span>
           </div>
         </div>
@@ -2326,11 +2337,11 @@ function Conservation({ t }) {
           <TreePine />
 
           <strong>
-            Respect
+            {isMG ? mgUI.conservation.respect : "Respect"}
           </strong>
 
           <span>
-            wildlife & communities
+            {isMG ? mgUI.conservation.sub : "wildlife & communities"}
           </span>
         </div>
       </div>
@@ -2343,7 +2354,7 @@ function Conservation({ t }) {
    CULTURE
 ========================================================= */
 
-function Culture({ t }) {
+function Culture({ t, isMG }) {
   return (
     <section
       id="culture"
@@ -2359,7 +2370,7 @@ function Culture({ t }) {
 
       <div className="culture-copy reveal">
         <span className="eyebrow">
-          CULTURE
+          {isMG ? mgUI.culture.kicker : "CULTURE"}
         </span>
 
         <h2>
@@ -2367,14 +2378,11 @@ function Culture({ t }) {
         </h2>
 
         <p>
-          Patrimoine Sakalava, vie côtière,
-          fady & respect, vie rurale et
-          changements environnementaux.
+          {isMG ? mgUI.culture.text : "Patrimoine Sakalava, vie côtière, fady & respect, vie rurale et changements environnementaux."}
         </p>
 
         <div className="quote">
-          “Personal. Flexible. Field-based.
-          Educational. Community-aware.”
+          {isMG ? mgUI.culture.quote : "“Personal. Flexible. Field-based. Educational. Community-aware.”"}
         </div>
       </div>
     </section>
@@ -2386,7 +2394,7 @@ function Culture({ t }) {
    SERVICES
 ========================================================= */
 
-function Services({ t, go }) {
+function Services({ t, go, isMG }) {
   return (
     <section
       id="services"
@@ -2395,7 +2403,7 @@ function Services({ t, go }) {
       <div className="section-head reveal">
         <div>
           <span className="eyebrow">
-            HERY EXPERIENCE
+            {isMG ? mgUI.services.kicker : "HERY EXPERIENCE"}
           </span>
 
           <h2>
@@ -2403,9 +2411,7 @@ function Services({ t, go }) {
           </h2>
 
           <p>
-            Des expériences conçues autour
-            du terrain et de vos centres
-            d’intérêt.
+            {isMG ? mgUI.services.intro : "Des expériences conçues autour du terrain et de vos centres d’intérêt."}
           </p>
         </div>
       </div>
@@ -2429,11 +2435,11 @@ function Services({ t, go }) {
               </div>
 
               <h3>
-                {title}
+                {isMG ? mgUI.services.cards[index][0] : title}
               </h3>
 
               <p>
-                {text}
+                {isMG ? mgUI.services.cards[index][1] : text}
               </p>
 
               <button
@@ -2458,7 +2464,7 @@ function Services({ t, go }) {
    BLOG
 ========================================================= */
 
-function Blog({ t }) {
+function Blog({ t, isMG }) {
   const [selectedPost, setSelectedPost] = useState(null);
 
   /* =======================================================
@@ -2923,9 +2929,11 @@ function Offer({ t, go }) {
    FAQ
 ========================================================= */
 
-function FAQ({ t }) {
+function FAQ({ t, isMG }) {
   const [open, setOpen] =
     useState(0);
+
+  const visibleFaqs = isMG ? mgUI.faq : faqs;
 
   return (
     <section
@@ -2945,7 +2953,7 @@ function FAQ({ t }) {
       </div>
 
       <div className="faq-list">
-        {faqs.map(
+        {visibleFaqs.map(
           ([question, answer], index) => (
             <div
               className={
@@ -3008,7 +3016,7 @@ function FAQ({ t }) {
    REFERENCES
 ========================================================= */
 
-function References() {
+function References({ isMG }) {
   return (
     <section
       id="references"
@@ -3016,20 +3024,15 @@ function References() {
     >
       <div className="reference-card reveal">
         <span className="eyebrow">
-          REFERENCES
+          {isMG ? mgUI.references.kicker : "REFERENCES"}
         </span>
 
         <h2>
-          Built on field experience.
+          {isMG ? mgUI.references.title : "Built on field experience."}
         </h2>
 
         <p>
-          Références mentionnées dans
-          le portfolio : TripAdvisor
-          Madagascar Local Tours,
-          TripAdvisor Driver/Guide in
-          Morondava et Instagram
-          @mdg_tour.
+          {isMG ? mgUI.references.text : "Références mentionnées dans le portfolio : TripAdvisor Madagascar Local Tours, TripAdvisor Driver/Guide in Morondava et Instagram @mdg_tour."}
         </p>
 
         <div className="ref-links">
@@ -3065,7 +3068,7 @@ function References() {
    CONTACT EMAILJS
 ========================================================= */
 
-function Contact({ t, lang }) {
+function Contact({ t, lang, isMG }) {
   const [form, setForm] =
     useState({
       name: "",
@@ -3278,7 +3281,7 @@ function Contact({ t, lang }) {
                 name: event.target.value,
               })
             }
-            placeholder="Votre nom"
+            placeholder={isMG ? mgUI.contact.name : "Votre nom"}
           />
         </label>
 
@@ -3295,7 +3298,7 @@ function Contact({ t, lang }) {
                 email: event.target.value,
               })
             }
-            placeholder="vous@email.com"
+            placeholder={isMG ? mgUI.contact.email : "vous@email.com"}
           />
         </label>
 
@@ -3313,7 +3316,7 @@ function Contact({ t, lang }) {
                   event.target.value,
               })
             }
-            placeholder="Parlez-nous de votre projet..."
+            placeholder={isMG ? mgUI.contact.message : "Parlez-nous de votre projet..."}
           />
         </label>
 
@@ -3356,7 +3359,7 @@ function Contact({ t, lang }) {
    FOOTER
 ========================================================= */
 
-function Footer({ t, go }) {
+function Footer({ t, go, isMG }) {
   return (
     <footer>
       <div className="footer-main">
