@@ -6766,3 +6766,140 @@ html[data-theme="dark"] .hery-chat-direct a:hover {
   .hery-chat,
   .hery-chat-suggestion-list button { animation: none !important; transition: none !important; }
 }
+
+
+/* ===== HERY OCEAN PREMIUM 2026 =====
+   CSS-only visual upgrade: colors, text, buttons and gentle hover.
+   No layout, content, image or behavior changes.
+*/
+:root {
+  --forest-950:#071c37; --forest-900:#0a294d; --forest-800:#103e6c;
+  --forest-700:#155780; --forest-600:#20799f;
+  --gold-300:#ffe5a8; --gold-400:#f3cf7f; --gold-500:#e8b450; --gold-600:#aa751d;
+  --cream-50:#fffefa; --cream-100:#f6f9fe; --cream-200:#eaf2fa;
+  --sand-100:#e2ecf5;
+  --ink:#142e4a; --text:#3e566b; --muted:#607489;
+  --line:rgba(19,77,121,.16);
+  --surface:rgba(255,255,255,.96); --surface-solid:#fff;
+  --shadow-xs:0 5px 19px rgba(12,45,81,.07);
+  --shadow-sm:0 12px 30px rgba(12,45,81,.10);
+  --shadow-md:0 20px 52px rgba(12,45,81,.15);
+  --shadow-lg:0 35px 80px rgba(12,45,81,.21);
+}
+html[data-theme="dark"] {
+  --forest-950:#051322; --forest-900:#081d36; --forest-800:#102e4f;
+  --forest-700:#1b547c; --forest-600:#3284aa;
+  --gold-300:#ffe6af; --gold-400:#f4cf80; --gold-500:#eab95e; --gold-600:#c7973b;
+  --cream-50:#0a192a; --cream-100:#0d1e32; --cream-200:#142c46;
+  --sand-100:#1b3852;
+  --ink:#f4f8fd; --text:#d7e5f1; --muted:#aec4d4;
+  --line:rgba(205,227,242,.18);
+  --surface:rgba(19,43,68,.96); --surface-solid:#132b44;
+}
+body {
+  background:radial-gradient(circle at 10% 4%,rgba(78,151,200,.09),transparent 33%),var(--cream-100);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+.header {
+  background:rgba(252,254,255,.94);
+  border-bottom-color:rgba(18,73,114,.14);
+  box-shadow:0 5px 25px rgba(11,50,88,.065);
+}
+html[data-theme="dark"] .header {background:rgba(7,24,43,.95);}
+.nav button {color:var(--ink);font-weight:750;}
+.nav button::after {background:linear-gradient(90deg,var(--gold-500),var(--gold-400));}
+.nav button:hover {color:var(--forest-600);}
+html[data-theme="dark"] .nav button {color:var(--ink);}
+html[data-theme="dark"] .nav button:hover {color:var(--gold-300);}
+.nav-actions select,.icon-btn {
+  background:var(--surface-solid); color:var(--ink);border-color:var(--line);
+}
+.nav-actions select:hover,.icon-btn:hover {
+  border-color:var(--gold-500);box-shadow:0 5px 20px rgba(18,91,145,.11);
+}
+.hero {background:#051c37;}
+.hero-overlay {
+  background:linear-gradient(90deg,rgba(4,22,43,.91),rgba(5,31,58,.70) 37%,rgba(5,31,58,.26) 77%),
+             linear-gradient(180deg,rgba(3,17,38,.32),transparent 44%,rgba(3,17,38,.46));
+}
+.hero-gradient {background:radial-gradient(circle at 76% 32%,rgba(249,190,88,.14),transparent 31%);}
+.hero h1 {color:#fff;letter-spacing:-.045em;text-shadow:0 5px 26px rgba(0,14,35,.18);}
+.hero h1 em {color:#ffe0a0;}
+.hero h3 {color:#fff;}
+.hero p {color:rgba(250,252,255,.91);}
+.eyebrow {color:var(--gold-600);}
+.eyebrow.light {color:#ffe1a0;}
+.section-soft {background:linear-gradient(180deg,rgba(227,239,251,.42),rgba(248,251,255,.12));}
+html[data-theme="dark"] .section-soft {background:linear-gradient(180deg,rgba(30,81,121,.12),rgba(15,36,58,.18));}
+.section-head h2,.about h2,.conservation h2,.culture h2,.contact h2,.offer h2 {
+  color:var(--ink);letter-spacing:-.034em;font-weight:600;line-height:1.01;
+}
+.section-head p,.about-copy p,.pillar p,.service-card p,.dest-body p,.post-body p {
+  color:var(--text);
+}
+.pillar h3,.service-card h3,.dest-body h3,.post-body h3 {
+  color:var(--ink);font-weight:650;letter-spacing:-.018em;line-height:1.16;
+}
+.pillar p,.service-card p,.dest-body p {font-size:12px;line-height:1.74;}
+.service-card,.pillar,.destination-card,.post,.contact-form {
+  background:var(--surface-solid);border-color:var(--line);box-shadow:var(--shadow-xs);
+}
+.service-icon {
+  color:var(--forest-700);
+  background:linear-gradient(135deg,rgba(50,135,185,.12),rgba(232,180,80,.17));
+}
+.btn,.nav-contact {
+  position:relative;overflow:hidden;
+  transition:transform .3s var(--ease-smooth),box-shadow .35s ease,filter .35s ease;
+}
+.btn-gold,.nav-contact {
+  color:#172a3d;
+  background:linear-gradient(115deg,#ffe7ad,#f2c872 50%,#e3ab46);
+  box-shadow:0 10px 27px rgba(151,103,29,.24);
+}
+.btn-dark,.contact-form .btn-dark {
+  color:#fff;background:linear-gradient(115deg,#092d58,#155f8e);
+  box-shadow:0 12px 28px rgba(10,63,107,.23);
+}
+.btn-dark:hover,.contact-form .btn-dark:hover {
+  color:#fff;background:linear-gradient(115deg,#155d91,#0b3b6c);
+}
+.btn-outline {border-color:rgba(255,255,255,.66);background:rgba(5,26,48,.20);color:#fff;}
+.btn-outline:hover {background:#fff;color:#093457;}
+.btn:focus-visible,.nav-contact:focus-visible,.language-select:focus-visible {
+  outline:3px solid var(--gold-500);outline-offset:3px;
+}
+.text-btn,.dest-body button,.service-card button,.post button {
+  color:var(--forest-700);font-size:11px;font-weight:800;
+}
+.text-btn:hover,.dest-body button:hover,.service-card button:hover,.post button:hover {
+  color:var(--gold-600);
+}
+.contact-form input:focus,.contact-form textarea:focus {
+  border-color:var(--forest-600);box-shadow:0 0 0 4px rgba(34,127,170,.12);
+}
+footer {background:linear-gradient(135deg,#071b34,#0b345b 58%,#071a30);color:#e7f0f8;}
+.footer-main > div > b {color:#ffe0a2;}
+.footer-main > div > a,.footer-main > div > button:not(.brand) {color:#dbe8f4;}
+.hery-chat-head {background:linear-gradient(120deg,#092746,#155a80);}
+.hery-chat-body {background:linear-gradient(180deg,#fffefd,#f0f7fd);}
+.hery-chat-body p.u {background:#165983;border-color:#165983;}
+.hery-chat-body p.b {background:#e9f2fa;border-color:rgba(37,97,147,.19);color:#173956;}
+html[data-theme="dark"] .hery-chat-body {background:linear-gradient(#0b1d30,#122e49);}
+html[data-theme="dark"] .hery-chat-body p.b {background:#1b3b58;color:#eff7ff;}
+html[data-theme="dark"] .hery-chat-body p.u {background:#236a94;border-color:#236a94;}
+@media (hover:hover) and (pointer:fine) {
+  .btn:hover,.nav-contact:hover {transform:translateY(-3px);filter:saturate(1.08);}
+  .btn-gold:hover,.nav-contact:hover {box-shadow:0 17px 36px rgba(158,110,32,.28);}
+  .service-card:hover,.pillar:hover,.destination-card:hover {
+    border-color:rgba(41,125,181,.38);box-shadow:var(--shadow-md);
+  }
+  .service-card:hover .service-icon {background:var(--forest-700);color:#fff;}
+  .text-btn svg,.dest-body button svg,.service-card button svg {transition:transform .3s var(--ease-smooth);}
+  .text-btn:hover svg,.dest-body button:hover svg,.service-card button:hover svg {transform:translateX(4px);}
+}
+@media (prefers-reduced-motion:reduce) {
+  .btn,.nav-contact,.text-btn svg,.dest-body button svg,.service-card button svg {transition:none!important;}
+  .btn:hover,.nav-contact:hover {transform:none!important;}
+}
