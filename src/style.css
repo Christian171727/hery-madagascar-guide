@@ -3727,9 +3727,7 @@ img {
     height: 35px;
   }
 
-  .nav-actions select {
-    display: none;
-  }
+  /* Language selector stays visible on very small phones. */
 
   .hero h1 {
     font-size: 53px;
