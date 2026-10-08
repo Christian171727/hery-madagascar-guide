@@ -6903,3 +6903,201 @@ html[data-theme="dark"] .hery-chat-body p.u {background:#236a94;border-color:#23
   .btn,.nav-contact,.text-btn svg,.dest-body button svg,.service-card button svg {transition:none!important;}
   .btn:hover,.nav-contact:hover {transform:none!important;}
 }
+
+
+/* =========================================================
+   HERY REFERENCES — MADAGASCAR HORIZON
+   Quiet-luxury banner; replaces the old oversized H with
+   baobab scenery, compass engraving and ocean-gold curves.
+   Layout/content/links are left untouched.
+========================================================= */
+.references .reference-card {
+  isolation: isolate;
+  min-height: 365px;
+  padding: clamp(28px, 4.5vw, 66px);
+  border: 1px solid rgba(189, 144, 76, .29);
+  border-radius: 29px;
+  background:
+    linear-gradient(108deg,
+      rgba(255, 253, 248, .99) 0%,
+      rgba(255, 251, 243, .96) 42%,
+      rgba(252, 241, 220, .70) 68%,
+      rgba(237, 218, 180, .34) 100%
+    ),
+    url("/images/Baobabs.jpg") right center / 54% auto no-repeat,
+    #fcf8ef;
+  box-shadow:
+    0 20px 56px rgba(27, 60, 76, .065),
+    inset 0 1px 0 rgba(255,255,255,.85);
+  transition: box-shadow .45s ease, border-color .4s ease;
+}
+.references .reference-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(100deg,
+      rgba(255,253,248,.12) 0%,
+      rgba(255,251,243,.26) 40%,
+      rgba(255,250,239,.45) 64%,
+      rgba(252,233,192,.09) 100%
+    ),
+    url("/images/Baobabs.jpg") right 42% / cover no-repeat;
+  opacity: .34;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 21%, rgba(0,0,0,.04) 43%, #000 85%);
+  mask-image: linear-gradient(90deg, transparent 21%, rgba(0,0,0,.04) 43%, #000 85%);
+}
+.references .reference-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  color: transparent;
+  font-size: 0;
+  line-height: 0;
+  background: url("/images/reference-horizon.svg") right bottom / min(87%, 980px) auto no-repeat;
+  opacity: .93;
+  pointer-events: none;
+  transform: none;
+  transition: transform 1.2s var(--ease-smooth);
+}
+.references .reference-card > .eyebrow,
+.references .reference-card > h2,
+.references .reference-card > p,
+.references .reference-card > .ref-links {
+  position: relative;
+  z-index: 2;
+}
+.references .reference-card > .eyebrow {color: #a87931;}
+.references .reference-card h2 {
+  max-width: 850px;
+  color: #123345;
+  font-size: clamp(38px, 4.3vw, 62px);
+  line-height: 1.035;
+  font-weight: 600;
+  letter-spacing: -.037em;
+  text-wrap: balance;
+}
+.references .reference-card p {
+  max-width: 700px;
+  color: #4c6171;
+  font-size: clamp(12px, 1.04vw, 15px);
+  line-height: 1.82;
+}
+.references .ref-links {gap: 12px;margin-top: 28px;}
+.references .ref-links a {
+  min-height: 43px;
+  padding: 10px 18px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .015em;
+  border-radius: 999px;
+  box-shadow: 0 7px 19px rgba(14,47,64,.065);
+  transition: transform .3s var(--ease-smooth),
+              background .3s ease, color .3s ease,
+              box-shadow .3s ease, border-color .3s ease;
+}
+.references .ref-links a:first-child {
+  color: #fff;
+  background: linear-gradient(120deg, #092e43, #0c4d5a);
+  border-color: rgba(9,47,67,.25);
+}
+.references .ref-links a:not(:first-child) {
+  color: #184653;
+  background: rgba(255,255,255,.88);
+  border-color: rgba(176,127,56,.45);
+}
+.references .ref-links a:focus-visible {
+  outline: 3px solid #d1a14f;
+  outline-offset: 3px;
+}
+@media (hover:hover) and (pointer:fine) {
+  .references .reference-card:hover {
+    border-color: rgba(189,144,76,.46);
+    box-shadow: 0 26px 64px rgba(27,60,76,.115);
+  }
+  .references .reference-card:hover::after {transform: translateY(-5px);}
+  .references .ref-links a:hover {transform: translateY(-3px);}
+  .references .ref-links a:first-child:hover {
+    color: #fff;
+    background: linear-gradient(120deg,#0e4859,#0b304b);
+    box-shadow: 0 13px 27px rgba(12,58,75,.22);
+  }
+  .references .ref-links a:not(:first-child):hover {
+    color: #103546;
+    background: #fff8e9;
+    border-color: #cba15a;
+    box-shadow: 0 12px 25px rgba(117,83,37,.12);
+  }
+}
+html[data-theme="dark"] .references .reference-card {
+  border-color: rgba(228,190,117,.29);
+  background:
+    linear-gradient(110deg,
+      rgba(12,31,49,.98) 0%,
+      rgba(17,42,61,.95) 43%,
+      rgba(23,57,69,.83) 77%,
+      rgba(25,55,65,.62) 100%
+    ),
+    #102c41;
+}
+html[data-theme="dark"] .references .reference-card::before {
+  opacity: .18;
+}
+html[data-theme="dark"] .references .reference-card::after {
+  opacity: .48;
+}
+html[data-theme="dark"] .references .reference-card h2 {color: #f4f8fc;}
+html[data-theme="dark"] .references .reference-card p {color: #d0dfeb;}
+html[data-theme="dark"] .references .reference-card > .eyebrow {color: #f3ce87;}
+html[data-theme="dark"] .references .ref-links a:first-child {
+  color: #fff;
+  background: linear-gradient(120deg,#135273,#0c3856);
+  border-color: rgba(172,218,239,.2);
+}
+html[data-theme="dark"] .references .ref-links a:not(:first-child) {
+  color: #f4ecdb;
+  background: rgba(18,49,66,.92);
+  border-color: rgba(228,190,117,.4);
+}
+@media (max-width: 900px) {
+  .references .reference-card {min-height: 355px;}
+  .references .reference-card::after {background-size: 98% auto;opacity:.65;}
+  .references .reference-card::before {opacity: .24;}
+}
+@media (max-width: 600px) {
+  .references .reference-card {
+    min-height: 0;
+    padding: 33px 23px 42px;
+    border-radius: 21px;
+    background: linear-gradient(125deg,#fffcf6,#f5ead7);
+  }
+  .references .reference-card::before {
+    opacity: .13;
+    -webkit-mask-image: linear-gradient(180deg,transparent 5%,#000 100%);
+    mask-image: linear-gradient(180deg,transparent 5%,#000 100%);
+  }
+  .references .reference-card::after {
+    background-position: right bottom;
+    background-size: 135% auto;
+    opacity: .22;
+  }
+  .references .reference-card h2 {font-size:clamp(35px,9vw,48px);}
+  .references .reference-card p {font-size:13px;line-height:1.75;}
+  .references .ref-links {gap:10px;}
+  .references .ref-links a {font-size:11px;padding:11px 15px;}
+  html[data-theme="dark"] .references .reference-card {
+    background: linear-gradient(125deg,#122a42,#1d3e50);
+  }
+  html[data-theme="dark"] .references .reference-card::after {opacity:.21;}
+}
+@media (prefers-reduced-motion: reduce) {
+  .references .reference-card,
+  .references .reference-card::after,
+  .references .ref-links a {transition:none!important;}
+  .references .reference-card:hover::after,
+  .references .ref-links a:hover {transform:none!important;}
+}
