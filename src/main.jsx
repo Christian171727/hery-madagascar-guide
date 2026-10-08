@@ -1182,6 +1182,7 @@ function App() {
   const [search, setSearch] = useState("");
 
   const t = copy[lang] || copy.en;
+  const isMG = lang === "mg";
 
   useReveal();
 
@@ -1246,16 +1247,17 @@ function App() {
       />
 
       <main>
-        <Hero t={t} go={go} />
+        <Hero t={t} go={go} isMG={isMG} />
 
-        <TrustStrip t={t} />
+        <TrustStrip t={t} isMG={isMG} />
 
         <About
           t={t}
           go={go}
+          isMG={isMG}
         />
 
-        <Expertise />
+        <Expertise isMG={isMG} />
 
         {/* DESTINATIONS */}
         <section
@@ -1265,7 +1267,7 @@ function App() {
           <div className="section-head reveal">
             <div>
               <span className="eyebrow">
-                EXPLORE MADAGASCAR
+                {isMG ? "TSIDIHO I MADAGASIKARA" : "EXPLORE MADAGASCAR"}
               </span>
 
               <h2>{t.destTitle}</h2>
@@ -1317,6 +1319,7 @@ function App() {
                   i={index}
                   t={t}
                   go={go}
+                  isMG={isMG}
                 />
               ))
             ) : (
@@ -1324,12 +1327,11 @@ function App() {
                 <Search size={28} />
 
                 <h3>
-                  Aucune destination trouvée
+                  {isMG ? "Tsy nahitana toerana" : "Aucune destination trouvée"}
                 </h3>
 
                 <p>
-                  Essayez Morondava, Kirindy, Tsingy
-                  ou Nosy Be.
+                  {isMG ? "Andramo Morondava, Kirindy, Tsingy na Nosy Be." : "Essayez Morondava, Kirindy, Tsingy ou Nosy Be."}
                 </p>
               </div>
             )}
@@ -1525,7 +1527,7 @@ function Header({
    HERO
 ========================================================= */
 
-function Hero({ t, go }) {
+function Hero({ t, go, isMG }) {
   return (
     <section
       id="home"
@@ -1591,7 +1593,7 @@ function Hero({ t, go }) {
 
       <div className="scroll-cue">
         <span />
-        Scroll
+        {isMG ? mgUI.hero.scroll : "Scroll"}
       </div>
 
       <div className="hero-card reveal">
@@ -1599,7 +1601,7 @@ function Hero({ t, go }) {
           <MapPin />
 
           <small>
-            Where to?
+            {isMG ? mgUI.hero.where : "Where to?"}
           </small>
 
           <b>
@@ -1611,11 +1613,11 @@ function Hero({ t, go }) {
           <Camera />
 
           <small>
-            Experience
+            {isMG ? mgUI.hero.experience : "Experience"}
           </small>
 
           <b>
-            Wildlife & Photo
+            {isMG ? mgUI.hero.wildlifePhoto : "Wildlife & Photo"}
           </b>
         </div>
 
@@ -1623,11 +1625,11 @@ function Hero({ t, go }) {
           <Moon />
 
           <small>
-            Night
+            {isMG ? mgUI.hero.night : "Night"}
           </small>
 
           <b>
-            Astrophotography
+            {isMG ? mgUI.hero.astro : "Astrophotography"}
           </b>
         </div>
 
@@ -1636,7 +1638,7 @@ function Hero({ t, go }) {
             go("contact")
           }
         >
-          Start
+          {isMG ? mgUI.hero.start : "Start"}
 
           <ArrowRight size={16} />
         </button>
@@ -1650,7 +1652,7 @@ function Hero({ t, go }) {
    TRUST STRIP
 ========================================================= */
 
-function TrustStrip({ t }) {
+function TrustStrip({ t, isMG }) {
   const icons = [
     Leaf,
     Camera,
@@ -1681,7 +1683,7 @@ function TrustStrip({ t }) {
             </b>
 
             <span>
-              {subtitles[index]}
+              {isMG ? mgUI.trust[index] : subtitles[index]}
             </span>
           </div>
         );
@@ -1695,7 +1697,7 @@ function TrustStrip({ t }) {
    ABOUT
 ========================================================= */
 
-function About({ t, go }) {
+function About({ t, go, isMG }) {
   return (
     <section
       id="about"
@@ -1745,12 +1747,12 @@ function About({ t, go }) {
 
           <span>
             <Camera />
-            Photography
+            {isMG ? mgUI.about.photo : "Photography"}
           </span>
 
           <span>
             <Leaf />
-            Biodiversity
+            {isMG ? mgUI.about.biodiversity : "Biodiversity"}
           </span>
         </div>
 
@@ -1760,7 +1762,7 @@ function About({ t, go }) {
             go("expertise")
           }
         >
-          Discover HERY
+          {isMG ? mgUI.about.discover : "Discover HERY"}
 
           <ArrowRight size={16} />
         </button>
@@ -1774,7 +1776,7 @@ function About({ t, go }) {
    EXPERTISE
 ========================================================= */
 
-function Expertise() {
+function Expertise({ isMG }) {
   const pillars = [
     [
       "Wildlife",
@@ -1811,18 +1813,17 @@ function Expertise() {
       <div className="section-head reveal">
         <div>
           <span className="eyebrow">
-            FIELD-BASED EXPERTISE
+            {isMG ? mgUI.expertise.kicker : "FIELD-BASED EXPERTISE"}
           </span>
 
           <h2>
-            Five pillars,
+            {isMG ? mgUI.expertise.head1 : "Five pillars,"}
             <br />
-            one local perspective.
+            {isMG ? mgUI.expertise.head2 : "one local perspective."}
           </h2>
 
           <p>
-            Une approche centrée sur
-            l’expérience réelle du terrain.
+            {isMG ? mgUI.expertise.intro : "Une approche centrée sur l’expérience réelle du terrain."}
           </p>
         </div>
       </div>
@@ -1840,7 +1841,7 @@ function Expertise() {
                 type: "spring",
                 stiffness: 250,
               }}
-              key={title}
+              key={isMG ? mgUI.expertise.pillars[index][0] : title}
             >
               <span className="num">
                 0{index + 1}
@@ -1853,7 +1854,7 @@ function Expertise() {
               </h3>
 
               <p>
-                {text}
+                {isMG ? mgUI.expertise.pillars[index][1] : text}
               </p>
 
               <div className="pillar-line" />
@@ -1875,6 +1876,7 @@ function Destination({
   i,
   t,
   go,
+  isMG,
 }) {
   return (
     <motion.article
@@ -1935,7 +1937,7 @@ function Destination({
         </h3>
 
         <p>
-          {d[1]}
+          {isMG ? mgUI.destinations[i] || d[1] : d[1]}
         </p>
 
         <button
