@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 
 import "./style.css";
+import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 
 /* =========================================================
    CONFIGURATION
@@ -3594,543 +3595,191 @@ function Footer({ t, go, isMG }) {
 
 
 /* =========================================================
-   SMART CHATBOT
-========================================================= */
+   SMART function Chat({ open, setOpen, lang, t }) {
+  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
+  const [typing, setTyping] = useState(false);
+  const [visitorName, setVisitorName] = useState("");
+  const [showSuggestions, setShowSuggestions] = useState(true);
+  const bottomRef = React.useRef(null);
 
-function Chat({
-  open,
-  setOpen,
-  lang,
-  t,
-}) {
-  const [message, setMessage] =
-    useState("");
+  useEffect(() => {
+    if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [open, messages, typing]);
 
-  const [messages, setMessages] =
-    useState([]);
-
-  const [typing, setTyping] =
-    useState(false);
-
-  const [visitorName, setVisitorName] =
-    useState("");
-
-  function detectName(text) {
-    const patterns = [
-      /je m['’]appelle\s+([a-zA-ZÀ-ÿ-]+)/i,
-      /mon nom est\s+([a-zA-ZÀ-ÿ-]+)/i,
-      /moi c['’]est\s+([a-zA-ZÀ-ÿ-]+)/i,
-      /my name is\s+([a-zA-Z-]+)/i,
-      /i am\s+([a-zA-Z-]+)/i,
-      /izaho dia\s+([a-zA-ZÀ-ÿ-]+)/i,
-      /ny anarako dia\s+([a-zA-ZÀ-ÿ-]+)/i,
-    ];
-
-    for (const pattern of patterns) {
-      const match =
-        text.match(pattern);
-
-      if (match?.[1]) {
-        return (
-          match[1]
-            .charAt(0)
-            .toUpperCase() +
-          match[1].slice(1)
-        );
-      }
-    }
-
-    return null;
-  }
-
-
-  function localAnswer(text) {
-    const raw = text.trim();
-    const q = raw
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-
-    const detected = detectName(raw);
-    const questionLang = /[А-Яа-яЁё]/.test(raw)
-      ? "ru"
-      : /[ぁ-んァ-ン一-龯]/.test(raw)
-      ? "ja"
-      : /[一-龥]/.test(raw)
-      ? "zh"
-      : /\b(the|what|where|how|who|want|visit|price|travel)\b/.test(q)
-      ? "en"
-      : /\b(der|die|das|und|wie|wer|ich|möchte|preis|reise)\b/.test(q)
-      ? "de"
-      : /\b(il|la|lo|gli|come|chi|voglio|prezzo|viaggio)\b/.test(q)
-      ? "it"
-      : /\b(el|los|las|como|quien|quiero|precio|viaje)\b/.test(q)
-      ? "es"
-      : /\b(le|les|et|comment|qui|je|veux|prix|voyage|bonjour)\b/.test(q)
-      ? "fr"
-      : /\b(iza|aho|te|hitsidika|vidiny|aiza|misaotra|salama|bibidia|sary)\b/.test(q)
-      ? "mg"
-      : lang;
-
-    if (detected) {
-      setVisitorName(detected);
-      const names = {
-        en: `Nice to meet you, ${detected} 👋! What would you like to discover about Madagascar?`,
-        fr: `Enchanté ${detected} 👋 ! Que souhaitez-vous découvrir à Madagascar ?`,
-        mg: `Faly mahafantatra anao, ${detected} 👋! Inona no tianao ho fantatra momba an'i Madagascar?`,
-        ru: `Рад познакомиться, ${detected} 👋! Что хотите узнать о Мадагаскаре?`,
-        ja: `${detected}さん、はじめまして 👋！マダガスカルについて何を知りたいですか？`,
-        de: `Schön, dich kennenzulernen, ${detected} 👋! Was möchtest du über Madagaskar wissen?`,
-        it: `Piacere di conoscerti, ${detected} 👋! Cosa vuoi scoprire del Madagascar?`,
-        es: `¡Encantado de conocerte, ${detected} 👋! ¿Qué quieres descubrir de Madagascar?`,
-        zh: `很高兴认识您，${detected} 👋！您想了解马达加斯加的哪方面？`,
-      };
-      return names[questionLang] || names.en;
-    }
-
-    const greeting = /^(hello|hi|hey|bonjour|salut|bonsoir|salama|hola|ciao|hallo|привет|здравствуйте|こんにちは|你好)/i.test(raw);
-    if (greeting) {
-      const greetings = {
-        en: `Hello ${visitorName || ""} 👋! I am HERY Assistant. I can help with destinations, wildlife, photography, astrophotography, conservation and travel planning in Madagascar.`,
-        fr: `Bonjour ${visitorName || ""} 👋 ! Je suis HERY Assistant. Je peux vous aider sur les destinations, la faune, la photographie, l’astrophotographie et votre voyage à Madagascar.`,
-        mg: `Salama ${visitorName || ""} 👋! Izaho no HERY Assistant. Afaka manampy anao amin'ny destination, wildlife, photographie, astrophotographie ary ny dia eto Madagascar aho.`,
-        ru: `Здравствуйте ${visitorName || ""} 👋! Я HERY Assistant. Помогу с направлениями, дикой природой, фотографией, астрофотографией и поездкой по Мадагаскару.`,
-        ja: `こんにちは ${visitorName || ""} 👋！HERY Assistantです。目的地、野生動物、写真、天体写真、自然保護、旅行についてお手伝いします。`,
-        de: `Hallo ${visitorName || ""} 👋! Ich bin HERY Assistant. Ich helfe bei Reisezielen, Wildtieren, Fotografie, Astrofotografie und Reisen in Madagaskar.`,
-        it: `Ciao ${visitorName || ""} 👋! Sono HERY Assistant. Posso aiutarti con destinazioni, fauna, fotografia, astrofotografia e viaggi in Madagascar.`,
-        es: `¡Hola ${visitorName || ""} 👋! Soy HERY Assistant. Puedo ayudarte con destinos, fauna, fotografía, astrofotografía y viajes en Madagascar.`,
-        zh: `您好 ${visitorName || ""} 👋！我是 HERY Assistant，可以帮助您了解目的地、野生动物、摄影、天文摄影和马达加斯加旅行。`,
-      };
-      return greetings[questionLang] || greetings.en;
-    }
-
-    const answers = {
-      who: {
-        en: "HERY is a local guide based in Morondava / Menabe, focused on nature, wildlife, photography, astrophotography, biodiversity and conservation.",
-        fr: "HERY est un guide local basé à Morondava / Menabe, spécialisé dans la nature, la faune, la photographie, l’astrophotographie, la biodiversité et la conservation.",
-        mg: "HERY dia guide local monina ao Morondava / Menabe, mifantoka amin'ny nature, wildlife, photographie, astrophotographie, biodiversité ary conservation.",
-        ru: "HERY — местный гид из Morondava / Menabe, специализирующийся на природе, дикой природе, фотографии, астрофотографии, биоразнообразии и охране природы.",
-        ja: "HERYはMorondava / Menabeを拠点とするローカルガイドで、自然、野生動物、写真、天体写真、生物多様性、自然保護を専門としています。",
-        de: "HERY ist ein lokaler Guide aus Morondava / Menabe mit Schwerpunkt auf Natur, Wildtieren, Fotografie, Astrofotografie, Biodiversität und Naturschutz.",
-        it: "HERY è una guida locale con base a Morondava / Menabe, specializzata in natura, fauna, fotografia, astrofotografia, biodiversità e conservazione.",
-        es: "HERY es un guía local basado en Morondava / Menabe, especializado en naturaleza, fauna, fotografía, astrofotografía, biodiversidad y conservación.",
-        zh: "HERY 是一名位于 Morondava / Menabe 的当地向导，专注于自然、野生动物、摄影、天文摄影、生物多样性和自然保护。",
-      },
-      morondava: {
-        en: "Morondava and Menabe are key areas for HERY, especially the Avenue of Baobabs, Kirindy, local culture, western landscapes and wildlife.",
-        fr: "Morondava et le Menabe sont au cœur de l’expérience HERY : Avenue des Baobabs, Kirindy, culture locale, paysages de l’Ouest et faune.",
-        mg: "Morondava sy Menabe dia anisan'ny toerana lehibe amin'ny traikefan'i HERY: Avenue des Baobabs, Kirindy, culture locale, paysages de l'Ouest ary wildlife.",
-        ru: "Morondava и Menabe особенно интересны для Avenue of Baobabs, Kirindy, местной культуры, западных ландшафтов и дикой природы.",
-        ja: "MorondavaとMenabeでは、バオバブ街道、Kirindy、現地文化、西部の風景、野生動物を楽しめます。",
-        de: "Morondava und Menabe bieten Avenue of Baobabs, Kirindy, lokale Kultur, westliche Landschaften und Wildtiere.",
-        it: "Morondava e Menabe offrono Avenue of Baobabs, Kirindy, cultura locale, paesaggi occidentali e fauna.",
-        es: "Morondava y Menabe ofrecen la Avenida de los Baobabs, Kirindy, cultura local, paisajes del oeste y fauna.",
-        zh: "Morondava 和 Menabe 可以体验猴面包树大道、Kirindy、当地文化、西部景观和野生动物。",
-      },
-      wildlife: {
-        en: "Kirindy is well suited to wildlife observation and nocturnal experiences. HERY emphasizes respectful observation.",
-        fr: "Kirindy est particulièrement intéressant pour l’observation de la faune et les expériences nocturnes. HERY privilégie une observation respectueuse.",
-        mg: "Kirindy dia tena mety amin'ny observation de la faune sy ny expérience nocturne. HERY dia manome lanja ny observation respectueuse.",
-        ru: "Kirindy подходит для наблюдения за дикой природой и ночных впечатлений. HERY делает акцент на бережном наблюдении.",
-        ja: "Kirindyは野生動物観察と夜の体験に適しています。HERYは自然に配慮した観察を重視します。",
-        de: "Kirindy eignet sich für Wildtierbeobachtung und nächtliche Erlebnisse. HERY setzt auf respektvolle Beobachtung.",
-        it: "Kirindy è ideale per l'osservazione della fauna e le esperienze notturne. HERY privilegia un approccio rispettoso.",
-        es: "Kirindy es ideal para observar fauna y vivir experiencias nocturnas. HERY prioriza una observación respetuosa.",
-        zh: "Kirindy 很适合野生动物观察和夜间体验。HERY 强调尊重自然的观察方式。",
-      },
-      photo: {
-        en: "Yes. Photographers can join experiences focused on wildlife, golden hours, landscapes and night photography.",
-        fr: "Oui. Les photographes peuvent participer à des sorties orientées wildlife, golden hours, paysages et photographie nocturne.",
-        mg: "Eny. Misy expérience ho an'ny photographe: wildlife, golden hours, paysages ary photographie nocturne.",
-        ru: "Да. Фотографы могут участвовать в опытах с дикой природой, золотым часом, пейзажами и ночной фотографией.",
-        ja: "はい。野生動物、ゴールデンアワー、風景、夜間撮影など、写真家向けの体験があります。",
-        de: "Ja. Es gibt Erfahrungen für Fotografen mit Wildtieren, Golden Hour, Landschaften und Nachtfotografie.",
-        it: "Sì. Ci sono esperienze per fotografi dedicate a fauna, golden hour, paesaggi e fotografia notturna.",
-        es: "Sí. Hay experiencias para fotógrafos centradas en fauna, golden hours, paisajes y fotografía nocturna.",
-        zh: "可以。摄影体验包括野生动物、黄金时刻、风景和夜间摄影。",
-      },
-      astro: {
-        en: "Astrophotography can include the Milky Way, stars, night landscapes, long exposures and baobab nightscapes.",
-        fr: "L’astrophotographie peut inclure la Voie lactée, les étoiles, les paysages nocturnes, les longues expositions et les baobabs de nuit.",
-        mg: "Ny astrophotographie dia mety ahitana Milky Way, kintana, paysages nocturnes, longues expositions ary baobabs amin'ny alina.",
-        ru: "Астрофотография включает Млечный путь, звезды, ночные пейзажи, длинные выдержки и ночные баобабы.",
-        ja: "天の川、星、夜の風景、長時間露光、夜のバオバブなどを撮影できます。",
-        de: "Astrofotografie umfasst Milchstraße, Sterne, Nachtlandschaften, Langzeitbelichtungen und nächtliche Baobabs.",
-        it: "L'astrofotografia può includere Via Lattea, stelle, paesaggi notturni, lunghe esposizioni e baobab notturni.",
-        es: "La astrofotografía puede incluir Vía Láctea, estrellas, paisajes nocturnos, largas exposiciones y baobabs de noche.",
-        zh: "天文摄影可以拍摄银河、星星、夜景、长曝光以及夜间猴面包树。",
-      },
-      destinations: {
-        en: "Destinations include Morondava, Avenue of Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie and RN7.",
-        fr: "Les destinations comprennent Morondava, Avenue des Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie et RN7.",
-        mg: "Anisan'ny destinations: Morondava, Avenue des Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie ary RN7.",
-        ru: "Направления: Morondava, Avenue of Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie и RN7.",
-        ja: "目的地にはMorondava、バオバブ街道、Kirindy、Tsingy de Bemaraha、Manambolo、Palmarium、Andasibe、Ankarafantsika、Miandrivazo、Nosy Be、Sainte Marie、RN7があります。",
-        de: "Zu den Reisezielen gehören Morondava, Avenue of Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie und RN7.",
-        it: "Le destinazioni includono Morondava, Avenue of Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie e RN7.",
-        es: "Los destinos incluyen Morondava, Avenida de los Baobabs, Kirindy, Tsingy de Bemaraha, Manambolo, Palmarium, Andasibe, Ankarafantsika, Miandrivazo, Nosy Be, Sainte Marie y RN7.",
-        zh: "目的地包括 Morondava、猴面包树大道、Kirindy、Tsingy de Bemaraha、Manambolo、Palmarium、Andasibe、Ankarafantsika、Miandrivazo、Nosy Be、Sainte Marie 和 RN7。",
-      },
-      services: {
-        en: "HERY offers private guiding, wildlife trips, photography trips, western Madagascar circuits, local logistics and custom experiences.",
-        fr: "HERY propose du guidage privé, des wildlife trips, des sorties photo, des circuits dans l’Ouest, de la logistique locale et des expériences personnalisées.",
-        mg: "HERY dia manolotra guidage privé, wildlife trips, sorties photo, circuits any amin'ny Ouest, logistique locale ary expériences personnalisées.",
-        ru: "HERY предлагает частного гида, wildlife trips, фототуры, маршруты по западному Мадагаскару, местную логистику и индивидуальные программы.",
-        ja: "プライベートガイド、野生動物ツアー、写真ツアー、西部ルート、現地ロジスティクス、カスタム体験を提供しています。",
-        de: "HERY bietet private Guides, Wildlife-Trips, Fototouren, West-Madagaskar-Routen, lokale Logistik und individuelle Erlebnisse.",
-        it: "HERY offre guida privata, wildlife trips, uscite fotografiche, itinerari nel Madagascar occidentale, logistica locale ed esperienze personalizzate.",
-        es: "HERY ofrece guía privada, wildlife trips, salidas fotográficas, circuitos por el oeste, logística local y experiencias personalizadas.",
-        zh: "HERY 提供私人向导、野生动物旅行、摄影体验、西部线路、当地物流和定制体验。",
-      },
-      price: {
-        en: "Pricing depends on destination, duration, group size and experience. Contact HERY on WhatsApp or through the contact form for an accurate personalized quote.",
-        fr: "Le tarif dépend de la destination, de la durée, du groupe et de l’expérience. Contactez HERY sur WhatsApp ou via le formulaire pour un devis personnalisé.",
-        mg: "Miankina amin'ny destination, durée, isan'ny olona ary expérience ny tarif. Raha mila devis marina dia mifandraisa amin'i HERY amin'ny WhatsApp na formulaire.",
-        ru: "Цена зависит от направления, длительности, группы и программы. Для точного предложения свяжитесь с HERY через WhatsApp или форму.",
-        ja: "料金は目的地、期間、人数、内容によって異なります。正確な見積もりはWhatsAppまたはお問い合わせフォームからHERYへご連絡ください。",
-        de: "Der Preis hängt von Ziel, Dauer, Gruppengröße und Erlebnis ab. Für ein genaues Angebot kontaktieren Sie HERY über WhatsApp oder das Formular.",
-        it: "Il prezzo dipende da destinazione, durata, gruppo ed esperienza. Per un preventivo preciso contatta HERY su WhatsApp o tramite il modulo.",
-        es: "El precio depende del destino, duración, grupo y experiencia. Para un presupuesto preciso, contacta con HERY por WhatsApp o el formulario.",
-        zh: "价格取决于目的地、时间、人数和体验内容。请通过 WhatsApp 或联系表单获取准确报价。",
-      },
-      booking: {
-        en: "You can request a trip through the contact form or WhatsApp. Share your destination, dates, group size and interests.",
-        fr: "Vous pouvez envoyer une demande via le formulaire de contact ou WhatsApp. Indiquez la destination, les dates, le nombre de personnes et vos centres d’intérêt.",
-        mg: "Afaka mandefa demande amin'ny formulaire Contact ianao na amin'ny WhatsApp. Lazao ny destination, daty, isan'ny olona ary izay mahaliana anao.",
-        ru: "Отправьте запрос через форму или WhatsApp. Укажите направление, даты, количество людей и интересы.",
-        ja: "お問い合わせフォームまたはWhatsAppから旅行リクエストを送れます。目的地、日程、人数、興味をお知らせください。",
-        de: "Senden Sie eine Anfrage über das Kontaktformular oder WhatsApp. Nennen Sie Ziel, Termine, Personenzahl und Interessen.",
-        it: "Puoi inviare una richiesta tramite il modulo di contatto o WhatsApp. Indica destinazione, date, numero di persone e interessi.",
-        es: "Puedes enviar una solicitud mediante el formulario de contacto o WhatsApp. Indica destino, fechas, número de personas e intereses.",
-        zh: "您可以通过联系表单或 WhatsApp 提交旅行请求，并提供目的地、日期、人数和兴趣。",
-      },
-      contact: {
-        en: "You can contact HERY on WhatsApp at +261 34 58 085 04 or by email at rajaofetaheryhenintsoa@yahoo.fr.",
-        fr: "Vous pouvez contacter HERY sur WhatsApp au +261 34 58 085 04 ou par email à rajaofetaheryhenintsoa@yahoo.fr.",
-        mg: "Afaka mifandray amin'i HERY amin'ny WhatsApp +261 34 58 085 04 na email rajaofetaheryhenintsoa@yahoo.fr ianao.",
-        ru: "WhatsApp: +261 34 58 085 04. Email: rajaofetaheryhenintsoa@yahoo.fr.",
-        ja: "WhatsApp: +261 34 58 085 04。Email: rajaofetaheryhenintsoa@yahoo.fr。",
-        de: "WhatsApp: +261 34 58 085 04. E-Mail: rajaofetaheryhenintsoa@yahoo.fr.",
-        it: "WhatsApp: +261 34 58 085 04. Email: rajaofetaheryhenintsoa@yahoo.fr.",
-        es: "WhatsApp: +261 34 58 085 04. Email: rajaofetaheryhenintsoa@yahoo.fr.",
-        zh: "WhatsApp：+261 34 58 085 04。邮箱：rajaofetaheryhenintsoa@yahoo.fr。",
-      },
-      conservation: {
-        en: "Conservation is a core part of HERY's approach: biodiversity awareness, respectful wildlife encounters, forest restoration and community awareness.",
-        fr: "La conservation est au cœur de l’approche HERY : biodiversité, observation respectueuse, restauration forestière et sensibilisation des communautés.",
-        mg: "Ny conservation dia anisan'ny fototry ny HERY: biodiversité, observation respectueuse, restauration forestière ary sensibilisation.",
-        ru: "Охрана природы — важная часть подхода HERY: биоразнообразие, бережное наблюдение, восстановление лесов и работа с сообществами.",
-        ja: "自然保護はHERYの重要な柱です。生物多様性、自然に配慮した観察、森林再生、地域との協力を重視します。",
-        de: "Naturschutz ist ein Kernbereich von HERY: Biodiversität, respektvolle Tierbeobachtung, Waldrestauration und Bewusstsein in Gemeinden.",
-        it: "La conservazione è un pilastro di HERY: biodiversità, osservazione rispettosa, ripristino forestale e sensibilizzazione delle comunità.",
-        es: "La conservación es un pilar de HERY: biodiversidad, observación respetuosa, restauración forestal y sensibilización comunitaria.",
-        zh: "自然保护是 HERY 的重要方向，包括生物多样性、尊重野生动物、森林恢复和社区意识。",
-      },
-      culture: {
-        en: "HERY highlights Sakalava heritage, coastal life, local customs, fady, rural life and respectful relationships with communities.",
-        fr: "HERY met en avant le patrimoine Sakalava, la vie côtière, les coutumes locales, le fady, la vie rurale et le respect des communautés.",
-        mg: "HERY dia manasongadina ny patrimoine Sakalava, fiainana amorontsiraka, fomba amam-panao, fady, fiainana ambanivohitra ary fanajana ny communauté.",
-        ru: "HERY показывает наследие Sakalava, прибрежную жизнь, местные традиции, fady, сельскую жизнь и уважение к сообществам.",
-        ja: "Sakalavaの文化、沿岸の暮らし、地域の習慣、fady、農村生活、地域社会への敬意を紹介します。",
-        de: "HERY zeigt Sakalava-Erbe, Küstenleben, lokale Bräuche, fady, ländliches Leben und Respekt für Gemeinden.",
-        it: "HERY valorizza il patrimonio Sakalava, la vita costiera, le tradizioni locali, il fady, la vita rurale e il rispetto delle comunità.",
-        es: "HERY destaca el patrimonio Sakalava, la vida costera, las costumbres locales, el fady, la vida rural y el respeto a las comunidades.",
-        zh: "HERY 展示 Sakalava 文化、海岸生活、当地习俗、fady、乡村生活以及对社区的尊重。",
-      },
-      thanks: {
-        en: "You're welcome 😊! Feel free to ask another question about Madagascar.",
-        fr: "Avec plaisir 😊 ! N’hésitez pas à poser une autre question sur Madagascar.",
-        mg: "Tsy misy fisaorana 😊! Anontanio fotsiny raha mbola misy zavatra tianao ho fantatra.",
-        ru: "Пожалуйста 😊! Задавайте любые другие вопросы о Мадагаскаре.",
-        ja: "どういたしまして 😊！マダガスカルについて他にも質問してください。",
-        de: "Gern 😊! Stellen Sie gerne weitere Fragen über Madagaskar.",
-        it: "Di nulla 😊! Puoi farmi altre domande sul Madagascar.",
-        es: "¡De nada 😊! Puedes hacerme más preguntas sobre Madagascar.",
-        zh: "不客气 😊！如果还有问题，可以继续问我。",
-      },
+  useEffect(() => {
+    if (!open) return;
+    const keyHandler = (event) => {
+      if (event.key === "Escape") setOpen(false);
     };
+    window.addEventListener("keydown", keyHandler);
+    return () => window.removeEventListener("keydown", keyHandler);
+  }, [open, setOpen]);
 
-    if (/qui est hery|who is hery|wer ist hery|chi e hery|quien es hery|кто такой hery|heryとは|hery 是谁|iza i hery/.test(q) || q === "hery") return answers.who[questionLang] || answers.who.en;
-    if (/morondava|menabe|baobab/.test(q)) return answers.morondava[questionLang] || answers.morondava.en;
-    if (/kirindy|wildlife|faune|animal|lemur|lémur|bibidia|野生動物|野生动物/.test(q)) return answers.wildlife[questionLang] || answers.wildlife.en;
-    if (/photo|photograph|fotograf|fotografia|fotografía|photographe|sary|写真|фото/.test(q)) return answers.photo[questionLang] || answers.photo.en;
-    if (/astro|milky way|galax|etoile|étoile|star|night sky|kintana|天体|天の川|астро/.test(q)) return answers.astro[questionLang] || answers.astro.en;
-    if (/prix|tarif|cout|coût|price|how much|preis|prezzo|precio|цена|料金|vidiny/.test(q)) return answers.price[questionLang] || answers.price.en;
-    if (/reservation|réservation|reserver|réserver|book|booking|reserve|buchen|prenot|reserv|予約|брони/.test(q)) return answers.booking[questionLang] || answers.booking.en;
-    if (/whatsapp|email|e-mail|contact|telephone|téléphone|phone|номер|メール/.test(q)) return answers.contact[questionLang] || answers.contact.en;
-    if (/destination|where|where to|ou aller|où aller|travel|voyage|trip|reise|viaggio|viaje|куда|旅行|toerana|tsidika/.test(q)) return answers.destinations[questionLang] || answers.destinations.en;
-    if (/service|guiding|guide|experience|excursion|tour|activité|activite|logistique|custom/.test(q)) return answers.services[questionLang] || answers.services.en;
-    if (/conservation|nature|protection|forest|biodiversity|biodiversite|biodiversité|fiarovana|naturschutz|conservacion|conservazione|自然保護/.test(q)) return answers.conservation[questionLang] || answers.conservation.en;
-    if (/culture|sakalava|fady|local life|communaut|community|kultur|cultura|文化/.test(q)) return answers.culture[questionLang] || answers.culture.en;
-    if (/merci|thank|thanks|misaotra|gracias|grazie|danke|спасибо|ありがとう|谢谢/.test(q)) return answers.thanks[questionLang] || answers.thanks.en;
-
-    const fallback = {
-      en: "I can help with destinations, Morondava, Kirindy, wildlife, photography, astrophotography, services, conservation, prices and bookings. What would you like to know?",
-      fr: "Je peux vous aider sur Morondava, Kirindy, la faune, la photographie, l’astrophotographie, les services, la conservation, les tarifs et les réservations. Que souhaitez-vous savoir ?",
-      mg: "Afaka manampy anao amin'ny Morondava, Kirindy, wildlife, photographie, astrophotographie, services, conservation, tarif ary réservation aho. Inona no tianao ho fantatra?",
-      ru: "Я могу помочь с Morondava, Kirindy, дикой природой, фотографией, астрофотографией, услугами, ценами и бронированием. Что вас интересует?",
-      ja: "Morondava、Kirindy、野生動物、写真、天体写真、サービス、料金、予約についてお答えできます。何を知りたいですか？",
-      de: "Ich kann bei Morondava, Kirindy, Wildtieren, Fotografie, Astrofotografie, Services, Preisen und Buchungen helfen. Was möchten Sie wissen?",
-      it: "Posso aiutarti con Morondava, Kirindy, fauna, fotografia, astrofotografia, servizi, prezzi e prenotazioni. Cosa vuoi sapere?",
-      es: "Puedo ayudarte con Morondava, Kirindy, fauna, fotografía, astrofotografía, servicios, precios y reservas. ¿Qué quieres saber?",
-      zh: "我可以帮助您了解 Morondava、Kirindy、野生动物、摄影、天文摄影、服务、价格和预订。您想了解什么？",
-    };
-    return fallback[questionLang] || fallback.en;
-  }
-
-
-  async function sendMessage(textFromQuick = null) {
-    const text = (textFromQuick ?? message).trim();
+  async function sendMessage(fromSuggestion) {
+    const text = String(fromSuggestion ?? message).trim();
     if (!text || typing) return;
-
-    setMessages((current) => [
-      ...current,
-      { role: "user", text },
-    ]);
-
+    const userName = getHeryVisitorName(text);
+    if (userName) setVisitorName(userName);
+    setMessages(current => [...current, { role: "user", text }]);
     setMessage("");
+    setShowSuggestions(false);
     setTyping(true);
-
-    const detected = detectName(text);
-    if (detected) setVisitorName(detected);
-
-    // Local intent matching first: the assistant remains useful even if the API is offline.
-    const local = localAnswer(text);
-    if (local) {
-      await new Promise((resolve) => setTimeout(resolve, 350));
-      setMessages((current) => [
-        ...current,
-        { role: "bot", text: local },
-      ]);
-      setTyping(false);
-      return;
-    }
-
-    // API fallback for future/open-ended answers.
     try {
-      const response = await fetch(`${API}/chatbot`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          message: text,
-          language: lang,
-          name: detected || visitorName || "",
-        }),
-      });
-
-      if (!response.ok) throw new Error("API chatbot unavailable");
-
-      const data = await response.json();
-      const apiAnswer = data?.answer?.trim();
-
-      if (apiAnswer) {
-        setMessages((current) => [
-          ...current,
-          { role: "bot", text: apiAnswer },
-        ]);
-        return;
-      }
-
-      throw new Error("Empty chatbot response");
-    } catch {
-      const fallback = {
-        en: "I can help with destinations, wildlife, photography, astrophotography, conservation, services, prices and bookings in Madagascar.",
-        fr: "Je peux vous aider sur les destinations, la faune, la photographie, l’astrophotographie, la conservation, les services, les tarifs et les réservations à Madagascar.",
-        mg: "Afaka manampy anao amin'ny destinations, wildlife, photographie, astrophotographie, conservation, services, tarif ary réservation eto Madagascar aho.",
-        ru: "Я могу помочь с направлениями, дикой природой, фотографией, астрофотографией, охраной природы, услугами и бронированием на Мадагаскаре.",
-        ja: "マダガスカルの目的地、野生動物、写真、天体写真、自然保護、サービス、料金、予約についてお手伝いできます。",
-        de: "Ich kann bei Reisezielen, Wildtieren, Fotografie, Astrofotografie, Naturschutz, Services und Buchungen in Madagaskar helfen.",
-        it: "Posso aiutarti con destinazioni, fauna, fotografia, astrofotografia, conservazione, servizi e prenotazioni in Madagascar.",
-        es: "Puedo ayudarte con destinos, fauna, fotografía, astrofotografía, conservación, servicios y reservas en Madagascar.",
-        zh: "我可以帮助您了解马达加斯加的目的地、野生动物、摄影、天文摄影、自然保护、服务、价格和预订。",
-      };
-
-      setMessages((current) => [
-        ...current,
-        { role: "bot", text: fallback[lang] || fallback.en },
-      ]);
+      // Website-grounded multilingual answers. Never invent live bookings or prices.
+      const response = getHeryChatReply(text, lang);
+      await new Promise(resolve => setTimeout(resolve, 180));
+      setMessages(current => [...current, { role: "bot", text: response.text }]);
     } finally {
       setTyping(false);
     }
   }
 
+  const localizedLabels = {
+    en: ["Start with a question", "Direct contact", "Close assistant"],
+    fr: ["Choisissez une question", "Contact direct", "Fermer l'assistant"],
+    mg: ["Misafidiana fanontaniana", "Hifandray mivantana", "Hikatona"],
+    ru: ["Выберите вопрос", "Прямой контакт", "Закрыть"],
+    ja: ["質問を選んでください", "直接連絡", "閉じる"],
+    de: ["Wählen Sie eine Frage", "Direkter Kontakt", "Schließen"],
+    it: ["Scegli una domanda", "Contatto diretto", "Chiudi"],
+    es: ["Elige una pregunta", "Contacto directo", "Cerrar"],
+    zh: ["选择一个问题", "直接联系", "关闭"],
+  };
+  const labels = localizedLabels[lang] || localizedLabels.en;
+  const whatsappText = {
+    en: "Hello HERY! I have a question about visiting Madagascar.",
+    fr: "Bonjour HERY ! J'ai une question sur un voyage à Madagascar.",
+    mg: "Salama HERY! Misy fanontaniana momba ny dia eto Madagasikara aho.",
+    ru: "Здравствуйте HERY! У меня вопрос о путешествии по Мадагаскару.",
+    ja: "こんにちは HERY！マダガスカル旅行について質問があります。",
+    de: "Hallo HERY! Ich habe eine Frage zu einer Madagaskar-Reise.",
+    it: "Ciao HERY! Ho una domanda su un viaggio in Madagascar.",
+    es: "¡Hola HERY! Tengo una pregunta sobre viajar a Madagascar.",
+    zh: "您好 HERY！我想咨询马达加斯加旅行。",
+  };
+  const directLink = `https://wa.me/261345808504?text=${encodeURIComponent(whatsappText[lang] || whatsappText.en)}`;
 
   return (
     <>
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 25,
-              scale: 0.95,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-              scale: 1,
-            }}
-            exit={{
-              opacity: 0,
-              y: 25,
-              scale: 0.95,
-            }}
-            className="chat"
+          <motion.section
+            key="hery-chat-panel"
+            className="chat hery-chat"
+            role="dialog"
+            aria-label={t.chatbotTitle || "HERY Assistant"}
+            aria-modal="false"
+            initial={{ opacity: 0, y: 18, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 18, scale: 0.97 }}
+            transition={{ duration: 0.27, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="chat-head">
-              <div className="chat-avatar">
-                H
+            <div className="chat-head hery-chat-head">
+              <span className="hery-chat-brand-logo" aria-hidden="true">
+                <img src="/images/hery-emblem.svg" alt="" width="52" height="52" />
+              </span>
+              <div className="hery-chat-brand-text">
+                <b>{t.chatbotTitle || "HERY Assistant"}</b>
+                <span>{t.chatbotSub || "Local guide · Madagascar"}</span>
               </div>
-
-              <div>
-                <b>
-                  {t.chatbotTitle}
-                </b>
-
-                <span>
-                  {t.chatbotSub}
-                </span>
-              </div>
-
               <button
-                onClick={() =>
-                  setOpen(false)
-                }
-                aria-label="Fermer"
+                className="hery-chat-close"
+                type="button"
+                onClick={() => setOpen(false)}
+                aria-label={labels[2]}
               >
-                <X />
+                <X size={19} />
               </button>
             </div>
 
-            <div className="chat-body">
-              {!messages.length && (
-                <div className="chat-welcome">
+            <div className="chat-body hery-chat-body" aria-live="polite">
+              {messages.length === 0 && (
+                <div className="chat-welcome hery-chat-welcome">
                   {t.chatbotWelcome}
                 </div>
               )}
-
-              {messages.map(
-                (item, index) => (
-                  <motion.p
-                    initial={{
-                      opacity: 0,
-                      y: 8,
-                    }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                    }}
-                    className={
-                      item.role === "user"
-                        ? "user"
-                        : "bot"
-                    }
-                    key={index}
-                  >
-                    {item.text}
-                  </motion.p>
-                )
-              )}
-
+              {messages.map((item, index) => (
+                <motion.p
+                  className={item.role === "user" ? "u" : "b"}
+                  key={index}
+                  initial={{ opacity: 0, y: 7 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {item.text}
+                </motion.p>
+              ))}
               {typing && (
-                <div className="chat-typing">
-                  <span />
-                  <span />
-                  <span />
+                <div className="chat-typing" aria-label="Typing">
+                  <span /><span /><span />
                 </div>
               )}
+              <div ref={bottomRef} />
             </div>
 
-            {!messages.length && (
-              <div className="chat-quick">
-                {t.quickQuestions.map(
-                  (question) => (
+            {showSuggestions && messages.length === 0 && (
+              <div className="chat-quick hery-chat-suggestions">
+                <span className="hery-chat-suggestions-title">{labels[0]}</span>
+                <div className="hery-chat-suggestion-list">
+                  {t.quickQuestions.map(question => (
                     <button
                       key={question}
-                      onClick={() =>
-                        sendMessage(
-                          question
-                        )
-                      }
+                      type="button"
+                      onClick={() => sendMessage(question)}
+                      disabled={typing}
                     >
                       {question}
+                      <ArrowRight size={13} aria-hidden="true" />
                     </button>
-                  )
-                )}
+                  ))}
+                </div>
               </div>
             )}
 
-            <div className="chat-input">
+            <form className="chat-input hery-chat-input" onSubmit={(event) => {
+              event.preventDefault();
+              sendMessage();
+            }}>
               <input
                 value={message}
-                onChange={(event) =>
-                  setMessage(
-                    event.target.value
-                  )
-                }
-                onKeyDown={(event) => {
-                  if (
-                    event.key ===
-                    "Enter"
-                  ) {
-                    event.preventDefault();
-                    sendMessage();
-                  }
-                }}
-                placeholder={
-                  t.chatbotPlaceholder
-                }
+                onChange={event => setMessage(event.target.value)}
+                placeholder={t.chatbotPlaceholder}
+                aria-label={t.chatbotPlaceholder || "Ask HERY"}
+                maxLength={700}
               />
-
-              <button
-                onClick={() =>
-                  sendMessage()
-                }
-                disabled={
-                  !message.trim() ||
-                  typing
-                }
-              >
-                <Send size={16} />
+              <button type="submit" disabled={!message.trim() || typing} aria-label={t.send || "Send"}>
+                <Send size={17} />
               </button>
-            </div>
+            </form>
 
-            <div className="chat-direct">
-              <a
-                href="https://wa.me/261345808504?text=Bonjour%20HERY%2C%20je%20viens%20du%20site%20et%20je%20souhaite%20avoir%20des%20informations."
-                target="_blank"
-                rel="noreferrer"
-              >
-                <MessageCircle
-                  size={15}
-                />
-
-                WhatsApp HERY
+            <div className="chat-direct hery-chat-direct">
+              <a href={directLink} target="_blank" rel="noopener noreferrer">
+                <MessageCircle size={16} />
+                <span>{labels[1]} · WhatsApp HERY</span>
+                <ArrowRight size={14} />
               </a>
             </div>
-          </motion.div>
+          </motion.section>
         )}
       </AnimatePresence>
 
       <button
-        className={
-          open
-            ? "chat-bubble active"
-            : "chat-bubble"
-        }
-        onClick={() =>
-          setOpen(!open)
-        }
-        aria-label="HERY Assistant"
+        className={open ? "chat-bubble active" : "chat-bubble"}
+        onClick={() => setOpen(!open)}
+        aria-label={open ? labels[2] : t.chatbotTitle || "HERY Assistant"}
+        aria-expanded={open}
+        type="button"
       >
-        {open ? (
-          <X />
-        ) : (
-          <MessageCircle />
-        )}
+        {open ? <X size={22} /> : <MessageCircle size={23} />}
+        {!open && <span className="chat-pulse" />}
+      </button>
+    </>
+  );
+}
 
-        {!open && (
-          <span className="chat-pulse" />
+
+className="chat-pulse" />
         )}
       </button>
     </>
