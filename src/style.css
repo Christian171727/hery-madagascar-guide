@@ -6410,3 +6410,57 @@ html[data-theme="dark"] .whatsapp-card-arrow {
   .whatsapp-card:hover .whatsapp-card-icon,
   .whatsapp-card:hover .whatsapp-card-arrow { transform: none !important; }
 }
+
+
+/* HERY LOGO — BAOBAB COMPASS, RESPONSIVE HEADER */
+.brand-with-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+}
+.brand-emblem {
+  display: grid;
+  place-items: center;
+  width: 55px;
+  height: 55px;
+  flex: 0 0 55px;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  transition: transform .38s var(--ease-smooth);
+}
+.brand-emblem img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(37, 48, 36, .11));
+}
+.brand-with-logo:hover .brand-emblem { transform: scale(1.04) rotate(-2deg); }
+.brand-with-logo strong { font-size: 23px; letter-spacing: .09em; }
+.brand-with-logo small { white-space: nowrap; font-size: 6.7px; letter-spacing: .11em; }
+.footer-brand .brand-emblem { width: 61px; height: 61px; flex-basis: 61px; }
+@media (max-width: 1200px) {
+  .header .brand-emblem { width: 49px; height: 49px; flex-basis: 49px; }
+  .header .brand-with-logo { gap: 7px; }
+}
+@media (max-width: 950px) {
+  .header .brand-emblem { width: 51px; height: 51px; flex-basis: 51px; }
+}
+@media (max-width: 600px) {
+  .header .brand-emblem { width: 45px; height: 45px; flex-basis: 45px; }
+  .header .brand-with-logo { gap: 6px; }
+  .header .brand-with-logo strong { font-size: 18px; }
+  .header .brand-with-logo small { font-size: 5.5px; letter-spacing: .07em; }
+}
+@media (max-width: 380px) {
+  .header .brand-emblem { width: 41px; height: 41px; flex-basis: 41px; }
+  .header .brand-with-logo strong { font-size: 17px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brand-emblem { transition: none; }
+  .brand-with-logo:hover .brand-emblem { transform: none; }
+}
