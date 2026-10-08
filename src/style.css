@@ -7101,3 +7101,103 @@ html[data-theme="dark"] .references .ref-links a:not(:first-child) {
   .references .reference-card:hover::after,
   .references .ref-links a:hover {transform:none!important;}
 }
+
+
+/* HERY OFFER LEGIBILITY + PREMIUM ASSISTANT FAB — 2026-10 */
+.offer {
+  isolation: isolate;
+}
+.offer::after {
+  background: linear-gradient(
+    90deg,
+    rgba(3, 17, 33, .94) 0%,
+    rgba(5, 25, 45, .82) 39%,
+    rgba(7, 30, 48, .34) 76%,
+    rgba(7, 30, 48, .24) 100%
+  );
+  pointer-events: none;
+}
+.offer .offer-copy {
+  position: relative;
+  z-index: 2;
+}
+.offer .offer-copy > .eyebrow {
+  color: #f8d88f;
+  text-shadow: 0 2px 9px rgba(0, 0, 0, .27);
+}
+.offer .offer-copy h2 {
+  color: #fffaf0 !important;
+  text-shadow: 0 4px 22px rgba(0, 10, 25, .42);
+  line-height: .96;
+}
+.offer .offer-copy p {
+  color: #f5f8fd !important;
+  font-weight: 500;
+  text-shadow: 0 2px 14px rgba(0, 10, 25, .36);
+}
+.offer .offer-copy .btn-gold {
+  color: #12283d;
+  background: linear-gradient(120deg, #ffe8ae 0%, #f3c974 56%, #e4ac46 100%);
+  box-shadow: 0 15px 32px rgba(4, 15, 30, .22);
+}
+.chat-bubble {
+  isolation: isolate;
+  width: 66px;
+  height: 66px;
+  right: 23px;
+  bottom: 23px;
+  border: 1px solid rgba(255, 225, 164, .54);
+  border-radius: 50%;
+  background: linear-gradient(135deg, #092d53 0%, #155b84 64%, #237f9b 100%);
+  color: #ffe1a1;
+  box-shadow: 0 14px 38px rgba(7, 31, 60, .32),
+              0 0 0 5px rgba(228, 177, 81, .15);
+  transition: transform .32s var(--ease-smooth), box-shadow .32s ease, background .32s ease;
+}
+.chat-bubble > svg {position: relative; z-index: 2; flex-shrink: 0;}
+.chat-bubble::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 231, 181, .22);
+  pointer-events: none;
+}
+.chat-bubble .chat-pulse {pointer-events: none;}
+.chat-bubble.active {
+  background: linear-gradient(135deg, #123b61, #0c2a4d);
+  color: #ffffff;
+}
+@media (hover: hover) and (pointer: fine) {
+  .chat-bubble:hover {
+    transform: translateY(-4px) scale(1.055);
+    box-shadow: 0 22px 49px rgba(6, 34, 70, .37),
+                0 0 0 7px rgba(228, 177, 81, .19);
+  }
+  .offer .offer-copy .btn-gold:hover {box-shadow: 0 19px 38px rgba(4, 15, 30, .28);}
+}
+.chat-bubble:focus-visible {outline: 3px solid #e9b450;outline-offset: 4px;}
+.hery-chat {
+  border-color: rgba(228, 177, 81, .3);
+  box-shadow: 0 25px 70px rgba(5, 25, 49, .27);
+}
+.hery-chat-head {background: linear-gradient(115deg, #091f39, #14577d);}
+.hery-chat-brand-logo {border-color: rgba(255, 222, 146, .38);}
+.hery-chat-input button {
+  background: linear-gradient(130deg, #ffe1a0, #eab553);
+  color: #092d50;
+}
+.hery-chat-direct a {border-radius: 12px;}
+html[data-theme="dark"] .offer .offer-copy h2 {color: #fffaf0 !important;}
+html[data-theme="dark"] .offer .offer-copy p {color: #f5f8fd !important;}
+@media (max-width: 600px) {
+  .offer::after {
+    background: linear-gradient(90deg,rgba(3,17,33,.94),rgba(5,25,45,.76) 80%,rgba(5,25,45,.62));
+  }
+  .offer .offer-copy h2 {color: #fffaf0 !important;}
+  .chat-bubble {width: 58px;height: 58px;right: 14px;bottom: 14px;}
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-bubble {animation: none !important;transition: none !important;}
+  .chat-bubble:hover {transform: none !important;}
+}
