@@ -273,7 +273,25 @@ export function getHeryChatReply(message, language = "en") {
   if (["hello", "hi", "hey", "bonjour", "bonsoir", "salut", "salama", "manao ahoana", "hallo", "hola", "ciao", "привет", "здравствуйте", "こんにちは", "你好"].some(term => clean(term) === q)) {
     return { intent: "greeting", text: hello[lang] };
   }
-  if (["merci", "thank you", "thanks", "misaotra", "gracias", "grazie", "danke", "спасибо", "ありがとう", "谢谢"].some(term => clean(term) === q)) {
+  // Recognise natural courtesy phrases, not just the single word "misaotra".
+  // Check complete expressions only: "Thanks, how much does it cost?" must
+  // still be classified as a pricing question.
+  const gratitudePhrases = [
+    "misaotra", "misaotra betsaka", "misaotra indrindra",
+    "tena misaotra", "tena misaotra betsaka", "misaotra tompoko",
+    "mankasitraka", "mankasitraka indrindra", "misaotra tamin'ny fanampiana",
+    "misaotra betsaka tamin'ny fanampiana",
+    "merci", "merci beaucoup", "merci infiniment", "un grand merci",
+    "thank you", "thank you very much", "thank you so much",
+    "thanks", "thanks a lot", "many thanks", "thank you for your help",
+    "gracias", "muchas gracias", "mil gracias",
+    "grazie", "grazie mille", "molte grazie",
+    "danke", "vielen dank", "danke schön", "danke schoen",
+    "спасибо", "большое спасибо", "спасибо большое",
+    "ありがとう", "ありがとうございます", "どうもありがとう",
+    "谢谢", "非常感谢", "谢谢你", "谢谢您",
+  ];
+  if (gratitudePhrases.some(phrase => clean(phrase) === q)) {
     return reply("thanks");
   }
 
