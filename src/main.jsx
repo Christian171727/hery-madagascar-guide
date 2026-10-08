@@ -1304,6 +1304,7 @@ function App() {
 
   const t = copy[lang] || copy.en;
   const isMG = lang === "mg";
+  const isFR = lang === "fr";
 
   useReveal();
 
@@ -1368,17 +1369,18 @@ function App() {
       />
 
       <main>
-        <Hero t={t} go={go} isMG={isMG} />
+        <Hero t={t} go={go} isMG={isMG} isFR={isFR} />
 
-        <TrustStrip t={t} isMG={isMG} />
+        <TrustStrip t={t} isMG={isMG} isFR={isFR} />
 
         <About
           t={t}
           go={go}
           isMG={isMG}
+          isFR={isFR}
         />
 
-        <Expertise isMG={isMG} />
+        <Expertise isMG={isMG} isFR={isFR} />
 
         {/* DESTINATIONS */}
         <section
@@ -1441,6 +1443,7 @@ function App() {
                   t={t}
                   go={go}
                   isMG={isMG}
+                  isFR={isFR}
                 />
               ))
             ) : (
@@ -1448,11 +1451,11 @@ function App() {
                 <Search size={28} />
 
                 <h3>
-                  {isMG ? "Tsy nahitana toerana" : "Aucune destination trouvée"}
+                  {isMG ? "Tsy nahitana toerana" : isFR ? "Aucune destination trouvée" : "No destinations found"}
                 </h3>
 
                 <p>
-                  {isMG ? "Andramo Morondava, Kirindy, Tsingy na Nosy Be." : "Essayez Morondava, Kirindy, Tsingy ou Nosy Be."}
+                  {isMG ? "Andramo Morondava, Kirindy, Tsingy na Nosy Be." : isFR ? "Essayez Morondava, Kirindy, Tsingy ou Nosy Be." : "Try Morondava, Kirindy, Tsingy or Nosy Be."}
                 </p>
               </div>
             )}
@@ -1465,16 +1468,17 @@ function App() {
           isMG={isMG}
         />
 
-        <AstroSection t={t} isMG={isMG} />
+        <AstroSection t={t} isMG={isMG} isFR={isFR} />
 
-        <Conservation t={t} isMG={isMG} />
+        <Conservation t={t} isMG={isMG} isFR={isFR} />
 
-        <Culture t={t} isMG={isMG} />
+        <Culture t={t} isMG={isMG} isFR={isFR} />
 
         <Services
           t={t}
           go={go}
           isMG={isMG}
+          isFR={isFR}
         />
 
         <Blog
@@ -1490,14 +1494,16 @@ function App() {
         <FAQ
           t={t}
           isMG={isMG}
+          isFR={isFR}
         />
 
-        <References isMG={isMG} />
+        <References isMG={isMG} isFR={isFR} />
 
         <Contact
           t={t}
           lang={lang}
           isMG={isMG}
+          isFR={isFR}
         />
       </main>
 
@@ -1505,6 +1511,7 @@ function App() {
         t={t}
         go={go}
         isMG={isMG}
+        isFR={isFR}
       />
 
       <Chat
@@ -1656,7 +1663,7 @@ function Header({
    HERO
 ========================================================= */
 
-function Hero({ t, go, isMG }) {
+function Hero({ t, go, isMG, isFR }) {
   return (
     <section
       id="home"
@@ -1722,7 +1729,7 @@ function Hero({ t, go, isMG }) {
 
       <div className="scroll-cue">
         <span />
-        {isMG ? mgUI.hero.scroll : "Scroll"}
+        {isMG ? mgUI.hero.scroll : isFR ? frExtras.hero.scroll : "Scroll"}
       </div>
 
       <div className="hero-card reveal">
@@ -1730,7 +1737,7 @@ function Hero({ t, go, isMG }) {
           <MapPin />
 
           <small>
-            {isMG ? mgUI.hero.where : "Where to?"}
+            {isMG ? mgUI.hero.where : isFR ? frExtras.hero.where : "Where to?"}
           </small>
 
           <b>
@@ -1742,11 +1749,11 @@ function Hero({ t, go, isMG }) {
           <Camera />
 
           <small>
-            {isMG ? mgUI.hero.experience : "Experience"}
+            {isMG ? mgUI.hero.experience : isFR ? frExtras.hero.experience : "Experience"}
           </small>
 
           <b>
-            {isMG ? mgUI.hero.wildlifePhoto : "Wildlife & Photo"}
+            {isMG ? mgUI.hero.wildlifePhoto : isFR ? frExtras.hero.wildlifePhoto : "Wildlife & Photo"}
           </b>
         </div>
 
@@ -1754,11 +1761,11 @@ function Hero({ t, go, isMG }) {
           <Moon />
 
           <small>
-            {isMG ? mgUI.hero.night : "Night"}
+            {isMG ? mgUI.hero.night : isFR ? frExtras.hero.night : "Night"}
           </small>
 
           <b>
-            {isMG ? mgUI.hero.astro : "Astrophotography"}
+            {isMG ? mgUI.hero.astro : isFR ? frExtras.hero.astro : "Astrophotography"}
           </b>
         </div>
 
@@ -1767,7 +1774,7 @@ function Hero({ t, go, isMG }) {
             go("contact")
           }
         >
-          {isMG ? mgUI.hero.start : "Start"}
+          {isMG ? mgUI.hero.start : isFR ? frExtras.hero.start : "Start"}
 
           <ArrowRight size={16} />
         </button>
@@ -1781,7 +1788,7 @@ function Hero({ t, go, isMG }) {
    TRUST STRIP
 ========================================================= */
 
-function TrustStrip({ t, isMG }) {
+function TrustStrip({ t, isMG, isFR }) {
   const icons = [
     Leaf,
     Camera,
@@ -1812,7 +1819,7 @@ function TrustStrip({ t, isMG }) {
             </b>
 
             <span>
-              {isMG ? mgUI.trust[index] : subtitles[index]}
+              {isMG ? mgUI.trust[index] : isFR ? frExtras.trust[index] : subtitles[index]}
             </span>
           </div>
         );
@@ -1826,7 +1833,7 @@ function TrustStrip({ t, isMG }) {
    ABOUT
 ========================================================= */
 
-function About({ t, go, isMG }) {
+function About({ t, go, isMG, isFR }) {
   return (
     <section
       id="about"
@@ -1876,12 +1883,12 @@ function About({ t, go, isMG }) {
 
           <span>
             <Camera />
-            {isMG ? mgUI.about.photo : "Photography"}
+            {isMG ? mgUI.about.photo : isFR ? frExtras.about.photo : "Photography"}
           </span>
 
           <span>
             <Leaf />
-            {isMG ? mgUI.about.biodiversity : "Biodiversity"}
+            {isMG ? mgUI.about.biodiversity : isFR ? frExtras.about.biodiversity : "Biodiversity"}
           </span>
         </div>
 
@@ -1891,7 +1898,7 @@ function About({ t, go, isMG }) {
             go("expertise")
           }
         >
-          {isMG ? mgUI.about.discover : "Discover HERY"}
+          {isMG ? mgUI.about.discover : isFR ? frExtras.about.discover : "Discover HERY"}
 
           <ArrowRight size={16} />
         </button>
@@ -1905,7 +1912,7 @@ function About({ t, go, isMG }) {
    EXPERTISE
 ========================================================= */
 
-function Expertise({ isMG }) {
+function Expertise({ isMG, isFR }) {
   const pillars = [
     [
       "Wildlife",
@@ -1942,17 +1949,17 @@ function Expertise({ isMG }) {
       <div className="section-head reveal">
         <div>
           <span className="eyebrow">
-            {isMG ? mgUI.expertise.kicker : "FIELD-BASED EXPERTISE"}
+            {isMG ? mgUI.expertise.kicker : isFR ? frExtras.expertise.kicker : "FIELD-BASED EXPERTISE"}
           </span>
 
           <h2>
-            {isMG ? mgUI.expertise.head1 : "Five pillars,"}
+            {isMG ? mgUI.expertise.head1 : isFR ? frExtras.expertise.head1 : "Five pillars,"}
             <br />
-            {isMG ? mgUI.expertise.head2 : "one local perspective."}
+            {isMG ? mgUI.expertise.head2 : isFR ? frExtras.expertise.head2 : "one local perspective."}
           </h2>
 
           <p>
-            {isMG ? mgUI.expertise.intro : "Une approche centrée sur l’expérience réelle du terrain."}
+            {isMG ? mgUI.expertise.intro : isFR ? frExtras.expertise.intro : "A field-based approach rooted in real-world experience and local knowledge."}
           </p>
         </div>
       </div>
@@ -1979,11 +1986,11 @@ function Expertise({ isMG }) {
               <Icon />
 
               <h3>
-                {title}
+                {isMG ? mgUI.expertise.pillars[index][0] : isFR ? frExtras.expertise.pillars[index][0] : title}
               </h3>
 
               <p>
-                {isMG ? mgUI.expertise.pillars[index][1] : text}
+                {isMG ? mgUI.expertise.pillars[index][1] : isFR ? frExtras.expertise.pillars[index][1] : text}
               </p>
 
               <div className="pillar-line" />
@@ -2006,6 +2013,7 @@ function Destination({
   t,
   go,
   isMG,
+  isFR,
 }) {
   return (
     <motion.article
@@ -2066,7 +2074,7 @@ function Destination({
         </h3>
 
         <p>
-          {isMG ? mgUI.destinations[i] || d[1] : d[1]}
+          {isMG ? mgUI.destinations[i] || d[1] : isFR ? frExtras.destinations[i] || d[1] : d[1]}
         </p>
 
         <button
@@ -2355,7 +2363,7 @@ function PhotoSection({ t, isMG }) {
   );
 }
 
-function AstroSection({ t, isMG }) {
+function AstroSection({ t, isMG, isFR }) {
   return (
     <section
       id="astrophotography"
@@ -2373,7 +2381,7 @@ function AstroSection({ t, isMG }) {
 
       <div className="split-copy reveal">
         <span className="eyebrow light">
-          {isMG ? mgUI.astro.kicker : "NIGHT SKIES"}
+          {isMG ? mgUI.astro.kicker : isFR ? frExtras.astro.kicker : "NIGHT SKIES"}
         </span>
 
         <h2>
@@ -2387,22 +2395,22 @@ function AstroSection({ t, isMG }) {
         <div className="feature-list">
           <span>
             <Moon />
-            {isMG ? mgUI.astro.features[0] : "Milky Way"}
+            {isMG ? mgUI.astro.features[0] : isFR ? frExtras.astro.features[0] : "Milky Way"}
           </span>
 
           <span>
             <Star />
-            {isMG ? mgUI.astro.features[1] : "Long exposures"}
+            {isMG ? mgUI.astro.features[1] : isFR ? frExtras.astro.features[1] : "Long exposures"}
           </span>
 
           <span>
             <Camera />
-            {isMG ? mgUI.astro.features[2] : "Night photography"}
+            {isMG ? mgUI.astro.features[2] : isFR ? frExtras.astro.features[2] : "Night photography"}
           </span>
 
           <span>
             <Sparkles />
-            {isMG ? mgUI.astro.features[3] : "Baobab nightscapes"}
+            {isMG ? mgUI.astro.features[3] : isFR ? frExtras.astro.features[3] : "Baobab nightscapes"}
           </span>
         </div>
       </div>
@@ -2415,7 +2423,7 @@ function AstroSection({ t, isMG }) {
    CONSERVATION
 ========================================================= */
 
-function Conservation({ t, isMG }) {
+function Conservation({ t, isMG, isFR }) {
   return (
     <section
       id="conservation"
@@ -2423,7 +2431,7 @@ function Conservation({ t, isMG }) {
     >
       <div className="conservation-copy reveal">
         <span className="eyebrow">
-          {isMG ? mgUI.conservation.kicker : "CONSERVATION"}
+          {isMG ? mgUI.conservation.kicker : isFR ? frExtras.conservation.kicker : "CONSERVATION"}
         </span>
 
         <h2>
@@ -2431,7 +2439,7 @@ function Conservation({ t, isMG }) {
         </h2>
 
         <p>
-          {isMG ? mgUI.conservation.text : "Approche orientée biodiversité et conservation communautaire, avec sensibilisation, restauration forestière et expérience de terrain."}
+          {isMG ? mgUI.conservation.text : isFR ? frExtras.conservation.text : "A field-based approach to biodiversity and community conservation, including awareness, forest restoration and wildlife protection."}
         </p>
 
         <div className="conservation-card">
@@ -2443,7 +2451,7 @@ function Conservation({ t, isMG }) {
             </b>
 
             <span>
-              {isMG ? mgUI.conservation.project : "Pilot aye-aye conservation & forest restoration"}
+              {isMG ? mgUI.conservation.project : isFR ? frExtras.conservation.project : "Pilot aye-aye conservation & forest restoration"}
             </span>
           </div>
         </div>
@@ -2460,11 +2468,11 @@ function Conservation({ t, isMG }) {
           <TreePine />
 
           <strong>
-            {isMG ? mgUI.conservation.respect : "Respect"}
+            {isMG ? mgUI.conservation.respect : isFR ? frExtras.conservation.respect : "Respect"}
           </strong>
 
           <span>
-            {isMG ? mgUI.conservation.sub : "wildlife & communities"}
+            {isMG ? mgUI.conservation.sub : isFR ? frExtras.conservation.sub : "wildlife & communities"}
           </span>
         </div>
       </div>
@@ -2477,7 +2485,7 @@ function Conservation({ t, isMG }) {
    CULTURE
 ========================================================= */
 
-function Culture({ t, isMG }) {
+function Culture({ t, isMG, isFR }) {
   return (
     <section
       id="culture"
@@ -2493,7 +2501,7 @@ function Culture({ t, isMG }) {
 
       <div className="culture-copy reveal">
         <span className="eyebrow">
-          {isMG ? mgUI.culture.kicker : "CULTURE"}
+          {isMG ? mgUI.culture.kicker : isFR ? frExtras.culture.kicker : "CULTURE"}
         </span>
 
         <h2>
@@ -2501,11 +2509,11 @@ function Culture({ t, isMG }) {
         </h2>
 
         <p>
-          {isMG ? mgUI.culture.text : "Patrimoine Sakalava, vie côtière, fady & respect, vie rurale et changements environnementaux."}
+          {isMG ? mgUI.culture.text : isFR ? frExtras.culture.text : "Sakalava heritage, coastal life, local customs and respect, rural communities and environmental change."}
         </p>
 
         <div className="quote">
-          {isMG ? mgUI.culture.quote : "“Personal. Flexible. Field-based. Educational. Community-aware.”"}
+          {isMG ? mgUI.culture.quote : isFR ? frExtras.culture.quote : "“Personal. Flexible. Field-based. Educational. Community-aware.”"}
         </div>
       </div>
     </section>
@@ -2517,7 +2525,7 @@ function Culture({ t, isMG }) {
    SERVICES
 ========================================================= */
 
-function Services({ t, go, isMG }) {
+function Services({ t, go, isMG, isFR }) {
   return (
     <section
       id="services"
@@ -2526,7 +2534,7 @@ function Services({ t, go, isMG }) {
       <div className="section-head reveal">
         <div>
           <span className="eyebrow">
-            {isMG ? mgUI.services.kicker : "HERY EXPERIENCE"}
+            {isMG ? mgUI.services.kicker : isFR ? frExtras.services.kicker : "HERY EXPERIENCE"}
           </span>
 
           <h2>
@@ -2534,7 +2542,7 @@ function Services({ t, go, isMG }) {
           </h2>
 
           <p>
-            {isMG ? mgUI.services.intro : "Des expériences conçues autour du terrain et de vos centres d’intérêt."}
+            {isMG ? mgUI.services.intro : isFR ? frExtras.services.intro : "Field-based experiences designed around your interests and travel plans."}
           </p>
         </div>
       </div>
@@ -2558,11 +2566,11 @@ function Services({ t, go, isMG }) {
               </div>
 
               <h3>
-                {isMG ? mgUI.services.cards[index][0] : title}
+                {isMG ? mgUI.services.cards[index][0] : isFR ? frExtras.services.cards[index][0] : title}
               </h3>
 
               <p>
-                {isMG ? mgUI.services.cards[index][1] : text}
+                {isMG ? mgUI.services.cards[index][1] : isFR ? frExtras.services.cards[index][1] : text}
               </p>
 
               <button
@@ -3061,11 +3069,11 @@ function Offer({ t, go }) {
    FAQ
 ========================================================= */
 
-function FAQ({ t, isMG }) {
+function FAQ({ t, isMG, isFR }) {
   const [open, setOpen] =
     useState(0);
 
-  const visibleFaqs = isMG ? mgUI.faq : faqs;
+  const visibleFaqs = isMG ? mgUI.faq : isFR ? frExtras.faq : faqs;
 
   return (
     <section
@@ -3148,7 +3156,7 @@ function FAQ({ t, isMG }) {
    REFERENCES
 ========================================================= */
 
-function References({ isMG }) {
+function References({ isMG, isFR }) {
   return (
     <section
       id="references"
@@ -3156,15 +3164,15 @@ function References({ isMG }) {
     >
       <div className="reference-card reveal">
         <span className="eyebrow">
-          {isMG ? mgUI.references.kicker : "REFERENCES"}
+          {isMG ? mgUI.references.kicker : isFR ? frExtras.references.kicker : "REFERENCES"}
         </span>
 
         <h2>
-          {isMG ? mgUI.references.title : "Built on field experience."}
+          {isMG ? mgUI.references.title : isFR ? frExtras.references.title : "Built on field experience."}
         </h2>
 
         <p>
-          {isMG ? mgUI.references.text : "Références mentionnées dans le portfolio : TripAdvisor Madagascar Local Tours, TripAdvisor Driver/Guide in Morondava et Instagram @mdg_tour."}
+          {isMG ? mgUI.references.text : isFR ? frExtras.references.text : "References featured in the portfolio: TripAdvisor Madagascar Local Tours, TripAdvisor Driver/Guide in Morondava and Instagram @mdg_tour."}
         </p>
 
         <div className="ref-links">
@@ -3200,7 +3208,7 @@ function References({ isMG }) {
    CONTACT EMAILJS
 ========================================================= */
 
-function Contact({ t, lang, isMG }) {
+function Contact({ t, lang, isMG, isFR }) {
   const [form, setForm] =
     useState({
       name: "",
@@ -3427,7 +3435,7 @@ function Contact({ t, lang, isMG }) {
                 name: event.target.value,
               })
             }
-            placeholder={isMG ? mgUI.contact.name : "Votre nom"}
+            placeholder={isMG ? mgUI.contact.name : isFR ? frExtras.contact.name : "Your name"}
           />
         </label>
 
@@ -3444,7 +3452,7 @@ function Contact({ t, lang, isMG }) {
                 email: event.target.value,
               })
             }
-            placeholder={isMG ? mgUI.contact.email : "vous@email.com"}
+            placeholder={isMG ? mgUI.contact.email : isFR ? frExtras.contact.email : "you@example.com"}
           />
         </label>
 
@@ -3462,7 +3470,7 @@ function Contact({ t, lang, isMG }) {
                   event.target.value,
               })
             }
-            placeholder={isMG ? mgUI.contact.message : "Parlez-nous de votre projet..."}
+            placeholder={isMG ? mgUI.contact.message : isFR ? frExtras.contact.message : "Tell us about your trip or project..."}
           />
         </label>
 
@@ -3505,7 +3513,7 @@ function Contact({ t, lang, isMG }) {
    FOOTER
 ========================================================= */
 
-function Footer({ t, go, isMG }) {
+function Footer({ t, go, isMG, isFR }) {
   return (
     <footer>
       <div className="footer-main">
@@ -3538,7 +3546,7 @@ function Footer({ t, go, isMG }) {
 
         <div>
           <b>
-            {isMG ? mgUI.footer.explore : "Explore"}
+            {isMG ? mgUI.footer.explore : isFR ? frExtras.footer.explore : "Explore"}
           </b>
 
           <button
@@ -3546,7 +3554,7 @@ function Footer({ t, go, isMG }) {
               go("about")
             }
           >
-            {isMG ? mgUI.footer.about : "About"}
+            {isMG ? mgUI.footer.about : isFR ? frExtras.footer.about : "About"}
           </button>
 
           <button
@@ -3554,7 +3562,7 @@ function Footer({ t, go, isMG }) {
               go("destinations")
             }
           >
-            {isMG ? mgUI.footer.destinations : "Destinations"}
+            {isMG ? mgUI.footer.destinations : isFR ? frExtras.footer.destinations : "Destinations"}
           </button>
 
           <button
@@ -3562,7 +3570,7 @@ function Footer({ t, go, isMG }) {
               go("photography")
             }
           >
-            {isMG ? mgUI.footer.photography : "Photography"}
+            {isMG ? mgUI.footer.photography : isFR ? frExtras.footer.photography : "Photography"}
           </button>
 
           <button
@@ -3570,13 +3578,13 @@ function Footer({ t, go, isMG }) {
               go("blog")
             }
           >
-            {isMG ? mgUI.footer.blog : "Blog"}
+            {isMG ? mgUI.footer.blog : isFR ? frExtras.footer.blog : "Blog"}
           </button>
         </div>
 
         <div>
           <b>
-            {isMG ? mgUI.footer.services : "Services"}
+            {isMG ? mgUI.footer.services : isFR ? frExtras.footer.services : "Services"}
           </b>
 
           <button
@@ -3584,7 +3592,7 @@ function Footer({ t, go, isMG }) {
               go("services")
             }
           >
-            {isMG ? mgUI.footer.guiding : "Guiding"}
+            {isMG ? mgUI.footer.guiding : isFR ? frExtras.footer.guiding : "Guiding"}
           </button>
 
           <button
@@ -3592,7 +3600,7 @@ function Footer({ t, go, isMG }) {
               go("services")
             }
           >
-            {isMG ? mgUI.footer.wildlife : "Wildlife trips"}
+            {isMG ? mgUI.footer.wildlife : isFR ? frExtras.footer.wildlife : "Wildlife trips"}
           </button>
 
           <button
@@ -3600,7 +3608,7 @@ function Footer({ t, go, isMG }) {
               go("services")
             }
           >
-            {isMG ? mgUI.footer.photography : "Photography"}
+            {isMG ? mgUI.footer.photography : isFR ? frExtras.footer.photography : "Photography"}
           </button>
 
           <button
@@ -3608,13 +3616,13 @@ function Footer({ t, go, isMG }) {
               go("contact")
             }
           >
-            {isMG ? mgUI.footer.contact : "Contact"}
+            {isMG ? mgUI.footer.contact : isFR ? frExtras.footer.contact : "Contact"}
           </button>
         </div>
 
         <div>
           <b>
-            {isMG ? mgUI.footer.contact : "Contact"}
+            {isMG ? mgUI.footer.contact : isFR ? frExtras.footer.contact : "Contact"}
           </b>
 
           <a
@@ -3642,7 +3650,7 @@ function Footer({ t, go, isMG }) {
       <div className="footer-bottom">
         <span>
           © 2026 HERY.
-          {isMG ? mgUI.footer.rights : "All rights reserved."}
+          {isMG ? mgUI.footer.rights : isFR ? frExtras.footer.rights : "All rights reserved."}
         </span>
 
         <span>
