@@ -1509,6 +1509,7 @@ function Header({
 
         <div className="nav-actions">
           <select
+            className="language-select"
             value={lang}
             onChange={(event) =>
               setLang(event.target.value)
