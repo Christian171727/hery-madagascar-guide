@@ -3199,16 +3199,30 @@ function Contact({ t, lang, isMG }) {
         );
       }
 
+      // Match the variables used in the EmailJS dashboard template.
+      // Keep legacy aliases for existing templates during migration.
+      const senderName = form.name.trim();
+      const senderEmail = form.email.trim();
+      const senderMessage = form.message.trim();
+
+      if (!senderName || !senderEmail || !senderMessage) {
+        throw new Error(t.error);
+      }
+
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          from_name: form.name,
-          from_email: form.email,
-          reply_to: form.email,
-          message: form.message,
+          name: senderName,
+          email: senderEmail,
+          message: senderMessage,
+          from_name: senderName,
+          from_email: senderEmail,
+          reply_to: senderEmail,
+          time: new Date().toLocaleString(),
+          site_name: "HERY — Madagascar Local Guide",
         },
-        EMAILJS_PUBLIC_KEY
+        { publicKey: EMAILJS_PUBLIC_KEY }
       );
 
       setStatus(
