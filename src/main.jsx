@@ -1470,11 +1470,12 @@ function Header({
     <header className="header">
       <div className="nav-inner">
         <button
-          className="brand"
+          className="brand brand-with-logo"
           onClick={() => go("home")}
+          aria-label="HERY Madagascar Local Guide — Home"
         >
-          <span className="brand-mark">
-            H
+          <span className="brand-emblem">
+            <img src="/images/hery-emblem.svg" alt="" width="56" height="56" decoding="async" />
           </span>
 
           <span>
@@ -3414,13 +3415,13 @@ function Footer({ t, go, isMG }) {
       <div className="footer-main">
         <div>
           <button
-            className="brand footer-brand"
+            className="brand footer-brand brand-with-logo"
             onClick={() =>
               go("home")
             }
           >
-            <span className="brand-mark">
-              H
+            <span className="brand-emblem">
+              <img src="/images/hery-emblem.svg" alt="" width="56" height="56" loading="lazy" decoding="async" />
             </span>
 
             <span>
