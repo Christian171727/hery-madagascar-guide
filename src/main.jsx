@@ -11,6 +11,7 @@ import {
   ArrowRight,
   ChevronDown,
   MessageCircle,
+  MessageCircleMore,
   Send,
   MapPin,
   Camera,
@@ -3863,7 +3864,7 @@ function Chat({ open, setOpen, lang, t }) {
         aria-expanded={open}
         type="button"
       >
-        {open ? <X size={22} /> : <MessageCircle size={23} />}
+        {open ? <X size={23} strokeWidth={2.15} /> : <MessageCircleMore size={27} strokeWidth={2.1} />}
         {!open && <span className="chat-pulse" />}
       </button>
     </>
