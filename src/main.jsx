@@ -1134,6 +1134,46 @@ const mgUI = {
   contact: { name: "Ny anaranao", email: "you@example.com", message: "Lazao eto ny dianao na ny fanontanianao..." },
 };
 
+
+const mgArticleTitles = [
+  ["Bibidia ao Kirindy: mijery nefa tsy manelingelina", "Bibidia"],
+  ["Fakàna sary ny baobaba amin’ny hazavana volamena", "Fakàna sary"],
+  ["Fakàna sary amin’ny alina eto Madagasikara", "Sary amin’ny alina"],
+  ["Fahafantarana ny fiarovana ny natiora eny ifotony", "Fiarovana ny natiora"],
+];
+const mgArticleIntros = [
+  "Ao Kirindy dia zava-dehibe ny fijerena bibidia sady manaja ny fonenany voajanahary.",
+  "Mampisongadina ny endriky ny baobaba ny hazavan’ny maraina sy hariva any andrefan’i Madagasikara.",
+  "Mampiray ny lanitra feno kintana sy ny hakanton’ny tontolo ny fakàna sary amin’ny alina.",
+  "Mifamatotra ny fiarovana ny ala, bibidia, mponina ary tontolo iainana.",
+];
+const mgArticleSections = [
+  [
+    ["Mandinika alohan’ny hanatonana", "Mila faharetana sy fanajana ny fijerena bibidia. Aza manelingelina ny biby fa diniho ao amin’ny fonenany."],
+    ["Traikefa eny ifotony", "Miankina amin’ny fotoana, vanim-potoana sy fihetsiky ny biby ny zava-miseho ao Kirindy."],
+    ["Maka sary tsy manelingelina", "Tandremo ny elanelana ary ialao ny fihetsika tampoka rehefa maka sary bibidia."],
+    ["Fitsidihana tompon’andraikitra", "Manampy hahafantatra ny maha-zava-dehibe ny fiarovana ny ala sy ny bibidia ny fitsidihana."],
+  ],
+  [
+    ["Fidio ny fotoana mety", "Ny maraina sy hariva no manome hazavana malefaka ho an’ny sary."],
+    ["Ampidiro ny tontolo manodidina", "Azo ampidirina amin’ny sary ny lalana, lanitra ary olona manodidina ny baobaba."],
+    ["Alamino ny endriky ny sary", "Mampisongadina ny haben’ny baobaba sy ny tontolo ny fandaminana tsara ny sary."],
+    ["Omeo fotoana ny hazavana", "Miova haingana ny hazavana, koa tsara ny miandry sy mandinika."],
+  ],
+  [
+    ["Fantaro ny lanitra amin’ny alina", "Lavitra ny hazavana be no ahitana tsara kokoa ny kintana sy Vahindanitra."],
+    ["Ny lanitra sy ny tontolo", "Mampiaraka baobaba, ala na tendrombohitra ary lanitra ny sary amin’ny alina."],
+    ["Ilaina ny faharetana", "Mila fiandrasana, fandrindrana ary réglage sahaza ny fakàna sary amin’ny alina."],
+    ["Traikefa hafa eto Madagasikara", "Manana hatsarana manokana ny fahanginana sy ny lanitra feno kintana amin’ny alina."],
+  ],
+  [
+    ["Fiarovana eny ifotony", "Mifamatotra ny ala, bibidia ary ny fiainan’ny mponina."],
+    ["Harena voajanahary sy fonenana", "Manampy hiaro ny zavamananaina ny fitandrovana ny fonenany."],
+    ["Fitsidihana manaja ny tontolo", "Mampihena ny fiantraikantsika amin’ny natiora ny fihetsika tompon’andraikitra."],
+    ["Mahalala sy manentana", "Ny fahafantarana ny zava-misy eny ifotony dia manampy amin’ny fiarovana ny natiora."],
+  ],
+];
+
 /* =========================================================
    REVEAL ANIMATION
 ========================================================= */
@@ -2466,6 +2506,15 @@ function Services({ t, go, isMG }) {
 
 function Blog({ t, isMG }) {
   const [selectedPost, setSelectedPost] = useState(null);
+  const localizedPosts = isMG ? posts.map((post, i) => ({
+    ...post,
+    title: mgArticleTitles[i][0],
+    category: mgArticleTitles[i][1],
+    intro: mgArticleIntros[i],
+    sections: post.sections.map((section, j) => ({
+      ...section, title: mgArticleSections[i][j][0], text: mgArticleSections[i][j][1],
+    })),
+  })) : posts;
 
   /* =======================================================
      OPEN ARTICLE
@@ -2526,7 +2575,7 @@ function Blog({ t, isMG }) {
         <div className="section-head reveal">
           <div>
             <span className="eyebrow">
-              FIELD NOTES
+              {isMG ? mgUI.blog.kicker : "FIELD NOTES"}
             </span>
 
             <h2>
@@ -2556,7 +2605,7 @@ function Blog({ t, isMG }) {
         </div>
 
         <div className="blog-grid">
-          {posts.map((post, index) => (
+          {localizedPosts.map((post, index) => (
             <motion.article
               key={post.id}
               className={
@@ -2605,7 +2654,7 @@ function Blog({ t, isMG }) {
                   <span className="post-meta">
                     <Clock size={14} />
 
-                    {post.duration} read
+                    {post.duration} {isMG ? mgUI.blog.time : "read"}
                   </span>
 
                   <h3>
@@ -2704,7 +2753,7 @@ function Blog({ t, isMG }) {
                   />
 
                   <span>
-                    Back to articles
+                    {isMG ? mgUI.blog.back : "Back to articles"}
                   </span>
                 </button>
 
@@ -2749,7 +2798,7 @@ function Blog({ t, isMG }) {
                     <Clock size={15} />
 
                     <span>
-                      {selectedPost.duration} read
+                      {selectedPost.duration} {isMG ? mgUI.blog.time : "read"}
                     </span>
 
                     <span className="article-dot">
@@ -2861,7 +2910,7 @@ function Blog({ t, isMG }) {
                       className="back-arrow"
                     />
 
-                    Back to articles
+                    {isMG ? mgUI.blog.back : "Back to articles"}
 
                   </button>
 
@@ -3392,7 +3441,7 @@ function Footer({ t, go, isMG }) {
 
         <div>
           <b>
-            Explore
+            {isMG ? mgUI.footer.explore : "Explore"}
           </b>
 
           <button
@@ -3400,7 +3449,7 @@ function Footer({ t, go, isMG }) {
               go("about")
             }
           >
-            About
+            {isMG ? mgUI.footer.about : "About"}
           </button>
 
           <button
@@ -3408,7 +3457,7 @@ function Footer({ t, go, isMG }) {
               go("destinations")
             }
           >
-            Destinations
+            {isMG ? mgUI.footer.destinations : "Destinations"}
           </button>
 
           <button
@@ -3416,7 +3465,7 @@ function Footer({ t, go, isMG }) {
               go("photography")
             }
           >
-            Photography
+            {isMG ? mgUI.footer.photography : "Photography"}
           </button>
 
           <button
@@ -3424,13 +3473,13 @@ function Footer({ t, go, isMG }) {
               go("blog")
             }
           >
-            Blog
+            {isMG ? mgUI.footer.blog : "Blog"}
           </button>
         </div>
 
         <div>
           <b>
-            Services
+            {isMG ? mgUI.footer.services : "Services"}
           </b>
 
           <button
@@ -3438,7 +3487,7 @@ function Footer({ t, go, isMG }) {
               go("services")
             }
           >
-            Guiding
+            {isMG ? mgUI.footer.guiding : "Guiding"}
           </button>
 
           <button
@@ -3446,7 +3495,7 @@ function Footer({ t, go, isMG }) {
               go("services")
             }
           >
-            Wildlife trips
+            {isMG ? mgUI.footer.wildlife : "Wildlife trips"}
           </button>
 
           <button
@@ -3454,7 +3503,7 @@ function Footer({ t, go, isMG }) {
               go("services")
             }
           >
-            Photography
+            {isMG ? mgUI.footer.photography : "Photography"}
           </button>
 
           <button
@@ -3462,13 +3511,13 @@ function Footer({ t, go, isMG }) {
               go("contact")
             }
           >
-            Contact
+            {isMG ? mgUI.footer.contact : "Contact"}
           </button>
         </div>
 
         <div>
           <b>
-            Contact
+            {isMG ? mgUI.footer.contact : "Contact"}
           </b>
 
           <a
@@ -3496,7 +3545,7 @@ function Footer({ t, go, isMG }) {
       <div className="footer-bottom">
         <span>
           © 2026 HERY.
-          All rights reserved.
+          {isMG ? mgUI.footer.rights : "All rights reserved."}
         </span>
 
         <span>
