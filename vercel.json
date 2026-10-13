@@ -1,0 +1,28 @@
+{
+  "rewrites": [
+    {
+      "source": "/madagascar-tours",
+      "destination": "/madagascar-tours.html"
+    },
+    {
+      "source": "/local-tour-guide-madagascar",
+      "destination": "/local-tour-guide-madagascar.html"
+    },
+    {
+      "source": "/morondava-tours",
+      "destination": "/morondava-tours.html"
+    },
+    {
+      "source": "/avenue-of-baobabs-tour",
+      "destination": "/avenue-of-baobabs-tour.html"
+    },
+    {
+      "source": "/kirindy-forest-tour",
+      "destination": "/kirindy-forest-tour.html"
+    },
+    {
+      "source": "/tsingy-bemaraha-tours",
+      "destination": "/tsingy-bemaraha-tours.html"
+    }
+  ]
+}
