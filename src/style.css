@@ -7201,3 +7201,31 @@ html[data-theme="dark"] .offer .offer-copy p {color: #f5f8fd !important;}
   .chat-bubble {animation: none !important;transition: none !important;}
   .chat-bubble:hover {transform: none !important;}
 }
+
+
+/* Six dedicated tour pages — premium indexable links on homepage */
+.seo-tours{background:linear-gradient(165deg,#f9f7f1 0%,#f2f4f4 100%);padding-top:90px;padding-bottom:100px}
+.seo-tours-head{max-width:850px;margin:0 auto 38px;text-align:center}
+.seo-tours-head h2{font-family:"Cormorant Garamond",serif;font-size:clamp(2.4rem,4.4vw,4.2rem);line-height:1.06;color:#102b41;margin:12px 0 15px}
+.seo-tours-head p{font-size:1rem;color:#526778;line-height:1.7}
+.seo-tour-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:23px;max-width:1250px;margin:auto}
+.seo-tour-card{display:block;overflow:hidden;background:white;border:1px solid rgba(17,54,78,.10);border-radius:19px;box-shadow:0 8px 26px rgba(12,36,60,.06);text-decoration:none!important;color:#143147;transition:transform .28s,box-shadow .28s}
+.seo-tour-card:hover,.seo-tour-card:focus-visible{transform:translateY(-5px);box-shadow:0 20px 44px rgba(12,36,60,.16)}
+.seo-tour-image{display:block;overflow:hidden;aspect-ratio:16/10;background:#e1e5e1}
+.seo-tour-image img{height:100%;width:100%;display:block;object-fit:cover;transition:transform .4s}
+.seo-tour-card:hover img{transform:scale(1.055)}
+.seo-tour-copy{display:flex;align-items:flex-start;flex-direction:column;padding:22px 23px 24px;gap:10px}
+.seo-tour-kicker{font-size:.66rem;letter-spacing:.16em;color:#aa8041;font-weight:800}
+.seo-tour-copy strong{font-family:"Cormorant Garamond",serif;color:#112d45;line-height:1.12;font-size:clamp(1.65rem,2.1vw,2.2rem);font-weight:700}
+.seo-tour-description{font-size:.87rem;color:#566a77;line-height:1.55;min-height:2.75em}
+.seo-tour-action{display:inline-flex;gap:8px;align-items:center;color:#956c2f;font-size:.83rem;font-weight:800;margin-top:5px}
+html[data-theme="dark"] .seo-tours{background:#0c2132}
+html[data-theme="dark"] .seo-tours-head h2{color:#fff4df}
+html[data-theme="dark"] .seo-tours-head p{color:#d0dce3}
+html[data-theme="dark"] .seo-tour-card{background:#152f44;border-color:rgba(255,255,255,.14)}
+html[data-theme="dark"] .seo-tour-copy strong{color:#fff6e9}
+html[data-theme="dark"] .seo-tour-description{color:#d1dde3}
+html[data-theme="dark"] .seo-tour-kicker,html[data-theme="dark"] .seo-tour-action{color:#e5bd78}
+@media(max-width:1050px){.seo-tour-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.seo-tours{padding-top:60px;padding-bottom:68px}.seo-tour-grid{grid-template-columns:1fr;gap:17px}.seo-tour-copy{padding:20px}.seo-tour-description{min-height:auto}}
+@media(prefers-reduced-motion:reduce){.seo-tour-card,.seo-tour-image img{transition:none!important}}
