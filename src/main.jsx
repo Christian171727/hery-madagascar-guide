@@ -35,6 +35,15 @@ import {
 
 import "./style.css";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
+import {
+  WhatsAppIcon,
+  InstagramIcon,
+  TelephoneIcon,
+  EmailIcon,
+  LocationIcon,
+  AssistantIcon,
+} from "./ContactIcons.jsx";
+
 
 /* =========================================================
    CONFIGURATION
@@ -3257,7 +3266,7 @@ function References({ isMG, isFR }) {
             target="_blank"
             rel="noreferrer"
           >
-            <Globe2 size={16} />
+            <InstagramIcon size={18} />
 
             @mdg_tour
 
@@ -3430,7 +3439,7 @@ function Contact({ t, lang, isMG, isFR }) {
             target="_blank"
             rel="noreferrer"
           >
-            <Phone />
+            <TelephoneIcon />
 
             +261 34 58 085 04
           </a>
@@ -3438,13 +3447,13 @@ function Contact({ t, lang, isMG, isFR }) {
           <a
             href="mailto:rajaofetaheryhenintsoa@yahoo.fr"
           >
-            <Mail />
+            <EmailIcon />
 
             rajaofetaheryhenintsoa@yahoo.fr
           </a>
 
           <span>
-            <MapPin />
+            <LocationIcon />
 
             Morondava / Menabe,
             Madagascar
@@ -3455,7 +3464,7 @@ function Contact({ t, lang, isMG, isFR }) {
             target="_blank"
             rel="noreferrer"
           >
-            <Globe2 />
+            <InstagramIcon />
 
             @mdg_tour
           </a>
@@ -3469,7 +3478,7 @@ function Contact({ t, lang, isMG, isFR }) {
             rel="noopener noreferrer"
           >
             <span className="whatsapp-card-icon" aria-hidden="true">
-              <MessageCircle size={25} strokeWidth={2.1} />
+              <WhatsAppIcon size={36} />
             </span>
             <span className="whatsapp-card-copy">
               <span className="whatsapp-card-kicker">WHATSAPP · HERY</span>
@@ -3696,10 +3705,12 @@ function Footer({ t, go, isMG, isFR }) {
             target="_blank"
             rel="noreferrer"
           >
+            <WhatsAppIcon size={18} />
             WhatsApp
           </a>
 
           <a href="mailto:rajaofetaheryhenintsoa@yahoo.fr">
+            <EmailIcon size={18} />
             Email
           </a>
 
@@ -3731,7 +3742,7 @@ function Footer({ t, go, isMG, isFR }) {
             rel="noreferrer"
             aria-label="Instagram"
           >
-            <Globe2 size={16} />
+            <InstagramIcon size={20} />
           </a>
 
           <a
@@ -3913,7 +3924,7 @@ function Chat({ open, setOpen, lang, t }) {
 
             <div className="chat-direct hery-chat-direct">
               <a href={directLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle size={16} />
+                <WhatsAppIcon size={18} />
                 <span>{labels[1]} · WhatsApp HERY</span>
                 <ArrowRight size={14} />
               </a>
@@ -3929,7 +3940,7 @@ function Chat({ open, setOpen, lang, t }) {
         aria-expanded={open}
         type="button"
       >
-        {open ? <X size={23} strokeWidth={2.15} /> : <MessageCircleMore size={27} strokeWidth={2.1} />}
+        {open ? <X size={23} strokeWidth={2.15} /> : <AssistantIcon size={32} />}
         {!open && <span className="chat-pulse" />}
       </button>
     </>
