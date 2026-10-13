@@ -865,6 +865,47 @@ const destinations = [
 ];
 
 
+
+/* SEO landing pages — original tours, destinations and private guiding */
+const seoTourPages = [
+  {
+    "slug": "madagascar-tours",
+    "title": "Madagascar Tours",
+    "desc": "Private guiding and custom nature experiences across Madagascar.",
+    "image": "/images/hero.jpg"
+  },
+  {
+    "slug": "local-tour-guide-madagascar",
+    "title": "Local Tour Guide Madagascar",
+    "desc": "Get to know HERY and plan your adventure with local insight.",
+    "image": "/images/HERY.jpg"
+  },
+  {
+    "slug": "morondava-tours",
+    "title": "Morondava Tours",
+    "desc": "Explore Morondava and Menabe, baobabs, wildlife and local culture.",
+    "image": "/images/Morondava.jpg"
+  },
+  {
+    "slug": "avenue-of-baobabs-tour",
+    "title": "Avenue of the Baobabs",
+    "desc": "Discover the iconic baobab landscapes near Morondava.",
+    "image": "/images/Baobabs.jpg"
+  },
+  {
+    "slug": "kirindy-forest-tour",
+    "title": "Kirindy Forest Tour",
+    "desc": "Wildlife observation and biodiversity in western Madagascar.",
+    "image": "/images/Kirindy.jpeg"
+  },
+  {
+    "slug": "tsingy-bemaraha-tours",
+    "title": "Tsingy de Bemaraha Tours",
+    "desc": "Remarkable limestone landscapes and western Madagascar travel.",
+    "image": "/images/Bemaraha.jpeg"
+  }
+];
+
 /* =========================================================
    SERVICES
 ========================================================= */
@@ -1460,6 +1501,30 @@ function App() {
                 </p>
               </div>
             )}
+          </div>
+        </section>
+
+        {/* Discoverable editorial pages with real URLs for Google and visitors */}
+        <section id="guided-tours" className="section seo-tours" aria-labelledby="seo-tours-title">
+          <div className="seo-tours-head">
+            <span className="eyebrow">{isMG ? "DIA SY MPITARI-DALANA" : isFR ? "CIRCUITS ET GUIDES LOCAUX" : "TOURS & LOCAL GUIDING"}</span>
+            <h2 id="seo-tours-title">{isMG ? "Jereo ny dianao eto Madagasikara" : isFR ? "Découvrez nos circuits à Madagascar" : "Explore Madagascar with HERY"}</h2>
+            <p>{isMG ? "Fantaro ny toerana sy ny traikefa azo atao miaraka amin'ny mpitari-dalana ao Morondava." : isFR ? "Découvrez nos guides dédiés aux circuits privés, à Morondava, aux baobabs, à Kirindy et aux Tsingy." : "Plan private guided tours, encounter extraordinary wildlife and explore the remarkable landscapes of western Madagascar."}</p>
+          </div>
+          <div className="seo-tour-grid">
+            {seoTourPages.map((tour) => (
+              <a className="seo-tour-card" key={tour.slug} href={`/${tour.slug}`}>
+                <span className="seo-tour-image">
+                  <img src={tour.image} alt={tour.title} loading="lazy" decoding="async" />
+                </span>
+                <span className="seo-tour-copy">
+                  <span className="seo-tour-kicker">HERY MADAGASCAR LOCAL GUIDE</span>
+                  <strong>{tour.title}</strong>
+                  <span className="seo-tour-description">{tour.desc}</span>
+                  <span className="seo-tour-action">{isMG ? "Hijery ny antsipiriany" : isFR ? "Découvrir le circuit" : "Explore this experience"} <ArrowRight size={16} /></span>
+                </span>
+              </a>
+            ))}
           </div>
         </section>
 
