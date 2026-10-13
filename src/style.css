@@ -7229,3 +7229,54 @@ html[data-theme="dark"] .seo-tour-kicker,html[data-theme="dark"] .seo-tour-actio
 @media(max-width:1050px){.seo-tour-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.seo-tours{padding-top:60px;padding-bottom:68px}.seo-tour-grid{grid-template-columns:1fr;gap:17px}.seo-tour-copy{padding:20px}.seo-tour-description{min-height:auto}}
 @media(prefers-reduced-motion:reduce){.seo-tour-card,.seo-tour-image img{transition:none!important}}
+
+/* CONTACT ICONS — accurate recognizable shapes, no layout or text changes */
+.contact-lines .brand-icon {
+  display: block;
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  color: unset;
+  overflow: visible;
+  filter: drop-shadow(0 2px 3px rgba(16, 46, 62, .09));
+  transition: transform .22s ease;
+}
+.contact-lines a:hover .brand-icon {transform: translateY(-1px) scale(1.07);}
+.contact-lines .brand-instagram {width: 25px;height:25px;flex-basis:25px;}
+.contact-lines .brand-email {width: 25px;height:25px;flex-basis:25px;}
+.contact-lines .brand-location {width: 25px;height:25px;flex-basis:25px;}
+.whatsapp-card .whatsapp-card-icon {
+  background: linear-gradient(140deg, #f9fffb, #e7f8ee);
+  border: 1px solid rgba(37, 211, 102, .23);
+  box-shadow: 0 8px 18px rgba(30, 117, 65, .13);
+}
+.whatsapp-card-icon .brand-whatsapp {
+  display: block;
+  width: 43px;
+  height: 43px;
+  max-width: calc(100% - 7px);
+  max-height: calc(100% - 7px);
+  filter: drop-shadow(0 3px 5px rgba(0, 110, 55, .14));
+}
+html[data-theme="dark"] .whatsapp-card .whatsapp-card-icon {
+  background: linear-gradient(140deg, #f0fff3, #dcf5e4);
+  border-color: rgba(37,211,102,.3);
+}
+.hery-chat-direct .brand-whatsapp {width:18px;height:18px;flex-shrink:0;}
+.chat-bubble .brand-assistant {
+  position: relative;
+  z-index: 2;
+  display:block;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 12, 36, .22));
+}
+.footer-main a .brand-icon {height:19px;width:19px;flex-shrink:0;vertical-align:middle;margin-right:6px;}
+.socials a .brand-instagram {height:19px;width:19px;}
+.ref-links .brand-instagram {height:19px;width:19px;flex-shrink:0;}
+@media(max-width:600px) {
+  .contact-lines .brand-icon {width:23px;height:23px;flex-basis:23px;}
+  .whatsapp-card-icon .brand-whatsapp {width:39px;height:39px;}
+  .chat-bubble .brand-assistant {width:32px;height:32px;}
+}
