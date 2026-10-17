@@ -190,7 +190,7 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
       onFocusCapture={() => setFocusPaused(true)}
       onBlurCapture={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) setFocusPaused(false);
-      }
+      }}
       role="region"
       aria-roledescription="carousel"
       aria-label="HERY Madagascar conservation photo gallery"
