@@ -38,6 +38,7 @@ import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
+import AndasibeGallery from "./AndasibeGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -2120,9 +2121,11 @@ function Destination({
           <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
         ) : d[0] === "Kirindy Forest" ? (
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+        ) : d[0] === "Andasibe & Eastern Madagascar" ? (
+          <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
           <img src={d[2]} alt={d[0]} loading="lazy" />
-        )}
+        )
 
         <div className="dest-overlay" />
 
