@@ -35,6 +35,7 @@ import {
 
 import "./style.css";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
+import ConservationGallery from "./ConservationGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -2532,11 +2533,10 @@ function Conservation({ t, isMG, isFR }) {
         </div>
       </div>
 
-      <div className="conservation-image reveal">
-        <img
-          src={imgs.forest}
-          alt="Madagascar forest"
-          loading="lazy"
+      <div className="conservation-image conservation-slider-host reveal">
+        <ConservationGallery
+          lang={isMG ? "mg" : isFR ? "fr" : "en"}
+          fallback={imgs.forest}
         />
 
         <div className="floating-stat">
