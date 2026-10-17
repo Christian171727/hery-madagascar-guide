@@ -1029,7 +1029,7 @@ const posts = [
     category: "Photography",
     duration: "5 min",
     intro:
-      "Baobabs are among the most iconic landscapes of Madagascar. Golden-hour light reveals their silhouettes and the unique atmosphere of western Madagascar.",
+      "Imagine standing beneath Madagascar's extraordinary baobabs as the sky turns golden. Every silhouette, cloud and shifting ray of light tells a different story. Discover how to capture more than a photograph — and take home the feeling of being there.",
     sections: [
       {
         title: "Choose the right moment",
@@ -2718,6 +2718,37 @@ function Blog({ t, isMG, isFR }) {
   const [selectedPost, setSelectedPost] = useState(null);
   const readerRef = useRef(null);
   const [autoReading, setAutoReading] = useState(false);
+
+  // Photography: scroll the entire article (hero, image stories and descriptions)
+  // instead of only the inner text pane. The image carousel remains on its own
+  // independent 4-second timer.
+  useEffect(() => {
+    if (selectedPost?.id !== "photographier-baobabs" || !autoReading) return;
+    const reader = readerRef.current;
+    if (!reader || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    let startDelay = 0;
+    let previousTime = 0;
+    const scrollWithStory = (timestamp) => {
+      const elapsed = previousTime ? Math.min(timestamp - previousTime, 50) : 0;
+      previousTime = timestamp;
+      const end = Math.max(0, reader.scrollHeight - reader.clientHeight);
+      if (reader.scrollTop >= end - 1) {
+        setAutoReading(false);
+        return;
+      }
+      reader.scrollTop = Math.min(end, reader.scrollTop + elapsed * 0.065);
+      frame = window.requestAnimationFrame(scrollWithStory);
+    };
+    startDelay = window.setTimeout(() => {
+      frame = window.requestAnimationFrame(scrollWithStory);
+    }, 1100);
+    return () => {
+      window.clearTimeout(startDelay);
+      window.cancelAnimationFrame(frame);
+    };
+  }, [selectedPost, autoReading]);
+
   useEffect(() => {
     if (!selectedPost || !(["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id)) || !autoReading) return;
     const reader = readerRef.current;
@@ -2759,7 +2790,7 @@ function Blog({ t, isMG, isFR }) {
 
   const openArticle = (post) => {
     setSelectedPost(post);
-    setAutoReading(["wildlife-kirindy","conservation-terrain"].includes(post.id));
+    setAutoReading(["wildlife-kirindy","conservation-terrain","photographier-baobabs"].includes(post.id));
     document.body.style.overflow = "hidden";
   };
 
@@ -2962,8 +2993,10 @@ function Blog({ t, isMG, isFR }) {
             {/* ARTICLE */}
 
             <motion.article
-              className={"article-reader" + (["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id) ? " kirindy-auto-reader" : "")}
+              className={"article-reader" + (["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id) ? " kirindy-auto-reader" : selectedPost.id === "photographier-baobabs" ? " photography-auto-reader" : "")}
               ref={readerRef}
+              onWheel={selectedPost.id === "photographier-baobabs" ? () => setAutoReading(false) : undefined}
+              onTouchStart={selectedPost.id === "photographier-baobabs" ? () => setAutoReading(false) : undefined}
               initial={{
                 opacity: 0,
                 y: 45,
@@ -3008,7 +3041,7 @@ function Blog({ t, isMG, isFR }) {
                 </button>
 
 
-                {["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id) && (
+                {["wildlife-kirindy","conservation-terrain","photographier-baobabs"].includes(selectedPost.id) && (
                   <button
                     type="button"
                     className="article-autoread-toggle"
@@ -3016,7 +3049,7 @@ function Blog({ t, isMG, isFR }) {
                     onClick={() => setAutoReading(v => !v)}
                   >
                     {autoReading ? <Pause size={15} /> : <Play size={15} />}
-                    <span>{autoReading ? (isMG ? "Ajanona" : "Pause auto-read") : (isMG ? "Tohizo" : "Resume auto-read")}</span>
+                    <span>{autoReading ? (isMG ? "Ajanona ny fiakarana" : isFR ? "Pause du défilement" : "Pause auto-scroll") : (isMG ? "Tohizo ny fiakarana" : isFR ? "Reprendre le défilement" : "Resume auto-scroll")}</span>
                   </button>
                 )}
 

@@ -19,12 +19,12 @@ const copy = {
     scenes: [
       {
         title: "Framing a majestic baobab",
-        description: "A photographer pauses beneath an ancient baobab, using the tree's sculptural branches and the changing sky to create a memorable composition.",
+        description: "Stand beneath one of Madagascar's majestic giants and discover a world of extraordinary shapes. The photographer chooses a careful angle as sunlight dances through the branches — a fleeting moment worth remembering.",
         alt: "Photographer photographing a towering baobab beneath a cloudy sky",
       },
       {
         title: "The magic behind the photograph",
-        description: "With a camera on a tripod, photographers wait among the baobabs for softer evening light and dramatic cloud textures. Every moment offers a new perspective.",
+        description: "The camera is ready, the clouds are moving and the adventure is just beginning. With a tripod and a little patience, every changing light reveals a new perspective on the unforgettable baobab landscape.",
         alt: "Photographers with tripod among baobabs under a dramatic sky",
       },
     ],
@@ -37,12 +37,12 @@ const copy = {
     scenes: [
       {
         title: "Cadrer un baobab majestueux",
-        description: "Un photographe prend le temps d'observer un baobab ancien. Ses branches sculpturales et le ciel changeant donnent toute sa force à la composition.",
+        description: "Sous les branches d'un baobab majestueux, chaque angle devient une invitation à l'émerveillement. Le photographe observe la lumière et compose une image qui raconte l'âme de Madagascar.",
         alt: "Photographe face à un grand baobab sous un ciel nuageux",
       },
       {
         title: "La magie derrière la photo",
-        description: "Avec l'appareil sur trépied, les photographes attendent une lumière plus douce et les nuances du ciel. Chaque instant révèle une nouvelle perspective.",
+        description: "L'appareil sur trépied, les photographes guettent l'instant parfait : le ciel change, la lumière se fait dorée et les silhouettes des baobabs deviennent inoubliables. Vivez la magie du terrain.",
         alt: "Photographes et trépied parmi les baobabs sous un ciel spectaculaire",
       },
     ],
@@ -55,12 +55,12 @@ const copy = {
     scenes: [
       {
         title: "Maka sary baobab mijoalajoala",
-        description: "Mandinika sy misafidy zoro tsara ilay mpaka sary eo anoloan'ny baobab, ka ny sampany sy ny rahona no mampiavaka ny sary.",
+        description: "Eo ambanin'ny baobab mijoalajoala, lasa tantara mahafinaritra ny zoro tsirairay. Ny hazavana sy ny sampany no mampiavaka ny sary sy mampiseho ny hakanton'i Madagasikara.",
         alt: "Mpaka sary sy hazo baobab lehibe eny an-kianja",
       },
       {
         title: "Ny tantara ao ambadiky ny sary",
-        description: "Mampiasa trépied ireo mpaka sary ary miandry ny hazavana malefaka sy ny endriky ny rahona. Miova hatrany ny hakanton'ny toerana.",
+        description: "Efa vonona ny fakan-tsary sy ny trépied, miova ny rahona ary mihamamy ny hazavan'ny masoandro. Fotoana tsy hay hadinoina eo anivon'ny baobab no miandry anao.",
         alt: "Mpaka sary sy trépied eo anivon'ny baobab",
       },
     ],
@@ -118,6 +118,83 @@ const styles = `
 @media(max-width:700px){.photography-story-grid{grid-template-columns:1fr}.photography-article-hero{min-height:490px!important;flex-basis:490px!important}.photography-article-hero .article-hero-content{bottom:65px}.photography-story-figure img{height:340px}.photography-feature-content{min-height:250px}}
 @media(max-width:420px){.photography-article-hero{min-height:520px!important;flex-basis:520px!important}.photography-article-hero .article-hero-content h1{font-size:2rem}.photography-article-dynamic p{font-size:12px;line-height:1.4}.photography-article-hero .article-meta{font-size:9px}.photography-article-hero .article-hero-content{bottom:65px}.photography-feature-caption{bottom:18px;left:13px;right:13px}.photography-story{width:calc(100% - 32px)}}
 @media(prefers-reduced-motion:reduce){.photography-feature-photo,.photography-article-photo,.photography-article-background{transition:none!important}.photography-article-dynamic,.photography-feature-caption,.photography-feature-detail,.photography-feature-progress span,.photography-article-progress span{animation:none!important}}
+/* High-resolution photography experience: bright images, readable copy and a
+   continuous editorial scroll from the hero through the illustrated story. */
+.post-image.photography-feature-stage img.photography-feature-photo{
+  object-fit:cover!important;object-position:center 42%;filter:brightness(1.16) contrast(1.035) saturate(1.07)!important;
+  transform:none!important;image-rendering:auto
+}
+.photography-feature-shade{
+  background:linear-gradient(180deg,rgba(7,17,13,.04) 0%,rgba(7,17,13,.04) 42%,rgba(7,17,13,.53) 100%)!important
+}
+.photography-feature-caption,.photography-feature-stage .post-category{
+  text-shadow:0 2px 10px rgba(0,0,0,.76)
+}
+.photography-article-hero img.photography-article-background{
+  object-fit:cover!important;filter:blur(13px) brightness(1.12) saturate(1.1)!important;
+  opacity:0;transform:scale(1.08)!important
+}
+.photography-article-hero img.photography-article-background.is-active{opacity:.84}
+.photography-article-hero img.photography-article-photo{
+  object-fit:contain!important;object-position:center!important;
+  filter:brightness(1.12) contrast(1.04) saturate(1.08)!important;
+  transform:none!important;opacity:0;image-rendering:auto
+}
+.photography-article-hero img.photography-article-photo.is-active{opacity:1}
+.photography-article-hero .article-hero-overlay{
+  background:linear-gradient(180deg,rgba(2,15,10,.25) 0%,rgba(2,15,10,.10) 28%,rgba(2,15,10,.15) 50%,rgba(2,15,10,.72) 100%)!important
+}
+.photography-article-hero .article-hero-content{
+  text-shadow:0 2px 12px rgba(1,9,6,.75)
+}
+.photography-article-dynamic{filter:drop-shadow(0 2px 7px rgba(0,0,0,.48))}
+.photography-article-hero{min-height:clamp(490px,68vh,690px)!important;flex:0 0 auto!important}
+.article-reader.photography-auto-reader{
+  display:block!important;overflow-x:hidden!important;overflow-y:auto!important;
+  scroll-behavior:auto;scrollbar-width:thin;overscroll-behavior:contain
+}
+.photography-auto-reader .article-topbar{
+  position:sticky!important;top:0;z-index:40;height:0!important;min-height:0;
+  padding:16px 22px;overflow:visible;transform:none
+}
+.photography-auto-reader .article-content{
+  display:block!important;overflow:visible!important;flex:none!important;
+  min-height:0!important;height:auto!important
+}
+.photography-auto-reader .article-intro{max-width:850px}
+.photography-auto-reader .photography-story-grid{display:grid;grid-template-columns:1fr;gap:25px}
+.photography-auto-reader .photography-story-figure{
+  display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);align-items:center;
+  border-radius:20px;background:var(--surface);
+  box-shadow:0 10px 32px rgba(10,25,18,.08)
+}
+.photography-auto-reader .photography-story-figure:nth-child(even) img{order:2}
+.photography-auto-reader .photography-story-figure img{
+  width:100%;height:clamp(310px,37vw,490px);object-fit:contain!important;
+  background:rgba(43,52,44,.11);filter:brightness(1.08) saturate(1.03)
+}
+.photography-auto-reader .photography-story-figure figcaption{padding:clamp(18px,3vw,35px)}
+.photography-auto-reader .photography-story-figure figcaption strong{
+  font-family:'Cormorant Garamond',serif;font-size:clamp(1.65rem,3vw,2.15rem);
+  font-weight:700;line-height:1.1
+}
+.photography-auto-reader .photography-story-figure figcaption p{
+  font-size:clamp(13px,1.3vw,15px);line-height:1.85
+}
+@media(max-width:700px){
+  .photography-article-hero{min-height:545px!important}
+  .photography-article-hero .article-hero-content{bottom:66px}
+  .photography-auto-reader .photography-story-figure{display:flex;flex-direction:column}
+  .photography-auto-reader .photography-story-figure:nth-child(even) img{order:0}
+  .photography-auto-reader .photography-story-figure img{height:365px}
+  .photography-auto-reader .article-topbar{padding:12px 12px}
+}
+@media(max-width:420px){
+  .photography-article-hero{min-height:570px!important}
+  .photography-auto-reader .photography-story-figure img{height:330px}
+  .photography-article-hero .article-hero-content{bottom:62px}
+}
+
 `;
 
 function usePhotoSlides() {
