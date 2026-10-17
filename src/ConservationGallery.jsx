@@ -74,13 +74,12 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
   const [photos, setPhotos] = useState([]);
   const [ready, setReady] = useState(false);
   const [current, setCurrent] = useState(0);
+  // Autoplay continues during mouse hover and keyboard focus.
+  // Only the explicit Pause/Play button can stop it.
   const [manualPaused, setManualPaused] = useState(false);
-  const [hoverPaused, setHoverPaused] = useState(false);
-  const [focusPaused, setFocusPaused] = useState(false);
   const [previousIndex, setPreviousIndex] = useState(null);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
-  const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
     const node = galleryRef.current;
@@ -101,15 +100,6 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
     onVisibilityChange();
     document.addEventListener("visibilitychange", onVisibilityChange);
     return () => document.removeEventListener("visibilitychange", onVisibilityChange);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === "undefined" || !window.matchMedia) return;
-    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setReduceMotion(media.matches);
-    update();
-    media.addEventListener?.("change", update);
-    return () => media.removeEventListener?.("change", update);
   }, []);
 
   // Discover only real uploaded JPEGs: do not display missing / broken sources.
@@ -153,16 +143,18 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
   const caption = photos.length > 0
     ? captions[item.index]
     : [ui.fallbackTitle, ui.fallbackText];
-  const paused = manualPaused || hoverPaused || focusPaused;
-  const shouldPlay = visible && pageVisible && !paused && !reduceMotion && available.length > 1 && ready;
+  // 4-second autoplay is independent of hover/focus and respects manual pause.
+  // The CSS still respects prefers-reduced-motion for the fade animations.
+  const shouldPlay = pageVisible && !manualPaused && available.length > 1 && ready;
 
   useEffect(() => {
     if (!shouldPlay) return;
-    const handle = window.setInterval(() => {
+    // Reset the 4-second countdown after a manual next/previous click as well.
+    const handle = window.setTimeout(() => {
       setPreviousIndex(current);
       setCurrent((current + 1) % available.length);
     }, INTERVAL);
-    return () => window.clearInterval(handle);
+    return () => window.clearTimeout(handle);
   }, [shouldPlay, available.length, current]);
 
   useEffect(() => {
@@ -185,12 +177,6 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
     <div
       className="conservation-gallery"
       ref={galleryRef}
-      onMouseEnter={() => setHoverPaused(true)}
-      onMouseLeave={() => setHoverPaused(false)}
-      onFocusCapture={() => setFocusPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setFocusPaused(false);
-      }}
       role="region"
       aria-roledescription="carousel"
       aria-label="HERY Madagascar conservation photo gallery"
