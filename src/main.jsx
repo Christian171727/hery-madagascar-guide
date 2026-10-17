@@ -45,6 +45,7 @@ import ManamboloGallery from "./ManamboloGallery.jsx";
 import CultureShowcase from "./CultureShowcase.jsx";
 import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
 import WildlifeFeaturedPreview from "./WildlifeFeaturedPreview.jsx";
+import { ConservationFeaturedPreview, ConservationArticleGallery } from "./ConservationBlogGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -1089,31 +1090,50 @@ const posts = [
     title: "Understanding conservation in the field",
     image: imgs.forest,
     category: "Conservation",
-    duration: "7 min",
-    intro:
-      "Conservation is not limited to protecting a space on a map. It also involves communities, habitats, biodiversity and the way we discover natural environments.",
+    duration: "12 min",
+    intro: "Conservation is more than protecting a place on a map. It connects local knowledge, habitats, field observations and the everyday decisions that shape our relationship with nature. These photographs illustrate practical learning, outdoor discovery and respectful exploration in Madagascar; the precise locations and organizations shown have not all been independently verified. Explore ten moments that invite deeper curiosity, patient observation and a more thoughtful approach to responsible travel.",
     sections: [
       {
-        title: "Conservation in the field",
-        text:
-          "Understanding conservation requires observing local realities. Forests, species and communities are connected within the same environment.",
+            "title": "Start with observation, not assumptions",
+            "text": "Before trying to protect a place, learn what is actually there. Look at the vegetation, shade, soil and signs of water, then ask local people what they have noticed over time. One visit cannot reveal the full ecological history of a forest. It can, however, help you ask better questions: how are paths used, what plants are growing, what pressures exist and who helps care for the landscape? Keep observations separate from assumptions. When you do not know a species name or the cause of a change, say so. Careful listening and accurate notes are the first steps toward meaningful conservation."
       },
       {
-        title: "Biodiversity and habitats",
-        text:
-          "Protecting biodiversity includes preserving natural habitats. Every forest has its own characteristics and shelters species adapted to that environment.",
+            "title": "Conservation is a shared effort",
+            "text": "The strongest conservation experiences are not simply about one visitor completing an activity. They are about people exchanging knowledge, understanding local priorities and working with care. Pay attention to how field teams discuss a task and how responsibilities are divided. Community expertise matters because residents live with the long-term effects of decisions made about the environment. Ask who maintains an initiative after an event is over, how success is measured and whether local concerns are being heard. The goal should be lasting understanding and respectful collaboration, not a photograph suggesting that one afternoon solved a complex challenge."
       },
       {
-        title: "A respectful approach",
-        text:
-          "During an exploration, responsible behavior helps reduce our impact on natural areas. Respecting places and wildlife is an essential part of the experience.",
+            "title": "Planting is only the beginning",
+            "text": "Young plants can symbolize hope, but meaningful restoration requires much more than putting a seedling in the ground. The right species must suit the habitat, and plants need follow-up care and protection from damage. Survival over time matters more than the number planted in a single session. When observing field work, notice how people handle the soil and vegetation and ask what happens afterward. Avoid claiming that a site has recovered solely because new plants are visible. True restoration depends on evidence, patience and a longer relationship with the landscape. These lessons make a short field experience more valuable than a simple photo opportunity."
       },
       {
-        title: "Discover and raise awareness",
-        text:
-          "A field experience can also help people better understand conservation challenges and develop a more conscious relationship with Madagascar's landscapes and biodiversity.",
+            "title": "Explore forests with a lighter footprint",
+            "text": "A forest path invites discovery, yet visitors also have an impact. Use permitted routes, stay away from vulnerable plants, carry waste out with you and avoid taking natural objects as souvenirs. Do not approach wildlife simply to capture a close-up image. Slow walking helps you notice the fine detail of habitats while reducing disturbance and giving your guide time to explain what you see. Small actions, such as waiting for others on a narrow path or avoiding shortcuts through vegetation, matter. Responsible travel is part of the experience itself: every decision offers an opportunity to show respect for the place being visited."
       },
-    ],
+      {
+            "title": "Photography can support field learning",
+            "text": "Photographs are useful for remembering details, starting conversations and documenting what was visible during a visit. A picture of a path, branch, plant or human activity can prompt questions worth exploring later. Yet one photo cannot prove that a habitat is improving or declining without verified context. Record the date and place when possible and distinguish what you observed from what you inferred. Respect people's privacy when photographing field activities and ask permission where appropriate. Never move plants or disturb animals to improve a composition. Thoughtful photography lets the environment remain as it was, rather than becoming a stage for the camera."
+      },
+      {
+            "title": "The small details help tell the story",
+            "text": "A field notebook does not need to focus only on famous animals or dramatic landscapes. The texture of bark, the cover of young vegetation, signs of erosion and changes in moisture can all draw attention to how a place functions. Try noticing connections: where does sunlight reach the ground, how does the vegetation change, and where do visitors walk? It is normal not to understand every detail immediately. Write honest observations and questions that could be checked through research or with local experts. This approach replaces quick conclusions with deeper curiosity and teaches visitors to appreciate the complexity of living ecosystems."
+      },
+      {
+            "title": "Look beyond a single scenic viewpoint",
+            "text": "Nature is connected, and a landscape often changes just a few steps beyond the most beautiful viewpoint. A well-trodden path, a shady stream crossing and an area of dense vegetation may each tell a different part of the story. When you explore, ask how the pieces fit together rather than treating every photograph as a separate scene. Conservation is influenced by environmental conditions and by the practical realities of nearby communities. Avoid oversimplifying these relationships. A responsible visitor recognizes that the health of an ecosystem is not something that can be judged by the color green in one picture."
+      },
+      {
+            "title": "Learn with local guidance",
+            "text": "A guided field visit is an opportunity to listen, exchange questions and connect first impressions with local knowledge. A good guide can explain access rules, highlight subtle changes in habitats and show why responsible visitor behavior matters. Walk at a pace that allows the group to observe and discuss rather than rushing through a checklist. Respect any requests to stay on a path or avoid certain areas. The most memorable moment may be a conversation, an unexpected plant or a quiet pause to take in the forest. Learning with humility is more valuable than arriving with the expectation of having every answer."
+      },
+      {
+            "title": "Move carefully around paths and waterways",
+            "text": "Natural trails and stream crossings require attention both for personal safety and for habitat protection. Conditions can change after rain, and a route that looked simple may become slippery or unsafe. Follow local instructions, use permitted crossings and avoid damaging vegetation or riverbanks to take photographs. Make room for other walkers and do not overload a fragile structure. If the conditions are uncertain, it is better to reconsider the route than to force a crossing. Responsible access protects visitors and the places that make exploration possible. Care on a trail is an everyday expression of respect for the landscape."
+      },
+      {
+            "title": "Turn inspiration into lasting respect",
+            "text": "A meaningful conservation-focused visit continues after the final photograph. Think about what you learned, what remains uncertain and how you can share the experience without exaggerating its results. Credit local knowledge, describe places accurately and avoid presenting a single activity as proof of long-term success. Travelers can support responsible local guiding and make choices that respect communities and habitats. With HERY, conservation can be approached through patient observation, education and thoughtful exploration of Madagascar. The most valuable souvenir is not a staged encounter or a dramatic claim, but a deeper appreciation of the people and living environments that deserve ongoing care."
+      }
+]
   },
 ];
 
@@ -2698,7 +2718,7 @@ function Blog({ t, isMG, isFR }) {
   const readerRef = useRef(null);
   const [autoReading, setAutoReading] = useState(false);
   useEffect(() => {
-    if (!selectedPost || selectedPost.id !== "wildlife-kirindy" || !autoReading) return;
+    if (!selectedPost || !(["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id)) || !autoReading) return;
     const reader = readerRef.current;
     if (!reader || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let frame = 0;
@@ -2738,7 +2758,7 @@ function Blog({ t, isMG, isFR }) {
 
   const openArticle = (post) => {
     setSelectedPost(post);
-    setAutoReading(post.id === "wildlife-kirindy");
+    setAutoReading(["wildlife-kirindy","conservation-terrain"].includes(post.id));
     document.body.style.overflow = "hidden";
   };
 
@@ -2827,7 +2847,7 @@ function Blog({ t, isMG, isFR }) {
             <motion.article
               key={post.id}
               className={
-                index === 0
+                index === 0 || post.id === "conservation-terrain"
                   ? "post featured reveal"
                   : "post reveal"
               }
@@ -2852,6 +2872,8 @@ function Blog({ t, isMG, isFR }) {
               >
                 {post.id === "wildlife-kirindy" ? (
                   <WildlifeFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
+                ) : post.id === "conservation-terrain" ? (
+                  <ConservationFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
                 ) : (
                   <>
                 {/* IMAGE */}
@@ -2937,7 +2959,7 @@ function Blog({ t, isMG, isFR }) {
             {/* ARTICLE */}
 
             <motion.article
-              className={"article-reader" + (selectedPost.id === "wildlife-kirindy" ? " kirindy-auto-reader" : "")}
+              className={"article-reader" + (["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id) ? " kirindy-auto-reader" : "")}
               ref={readerRef}
               initial={{
                 opacity: 0,
@@ -2983,7 +3005,7 @@ function Blog({ t, isMG, isFR }) {
                 </button>
 
 
-                {selectedPost.id === "wildlife-kirindy" && (
+                {["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id) && (
                   <button
                     type="button"
                     className="article-autoread-toggle"
@@ -3069,10 +3091,13 @@ function Blog({ t, isMG, isFR }) {
                 {selectedPost.id === "wildlife-kirindy" && (
                   <WildlifeArticleGallery lang={isMG ? "mg" : "en"} sections={selectedPost.sections || []} />
                 )}
+                {selectedPost.id === "conservation-terrain" && (
+                  <ConservationArticleGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} sections={selectedPost.sections || []} />
+                )}
 
                 {/* SECTIONS */}
 
-                {selectedPost.id !== "wildlife-kirindy" && selectedPost.sections?.map(
+                {!["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id) && selectedPost.sections?.map(
                   (section, index) => (
                     <motion.section
                       key={section.title}
