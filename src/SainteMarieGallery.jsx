@@ -53,12 +53,12 @@ const CSS = `
 .dest-img .sainte-marie-gallery .sainte-marie-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1)!important;filter:none!important;transition:opacity .8s ease;pointer-events:none}
 .dest-img .sainte-marie-gallery .sainte-marie-slide.is-active{opacity:1}
 .destination-card:hover .dest-img .sainte-marie-gallery .sainte-marie-slide{filter:none!important;transform:scale(1)!important}
-.sainte-marie-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(3,20,30,.03) 0%,rgba(3,20,30,0) 40%,rgba(3,20,30,.20) 61%,rgba(3,20,30,.81) 100%);pointer-events:none}
-.sainte-marie-caption{position:absolute;left:15px;right:15px;bottom:58px;z-index:2;color:white;text-shadow:0 2px 14px rgba(0,0,0,.5);pointer-events:none;animation:sainte-marie-rise .65s ease both}
-.sainte-marie-caption small{display:block;margin:0 0 6px;color:#ffe4a9;font-size:9px;letter-spacing:.13em;font-weight:900}
-.sainte-marie-caption strong{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(20px,2.3vw,26px);line-height:1.08;font-weight:800;max-width:300px}
-.sainte-marie-caption p{margin:8px 0 0;font-size:11px;line-height:1.5;color:rgba(255,255,255,.96);max-width:300px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-@keyframes sainte-marie-rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.sainte-marie-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 58%,rgba(3,20,30,.10) 81%,rgba(3,20,30,.37) 100%);pointer-events:none}
+.destination-card .dest-body .sainte-marie-detail{min-height:128px;margin:14px 0 12px;animation:sainte-marie-rise .65s cubic-bezier(.2,.7,.2,1) both}
+.destination-card .dest-body .sainte-marie-detail small{display:block;color:var(--gold-600,#b98235);font-size:9px;letter-spacing:.12em;font-weight:900;text-transform:uppercase;margin-bottom:6px}
+.destination-card .dest-body .sainte-marie-detail strong{display:block;font-family:'Cormorant Garamond',serif;font-size:clamp(20px,1.75vw,25px);line-height:1.13;color:var(--ink,#1e3953);font-weight:800}
+.destination-card .dest-body .sainte-marie-detail p{margin:8px 0 0;color:var(--muted,#576b80);font-size:11px;line-height:1.6;max-width:32ch}
+@keyframes sainte-marie-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .sainte-marie-toolbar{position:absolute;left:12px;right:12px;bottom:15px;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .sainte-marie-counter{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:rgba(2,17,25,.66);color:#fff;font-size:11px;font-weight:800;letter-spacing:.07em;backdrop-filter:blur(7px)}
 .sainte-marie-actions{display:flex;gap:5px}
@@ -67,17 +67,29 @@ const CSS = `
 .sainte-marie-progress{position:absolute;bottom:0;left:0;right:0;height:3px;z-index:4;background:rgba(255,255,255,.25)}
 .sainte-marie-progress span{display:block;height:100%;width:100%;background:#e7bd7a;transform-origin:left;animation:sainte-marie-fill 4s linear forwards}
 @keyframes sainte-marie-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@media(max-width:600px){.sainte-marie-caption{bottom:57px;left:12px;right:12px}.sainte-marie-caption strong{font-size:21px}.sainte-marie-caption p{font-size:10px;line-height:1.45}}
-@media(prefers-reduced-motion:reduce){.sainte-marie-slide{transition:none!important}.sainte-marie-caption,.sainte-marie-progress span{animation:none!important}}
+@media(max-width:600px){.destination-card .dest-body .sainte-marie-detail{min-height:120px}.destination-card .dest-body .sainte-marie-detail strong{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.sainte-marie-slide{transition:none!important}.sainte-marie-detail,.sainte-marie-progress span{animation:none!important}}
 `;
 
-export default function SainteMarieGallery({ lang = "en" }) {
+export default function SainteMarieGallery({ lang = "en", onSceneChange }) {
   const locale = COPY[lang] || COPY.en;
   const [images, setImages] = useState(PHOTOS);
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
   const photo = images[Math.min(current, images.length - 1)];
   const scene = locale.scenes[(photo?.id || 1) - 1] || locale.scenes[0];
+
+  // Keep the headline and description BELOW the Sainte Marie card title in sync
+  // with its current image; changes to language and fallback images also sync.
+  useEffect(() => {
+    onSceneChange?.({
+      id: photo?.id || 1,
+      title: scene[0],
+      description: scene[1],
+      kicker: scene[2],
+    });
+  }, [photo?.id, lang, onSceneChange]);
+
 
   // The 4-second loop does not pause on hover, focus or previous/next clicks.
   useEffect(() => {
@@ -119,11 +131,6 @@ export default function SainteMarieGallery({ lang = "en" }) {
         />
       ))}
       <div className="sainte-marie-shade" aria-hidden="true" />
-      <div className="sainte-marie-caption" key={marker} aria-live="off">
-        <small>{scene[2]}</small>
-        <strong>{scene[0]}</strong>
-        <p>{scene[1]}</p>
-      </div>
       {images.length > 1 && (
         <>
           <div className="sainte-marie-toolbar">
