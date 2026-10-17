@@ -5,7 +5,7 @@ import { Clock, ArrowRight } from "lucide-react";
 export const conservationPhotos = Array.from(
   { length: 10 }, (_, i) => `/images/conservation-blog/understanding${i + 1}.jpeg`
 );
-const coverPhotos = ["/images/forest.jpeg", ...conservationPhotos];
+const coverPhotos = ["/images/conservation-blog/understanding-hero.jpeg", ...conservationPhotos];
 
 const copy = {
   en: {

@@ -1088,7 +1088,7 @@ const posts = [
   {
     id: "conservation-terrain",
     title: "Understanding conservation in the field",
-    image: imgs.forest,
+    image: "/images/conservation-blog/understanding-hero.jpeg",
     category: "Conservation",
     duration: "12 min",
     intro: "Conservation is more than protecting a place on a map. It connects local knowledge, habitats, field observations and the everyday decisions that shape our relationship with nature. These photographs illustrate practical learning, outdoor discovery and respectful exploration in Madagascar; the precise locations and organizations shown have not all been independently verified. Explore ten moments that invite deeper curiosity, patient observation and a more thoughtful approach to responsible travel.",
