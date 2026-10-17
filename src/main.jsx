@@ -2143,6 +2143,7 @@ function Destination({
   isMG,
   isFR,
 }) {
+  const [sainteMarieScene, setSainteMarieScene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2169,7 +2170,7 @@ function Destination({
         {d[0] === "Avenue of Baobabs" ? (
           <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
         ) : d[0] === "Sainte Marie" ? (
-          <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+          <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setSainteMarieScene} />
         ) : d[0] === "Kirindy Forest" ? (
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
@@ -2211,14 +2212,19 @@ function Destination({
           {d[0]}
         </h3>
 
+        {d[0] === "Sainte Marie" ? (
+          <div
+            className="sainte-marie-detail"
+            key={`${sainteMarieScene?.id || 1}-${isMG ? "mg" : isFR ? "fr" : "en"}`}
+            aria-live="off"
+          >
+            <small>{sainteMarieScene?.kicker || (isMG ? "FITSAHARAM-PANAHY" : isFR ? "ÉVASION INSULAIRE" : "ISLAND ESCAPE")}</small>
+            <strong>{sainteMarieScene?.title || (isMG ? "Toerana ifanenan'ny lanitra sy ny ranomasina" : isFR ? "Là où le ciel rejoint la mer" : "Where the sky meets the sea")}</strong>
+            <p>{sainteMarieScene?.description || (isMG ? "Masoandro mody mamirapiratra, lakana ary fotoana tsy hay hadinoina." : isFR ? "Couchers de soleil dorés, bateaux de pêche et instants inoubliables." : "Golden sunsets, fishing boats and moments you'll wish could last forever.")}</p>
+          </div>
+        ) : (
         <p>
-          {d[0] === "Sainte Marie"
-            ? (isMG
-              ? "Masoandro mody mamirapiratra, morontsiraka mahafinaritra ary fahatsiarovana tsy hay hadinoina."
-              : isFR
-                ? "Soleils couchants dorés, rencontres authentiques et souvenirs inoubliables au bord de la mer."
-                : "Golden sunsets, authentic coastal encounters and seaside memories to treasure.")
-            : d[0] === "Manambolo River & Gorge"
+          {d[0] === "Manambolo River & Gorge"
             ? (isMG
               ? "Lohasaha mahavariana, fiampitana renirano ary dia tsy hay hadinoina."
               : isFR
@@ -2232,6 +2238,7 @@ function Destination({
                 : "Meet unforgettable lemurs in the lush forests of eastern Madagascar.")
             : isMG ? mgUI.destinations[i] || d[1] : isFR ? frExtras.destinations[i] || d[1] : d[1]}
         </p>
+        )}
 
         <button
           onClick={() =>
