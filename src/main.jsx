@@ -46,6 +46,7 @@ import CultureShowcase from "./CultureShowcase.jsx";
 import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
 import WildlifeFeaturedPreview from "./WildlifeFeaturedPreview.jsx";
 import { ConservationFeaturedPreview, ConservationArticleGallery } from "./ConservationBlogGallery.jsx";
+import { PhotographyFeaturedPreview, PhotographyArticleHero, PhotographyArticleScenes } from "./PhotographyBlogGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -1024,7 +1025,7 @@ const posts = [
   {
     id: "photographier-baobabs",
     title: "Photographing the baobabs at golden hour",
-    image: imgs.baobab,
+    image: "/images/photography/photographe.avif",
     category: "Photography",
     duration: "5 min",
     intro:
@@ -2874,6 +2875,8 @@ function Blog({ t, isMG, isFR }) {
                   <WildlifeFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
                 ) : post.id === "conservation-terrain" ? (
                   <ConservationFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
+                ) : post.id === "photographier-baobabs" ? (
+                  <PhotographyFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
                 ) : (
                   <>
                 {/* IMAGE */}
@@ -3033,6 +3036,9 @@ function Blog({ t, isMG, isFR }) {
                   ARTICLE HERO
               ================================================= */}
 
+              {selectedPost.id === "photographier-baobabs" ? (
+                <PhotographyArticleHero post={selectedPost} isMG={isMG} isFR={isFR} />
+              ) : (
               <div className="article-hero">
 
                 <img
@@ -3072,7 +3078,8 @@ function Blog({ t, isMG, isFR }) {
 
                 </div>
 
-              </div>
+              </div
+              )}>
 
 
               {/* =================================================
@@ -3093,6 +3100,9 @@ function Blog({ t, isMG, isFR }) {
                 )}
                 {selectedPost.id === "conservation-terrain" && (
                   <ConservationArticleGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} sections={selectedPost.sections || []} />
+                )}
+                {selectedPost.id === "photographier-baobabs" && (
+                  <PhotographyArticleScenes lang={isMG ? "mg" : isFR ? "fr" : "en"} />
                 )}
 
                 {/* SECTIONS */}
