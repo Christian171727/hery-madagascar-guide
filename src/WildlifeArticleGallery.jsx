@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import React from "react";
 
 const PICTURES = Array.from({ length: 10 }, (_, i) => "/images/wildlife/wildlife" + (i + 1) + ".jpeg");
 const CAPTIONS = {
@@ -56,65 +55,62 @@ const CAPTIONS = {
   },
 };
 const STYLES = [
-  ".wildlife-extra{width:min(820px,calc(100% - 48px));margin:14px auto 40px;position:relative}",
-  ".wildlife-extra h3{font-family:'Cormorant Garamond',serif;font-size:clamp(1.7rem,3vw,2.35rem);color:var(--ink);margin:0 0 12px}",
-  ".wildlife-extra-note{font-size:13px;line-height:1.75;color:var(--text);margin:0 0 18px}",
-  ".wildlife-frame{height:clamp(270px,45vw,420px);position:relative;overflow:hidden;border-radius:22px;background:#10291f;isolation:isolate}",
-  ".wildlife-extra-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .9s ease;pointer-events:none}",
-  ".wildlife-extra-img.active{opacity:1}",
-  ".wildlife-frame::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(4,18,14,.92));pointer-events:none;z-index:1}",
-  ".wildlife-frame-copy{position:absolute;left:19px;right:19px;bottom:61px;color:white;z-index:2;animation:wildlife-up .5s ease both;pointer-events:none}",
-  ".wildlife-frame-copy strong{font-size:18px;display:block;line-height:1.2}",
-  ".wildlife-frame-copy p{margin:6px 0 0;font-size:12px;line-height:1.45;max-width:550px;color:rgba(255,255,255,.95)}",
-  ".wildlife-gallery-tools{position:absolute;z-index:3;bottom:13px;left:15px;right:15px;display:flex;align-items:center;justify-content:space-between;gap:8px}",
-  ".wildlife-count{font-size:12px;color:#fff;font-weight:800;border-radius:999px;background:rgba(0,0,0,.45);padding:8px 13px}",
-  ".wildlife-gallery-buttons{display:flex;gap:7px}",
-  ".wildlife-gallery-buttons button{display:grid;place-items:center;width:34px;height:34px;background:rgba(13,31,25,.78);border:1px solid rgba(255,255,255,.5);border-radius:50%;color:#fff;cursor:pointer}",
-  ".wildlife-gallery-buttons button:hover{background:#ba9253}",
-  ".wildlife-gallery-tag{display:block;letter-spacing:.15em;color:var(--gold-strong);font-weight:800;font-size:10px;margin:0 0 7px}",
-  "@keyframes wildlife-up{from{transform:translateY(8px);opacity:0}to{transform:translateY(0);opacity:1}}",
-  "@media(prefers-reduced-motion:reduce){.wildlife-extra-img{transition:none}.wildlife-frame-copy{animation:none}}",
+  ".wildlife-story{width:min(820px,calc(100% - 48px));margin:20px auto 46px;color:var(--text)}",
+  ".wildlife-story-kicker{display:block;color:var(--gold-strong);font-size:11px;font-weight:800;letter-spacing:.14em;margin:0 0 10px}",
+  ".wildlife-story>h3{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,4vw,2.65rem);color:var(--ink);line-height:1.1;margin:0 0 14px}",
+  ".wildlife-story-note{font-size:13px;line-height:1.8;color:var(--text);margin:0 0 32px}",
+  ".wildlife-story-figure{margin:32px 0 26px;overflow:hidden;border:1px solid var(--line);background:var(--surface);border-radius:20px;box-shadow:0 12px 35px rgba(14,31,25,.07)}",
+  ".wildlife-story-photo{height:clamp(280px,48vw,470px);position:relative;background:#12271e;overflow:hidden}",
+  ".wildlife-story-photo img{display:block;width:100%;height:100%;object-fit:contain}",
+  ".wildlife-story-photo:after{content:'';position:absolute;inset:55% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.35));pointer-events:none}",
+  ".wildlife-story-index{position:absolute;bottom:16px;left:18px;z-index:2;padding:8px 12px;border-radius:999px;background:rgba(15,25,20,.65);color:#fff;font-size:12px;font-weight:800;letter-spacing:.06em}",
+  ".wildlife-story-caption{padding:22px 25px 25px}",
+  ".wildlife-story-caption h4{font-family:'Cormorant Garamond',serif;color:var(--ink);font-size:clamp(1.55rem,3vw,2rem);line-height:1.1;margin:0 0 8px}",
+  ".wildlife-story-caption p{font-size:14px;line-height:1.85;margin:0;color:var(--text)}",
+  ".wildlife-story>.article-section{width:100%;padding:30px 0 39px}",
+  ".wildlife-story>.article-section p{font-size:14px;line-height:1.95}",
+  ".wildlife-story-end{margin:28px 0 0;padding:20px 24px;border-left:3px solid var(--gold-500);background:rgba(205,164,84,.06);border-radius:0 16px 16px 0;font-size:14px;line-height:1.85}",
+  "@media(max-width:600px){.wildlife-story{width:calc(100% - 30px)}.wildlife-story-photo{height:320px}.wildlife-story-caption{padding:18px}.wildlife-story>.article-section{grid-template-columns:40px minmax(0,1fr);gap:10px}.wildlife-story>.article-section p{font-size:13px}}",
 ].join("\n");
 
-export default function WildlifeArticleGallery({ lang = "en" }) {
-  const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
+export default function WildlifeArticleGallery({ lang = "en", sections = [] }) {
   const t = CAPTIONS[lang] || CAPTIONS.en;
-  useEffect(() => {
-    if (paused) return;
-    const timer = window.setTimeout(() => setCurrent((x) => (x + 1) % PICTURES.length), 4000);
-    return () => window.clearTimeout(timer);
-  }, [current, paused]);
-  useEffect(() => {
-    const img = new Image();
-    img.src = PICTURES[(current + 1) % PICTURES.length];
-  }, [current]);
-  const go = (delta) => setCurrent((i) => (i + delta + PICTURES.length) % PICTURES.length);
   return (
-    <section className="wildlife-extra" aria-label={t.label}>
+    <div className="wildlife-story" aria-label={t.label}>
       <style>{STYLES}</style>
-      <span className="wildlife-gallery-tag">{t.label}</span>
-      <h3>{lang === "fr" ? "D'autres merveilles de la faune malgache" : lang === "mg" ? "Ireo zavaboary hafa eto Madagasikara" : "More wonders of Madagascar's wildlife"}</h3>
-      <p className="wildlife-extra-note">{t.note}</p>
-      <div className="wildlife-frame" role="region" aria-roledescription="carousel" aria-label={t.label}>
-        {PICTURES.map((photo, i) => (
-          <img key={photo} src={photo}
-            className={"wildlife-extra-img" + (i === current ? " active" : "")}
-            alt={i === current ? t.slides[i][0] : ""}
-            aria-hidden={i !== current} loading={i === 0 ? "eager" : "lazy"} decoding="async" />
-        ))}
-        <div className="wildlife-frame-copy" key={lang + current}>
-          <strong>{t.slides[current][0]}</strong><p>{t.slides[current][1]}</p>
-        </div>
-        <div className="wildlife-gallery-tools">
-          <span className="wildlife-count">{String(current + 1).padStart(2, "0")} / 10</span>
-          <div className="wildlife-gallery-buttons">
-            <button type="button" onClick={() => go(-1)} aria-label={t.previous}><ArrowLeft size={17}/></button>
-            <button type="button" onClick={() => setPaused(v => !v)} aria-label={paused ? t.resume : t.pause}>{paused ? <Play size={17}/> : <Pause size={17}/>}</button>
-            <button type="button" onClick={() => go(1)} aria-label={t.next}><ArrowRight size={17}/></button>
-          </div>
-        </div>
-      </div>
-    </section>
+      <span className="wildlife-story-kicker">{t.label}</span>
+      <h3>{lang === "fr" ? "Dix regards sur la faune de Madagascar" : lang === "mg" ? "Sary folo momba ny biby eto Madagasikara" : "Ten encounters with Madagascar's wildlife"}</h3>
+      <p className="wildlife-story-note">{t.note}</p>
+      {PICTURES.map((photo, index) => (
+        <React.Fragment key={photo}>
+          <figure className="wildlife-story-figure">
+            <div className="wildlife-story-photo">
+              <img src={photo} alt={t.slides[index][0]} decoding="async" loading={index < 2 ? "eager" : "lazy"} />
+              <span className="wildlife-story-index">{String(index + 1).padStart(2, "0")} / {String(PICTURES.length).padStart(2, "0")}</span>
+            </div>
+            <figcaption className="wildlife-story-caption">
+              <h4>{t.slides[index][0]}</h4>
+              <p>{t.slides[index][1]}</p>
+            </figcaption>
+          </figure>
+          {sections[index] && (
+            <section className="article-section">
+              <div className="article-section-number">{String(index + 1).padStart(2, "0")}</div>
+              <div>
+                <h2>{sections[index].title}</h2>
+                <p>{sections[index].text}</p>
+              </div>
+            </section>
+          )}
+        </React.Fragment>
+      ))}
+      <p className="wildlife-story-end">
+        {lang === "mg"
+          ? "Aza manelingelina ny biby rehefa mitsidika ala sy maka sary. Ny fanajana ny natiora no fahatsiarovana tsara indrindra."
+          : lang === "fr"
+            ? "Pour observer la faune, laissez de l'espace aux animaux et respectez leur habitat. La plus belle expérience est une rencontre naturelle."
+            : "Give animals space, respect their habitat and let each encounter happen naturally. The best wildlife memory is one that leaves nature undisturbed."}
+      </p>
+    </div>
   );
 }

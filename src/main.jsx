@@ -2707,13 +2707,13 @@ function Blog({ t, isMG }) {
       lastTime = now;
       const maxScroll = Math.max(0, reader.scrollHeight - reader.clientHeight);
       if (reader.scrollTop < maxScroll - 1) {
-        reader.scrollTop = Math.min(maxScroll, reader.scrollTop + elapsed * 0.029);
+        reader.scrollTop = Math.min(maxScroll, reader.scrollTop + elapsed * 0.038);
         frame = window.requestAnimationFrame(animateReading);
       }
     };
     delay = window.setTimeout(() => {
       frame = window.requestAnimationFrame(animateReading);
-    }, 1800);
+    }, 1200);
     return () => {
       window.clearTimeout(delay);
       window.cancelAnimationFrame(frame);
@@ -3061,12 +3061,12 @@ function Blog({ t, isMG }) {
 
 
                 {selectedPost.id === "wildlife-kirindy" && (
-                  <WildlifeArticleGallery lang={isMG ? "mg" : "en"} />
+                  <WildlifeArticleGallery lang={isMG ? "mg" : "en"} sections={selectedPost.sections || []} />
                 )}
 
                 {/* SECTIONS */}
 
-                {selectedPost.sections?.map(
+                {selectedPost.id !== "wildlife-kirindy" && selectedPost.sections?.map(
                   (section, index) => (
                     <motion.section
                       key={section.title}
