@@ -41,6 +41,7 @@ import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
+import CultureShowcase from "./CultureShowcase.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -2587,35 +2588,8 @@ function Conservation({ t, isMG, isFR }) {
 
 function Culture({ t, isMG, isFR }) {
   return (
-    <section
-      id="culture"
-      className="section culture"
-    >
-      <div className="culture-image reveal">
-        <img
-          src={imgs.culture}
-          alt="Madagascar culture and landscape"
-          loading="lazy"
-        />
-      </div>
-
-      <div className="culture-copy reveal">
-        <span className="eyebrow">
-          {isMG ? mgUI.culture.kicker : isFR ? frExtras.culture.kicker : "CULTURE"}
-        </span>
-
-        <h2>
-          {t.cultureTitle}
-        </h2>
-
-        <p>
-          {isMG ? mgUI.culture.text : isFR ? frExtras.culture.text : "Sakalava heritage, coastal life, local customs and respect, rural communities and environmental change."}
-        </p>
-
-        <div className="quote">
-          {isMG ? mgUI.culture.quote : isFR ? frExtras.culture.quote : "“Personal. Flexible. Field-based. Educational. Community-aware.”"}
-        </div>
-      </div>
+    <section id="culture" className="section culture-showcase-section">
+      <CultureShowcase lang={isMG ? "mg" : isFR ? "fr" : "en"} />
     </section>
   );
 }
