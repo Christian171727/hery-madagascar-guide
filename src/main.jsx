@@ -40,6 +40,7 @@ import BaobabGallery from "./BaobabGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
+import ManamboloGallery from "./ManamboloGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -2126,6 +2127,8 @@ function Destination({
           <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Palmarium / Ankan'ny Nofy" ? (
           <PalmariumGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+        ) : d[0] === "Manambolo River & Gorge" ? (
+          <ManamboloGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
           <img src={d[2]} alt={d[0]} loading="lazy" />
         )}
@@ -2160,7 +2163,13 @@ function Destination({
         </h3>
 
         <p>
-          {d[0] === "Palmarium / Ankan'ny Nofy"
+          {d[0] === "Manambolo River & Gorge"
+            ? (isMG
+              ? "Lohasaha mahavariana, fiampitana renirano ary dia tsy hay hadinoina."
+              : isFR
+                ? "Gorges spectaculaires, traversées fluviales et rencontres authentiques."
+                : "Spectacular river gorges, scenic crossings and unforgettable local encounters.")
+            : d[0] === "Palmarium / Ankan'ny Nofy"
             ? (isMG
               ? "Hihaona amin'ireo gidro mahavariana ao amin'ny natiora maitso atsinanan'i Madagasikara."
               : isFR
