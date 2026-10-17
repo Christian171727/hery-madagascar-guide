@@ -7531,3 +7531,59 @@ html[data-theme="dark"] .conservation-gallery-actions button {
   .conservation-gallery-dot,
   .conservation-gallery-link { animation: none!important; transition: none!important; }
 }
+
+
+/* Kirindy article: accessible continuous reading while keeping the original hero image. */
+.article-reader.kirindy-auto-reader {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(199,161,90,.65) transparent;
+}
+.kirindy-auto-reader .article-topbar {
+  position: sticky;
+  top: 0;
+  height: 0;
+  padding-top: 14px;
+  z-index: 30;
+  align-items: flex-start;
+}
+.kirindy-auto-reader .article-hero {
+  height: 430px;
+  min-height: 430px;
+  flex: none;
+}
+.kirindy-auto-reader .article-content {
+  display: block;
+  overflow: visible;
+  min-height: auto;
+}
+.article-autoread-toggle {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 13px;
+  border: 1px solid rgba(255,255,255,.42);
+  border-radius: 24px;
+  background: rgba(13,30,22,.78);
+  backdrop-filter: blur(12px);
+  color: white;
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.article-autoread-toggle:hover, .article-autoread-toggle:focus-visible {
+  background: rgba(174,132,63,.95);
+  color: #102019;
+}
+@media(max-width:560px) {
+  .kirindy-auto-reader .article-topbar { padding-left: 13px; padding-right: 13px; }
+  .article-autoread-toggle { width: 42px; min-width: 42px; padding: 0; }
+  .article-autoread-toggle span { display: none; }
+  .kirindy-auto-reader .article-hero { height: 380px; min-height: 380px; }
+}

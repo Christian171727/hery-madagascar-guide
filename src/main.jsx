@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from "react";
+﻿import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import emailjs from "@emailjs/browser";
 import { AnimatePresence, motion } from "framer-motion";
@@ -42,6 +42,7 @@ import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
 import CultureShowcase from "./CultureShowcase.jsx";
+import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -970,29 +971,49 @@ const posts = [
     title: "Wildlife in Kirindy: observing without disturbing",
     image: imgs.wildlife,
     category: "Wildlife",
-    duration: "4 min",
+    duration: "8 min",
     intro:
-      "Kirindy is one of the great natural areas of western Madagascar. A successful discovery begins with respectful observation of wildlife and its environment.",
+      "Kirindy Forest in western Madagascar is a place to slow down and observe. Between sunlit paths, dry forest, quiet branches and unexpected animal encounters, every detail tells a story. But the finest wildlife memory is not the closest photograph: it is the moment an animal carries on naturally because our presence has remained calm and respectful. This field guide explores how to discover Kirindy with patience, photograph responsibly, understand the living forest and turn curiosity into a meaningful travel experience.",
     sections: [
       {
         title: "Observe before getting closer",
         text:
-          "Wildlife observation requires time, patience and above all respect. The goal is not to disturb the animal, but to take the time to understand its behavior in its natural environment.",
+          "A rewarding wildlife encounter often begins with stillness. Stop, look at the branches, watch the ground and listen to the sounds around you. Let your eyes adjust to the forest rather than moving quickly from one sighting to the next. Birds, small reptiles, lemurs and other forest creatures may remain hidden even when they are nearby. Avoid approaching an animal just to obtain a dramatic picture: keep a comfortable distance, do not block its route, and never chase it into the open. Your guide can help you recognize signs of wildlife and decide when to move on. The best observation is one in which the animal continues feeding, resting or moving without changing its behavior because of you.",
       },
       {
-        title: "A field-based experience",
+        title: "A field-based experience in Kirindy",
         text:
-          "In Kirindy, encounters with wildlife can become a true field experience. Every observation depends on the moment, the light, the season and the behavior of the animals.",
+          "No two forest walks are identical. Time of day, weather, season and simple chance shape what visitors may see. A morning walk can reveal changing light and activity along the paths, while an appropriately organized evening visit offers a different atmosphere. Nothing in a wild forest is guaranteed, and that uncertainty is part of the beauty of the experience. Walk in a small group where possible, follow authorized trails and listen carefully to local guidance. Ask questions about the vegetation, habitats and relationships between species; those details transform a quick sighting into real understanding. Rather than racing to collect photographs, allow space for surprise, silence and the pleasure of discovering the forest at its own pace.",
       },
       {
-        title: "Photograph without disturbing",
+        title: "Photography without disturbing wildlife",
         text:
-          "Photography should always remain secondary to respect for the animal. Keeping a reasonable distance, avoiding sudden movements and allowing wildlife to behave naturally are essential.",
+          "Good wildlife photography is built on patience, not pressure. Use a suitable zoom or longer lens if you have one, and never touch, move or feed an animal for a photograph. Avoid flash when it may disturb wildlife, particularly during low-light encounters, and keep voices and movements soft. Choose compositions that include the habitat: a branch, textured bark, the floor of the dry forest or a shaft of natural light can tell as much of the story as a close-up. Take several moments to observe before lifting the camera; sometimes the most memorable picture appears after you have stopped trying to force it. If an animal shows signs of agitation or retreat, give it more space immediately.",
       },
       {
-        title: "A responsible approach",
+        title: "Why the forest deserves respect",
         text:
-          "Discovering Kirindy also means understanding the importance of protecting natural habitats and respecting the places where Madagascar's species live.",
+          "Kirindy is more than a beautiful stop on a Madagascar itinerary. Forest habitats support complex relationships among trees, insects, reptiles, birds and mammals, and they also exist within landscapes shaped by nearby communities. A responsible visitor stays on designated routes, avoids leaving litter, refrains from collecting plants or animals, and respects local rules. Small choices matter: a quiet approach, an honest question, care around fragile places and a willingness to support local guides all contribute to a more thoughtful experience. Conservation is not only a distant idea or a sign at an entrance. It is reflected in the choices travelers make whenever they enter a living landscape.",
+      },
+      {
+        title: "The remarkable details of Madagascar's biodiversity",
+        text:
+          "Wildlife discovery is not limited to the largest or most famous animals. A chameleon blending into leaves, a gecko clinging to tree bark, a snake resting on a branch or a small insect appearing after dark can be equally fascinating. These creatures remind us that healthy ecosystems depend on many kinds of life, including species people often overlook. The additional photographs in this article illustrate Madagascar's wider wildlife diversity; their precise photography locations have not all been verified as Kirindy. Take a moment to notice their colors, patterns and adaptations. Instead of approaching too closely, let the environment become part of the image and the story.",
+      },
+      {
+        title: "Daylight, dusk and the art of waiting",
+        text:
+          "Light changes the way we perceive a forest. Soft morning light can reveal details in leaves and bark; toward the end of the day, deeper shadows create more atmosphere and demand extra care from photographers. Keep expectations flexible and ask your guide what routes or times are appropriate and permitted. For low-light photography, a steady stance and patient observation may be more helpful than adding artificial light. If an authorized night walk is part of your program, respect the guide's instructions and avoid dazzling animals with bright beams. The goal is not to turn the forest into a studio; it is to learn to see what is already there.",
+      },
+      {
+        title: "People, place and responsible travel",
+        text:
+          "Meaningful travel includes the people who know a place best. Local guides bring knowledge of paths, animal behavior, weather and the everyday realities surrounding protected habitats. Listen to their stories and ask how to visit in ways that respect both the environment and nearby communities. Take time to appreciate ordinary moments, not only famous sightings: the sound of birds, textures of a tree, a discussion during a quiet walk or a simple view that changes in the afternoon sun. Planning with realistic expectations also matters. Wildlife is not a performance, and responsible tourism should never promise a close encounter that nature cannot guarantee.",
+      },
+      {
+        title: "Make your Kirindy journey memorable",
+        text:
+          "Come with comfortable walking shoes, water, curiosity and a willingness to slow down. Plan enough time for the forest rather than treating it as a quick photo stop. Tell HERY whether you are most interested in photography, biodiversity, learning about conservation or simply exploring the landscapes of western Madagascar. A local guide can help shape a visit around your interests and the conditions on the day, always with respect for access rules and wildlife. You may leave without the exact photograph you imagined, but with something more lasting: a deeper connection to the forest and a story you experienced rather than staged.",
       },
     ],
   },
@@ -2671,13 +2692,40 @@ function Services({ t, go, isMG, isFR }) {
 
 function Blog({ t, isMG }) {
   const [selectedPost, setSelectedPost] = useState(null);
+  const readerRef = useRef(null);
+  const [autoReading, setAutoReading] = useState(false);
+  useEffect(() => {
+    if (!selectedPost || selectedPost.id !== "wildlife-kirindy" || !autoReading) return;
+    const reader = readerRef.current;
+    if (!reader || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    let delay = 0;
+    let lastTime = 0;
+    const animateReading = (now) => {
+      const elapsed = lastTime ? Math.min(now - lastTime, 50) : 0;
+      lastTime = now;
+      const maxScroll = Math.max(0, reader.scrollHeight - reader.clientHeight);
+      if (reader.scrollTop < maxScroll - 1) {
+        reader.scrollTop = Math.min(maxScroll, reader.scrollTop + elapsed * 0.029);
+        frame = window.requestAnimationFrame(animateReading);
+      }
+    };
+    delay = window.setTimeout(() => {
+      frame = window.requestAnimationFrame(animateReading);
+    }, 1800);
+    return () => {
+      window.clearTimeout(delay);
+      window.cancelAnimationFrame(frame);
+    };
+  }, [selectedPost, autoReading]);
+
   const localizedPosts = isMG ? posts.map((post, i) => ({
     ...post,
     title: mgArticleTitles[i][0],
     category: mgArticleTitles[i][1],
     intro: mgArticleIntros[i],
     sections: post.sections.map((section, j) => ({
-      ...section, title: mgArticleSections[i][j][0], text: mgArticleSections[i][j][1],
+      ...section, title: mgArticleSections[i]?.[j]?.[0] || section.title, text: mgArticleSections[i]?.[j]?.[1] || section.text,
     })),
   })) : posts;
 
@@ -2687,6 +2735,7 @@ function Blog({ t, isMG }) {
 
   const openArticle = (post) => {
     setSelectedPost(post);
+    setAutoReading(post.id === "wildlife-kirindy");
     document.body.style.overflow = "hidden";
   };
 
@@ -2696,6 +2745,7 @@ function Blog({ t, isMG }) {
 
   const closeArticle = () => {
     setSelectedPost(null);
+    setAutoReading(false);
     document.body.style.overflow = "";
   };
 
@@ -2878,7 +2928,10 @@ function Blog({ t, isMG }) {
             {/* ARTICLE */}
 
             <motion.article
-              className="article-reader"
+              className={"article-reader" + (selectedPost.id === "wildlife-kirindy" ? " kirindy-auto-reader" : "")}
+              ref={readerRef}
+              onWheel={() => setAutoReading(false)}
+              onTouchStart={() => setAutoReading(false)}
               initial={{
                 opacity: 0,
                 y: 45,
@@ -2922,6 +2975,18 @@ function Blog({ t, isMG }) {
                   </span>
                 </button>
 
+
+                {selectedPost.id === "wildlife-kirindy" && (
+                  <button
+                    type="button"
+                    className="article-autoread-toggle"
+                    aria-pressed={autoReading}
+                    onClick={() => setAutoReading(v => !v)}
+                  >
+                    {autoReading ? <Pause size={15} /> : <Play size={15} />}
+                    <span>{autoReading ? (isMG ? "Ajanona" : "Pause auto-read") : (isMG ? "Tohizo" : "Resume auto-read")}</span>
+                  </button>
+                )}
 
                 <button
                   type="button"
@@ -2993,6 +3058,10 @@ function Blog({ t, isMG }) {
                   {selectedPost.intro}
                 </p>
 
+
+                {selectedPost.id === "wildlife-kirindy" && (
+                  <WildlifeArticleGallery lang={isMG ? "mg" : "en"} />
+                )}
 
                 {/* SECTIONS */}
 
