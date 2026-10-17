@@ -44,6 +44,7 @@ import PalmariumGallery from "./PalmariumGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
 import CultureShowcase from "./CultureShowcase.jsx";
 import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
+import WildlifeFeaturedPreview from "./WildlifeFeaturedPreview.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -1588,6 +1589,7 @@ function App() {
         <Blog
           t={t}
           isMG={isMG}
+          isFR={isFR}
         />
 
         <Offer
@@ -2691,7 +2693,7 @@ function Services({ t, go, isMG, isFR }) {
    BLOG
 ========================================================= */
 
-function Blog({ t, isMG }) {
+function Blog({ t, isMG, isFR }) {
   const [selectedPost, setSelectedPost] = useState(null);
   const readerRef = useRef(null);
   const [autoReading, setAutoReading] = useState(false);
@@ -2848,6 +2850,10 @@ function Blog({ t, isMG }) {
                 }
                 aria-label={`Open article: ${post.title}`}
               >
+                {post.id === "wildlife-kirindy" ? (
+                  <WildlifeFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
+                ) : (
+                  <>
                 {/* IMAGE */}
 
                 <div className="post-image">
@@ -2883,6 +2889,8 @@ function Blog({ t, isMG }) {
                     <ArrowRight size={14} />
                   </span>
                 </div>
+                  </>
+                )}
               </button>
             </motion.article>
           ))}
