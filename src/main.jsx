@@ -39,6 +39,7 @@ import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
 import SainteMarieGallery from "./SainteMarieGallery.jsx";
+import RN7Gallery from "./RN7Gallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
@@ -2144,6 +2145,7 @@ function Destination({
   isFR,
 }) {
   const [sainteMarieScene, setSainteMarieScene] = useState(null);
+  const [rn7Scene, setRn7Scene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2171,6 +2173,8 @@ function Destination({
           <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
         ) : d[0] === "Sainte Marie" ? (
           <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setSainteMarieScene} />
+        ) : d[0] === "RN7" ? (
+          <RN7Gallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setRn7Scene} />
         ) : d[0] === "Kirindy Forest" ? (
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
@@ -2221,6 +2225,16 @@ function Destination({
             <small>{sainteMarieScene?.kicker || (isMG ? "FITSAHARAM-PANAHY" : isFR ? "ÉVASION INSULAIRE" : "ISLAND ESCAPE")}</small>
             <strong>{sainteMarieScene?.title || (isMG ? "Toerana ifanenan'ny lanitra sy ny ranomasina" : isFR ? "Là où le ciel rejoint la mer" : "Where the sky meets the sea")}</strong>
             <p>{sainteMarieScene?.description || (isMG ? "Masoandro mody mamirapiratra, lakana ary fotoana tsy hay hadinoina." : isFR ? "Couchers de soleil dorés, bateaux de pêche et instants inoubliables." : "Golden sunsets, fishing boats and moments you'll wish could last forever.")}</p>
+          </div>
+        ) : d[0] === "RN7" ? (
+          <div
+            className="rn7-detail"
+            key={`${rn7Scene?.id || 1}-${isMG ? "mg" : isFR ? "fr" : "en"}`}
+            aria-live="off"
+          >
+            <small>{rn7Scene?.kicker || (isMG ? "DIA MANKANY ATSIMO" : isFR ? "SUR LA ROUTE DU SUD" : "THE SOUTHERN ROUTE")}</small>
+            <strong>{rn7Scene?.title || (isMG ? "Eto no manomboka ny fahitana ny atsimo" : isFR ? "Le sud commence par la découverte" : "The south begins with discovery")}</strong>
+            <p>{rn7Scene?.description || (isMG ? "Mijanòna eo ambanin'ny aloky ny hazo ary ankafizo ny hakanton'ny atsimon'i Madagasikara." : isFR ? "Prenez votre temps à l'ombre des arbres et savourez l'accueil du sud de Madagascar." : "Slow down beneath the trees and enjoy the warm welcome of southern Madagascar.")}</p>
           </div>
         ) : (
         <p>
