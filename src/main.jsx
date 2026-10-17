@@ -2931,8 +2931,6 @@ function Blog({ t, isMG }) {
             <motion.article
               className={"article-reader" + (selectedPost.id === "wildlife-kirindy" ? " kirindy-auto-reader" : "")}
               ref={readerRef}
-              onWheel={() => setAutoReading(false)}
-              onTouchStart={() => setAutoReading(false)}
               initial={{
                 opacity: 0,
                 y: 45,
