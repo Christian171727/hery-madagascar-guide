@@ -9,6 +9,7 @@ import {
   Sun,
   Moon,
   ArrowRight,
+  ArrowLeft,
   ChevronDown,
   MessageCircle,
   MessageCircleMore,
@@ -1792,21 +1793,76 @@ function Header({
    HERO
 ========================================================= */
 
+const HERY_REAL_HERO_PHOTOS = [
+  "/images/hero-couverture/cover-1.avif",
+  "/images/hero-couverture/cover-2.avif",
+  "/images/hero-couverture/cover-3.avif",
+  "/images/hero-couverture/cover-4.avif",
+  "/images/hero-couverture/cover-5.avif",
+];
+const HERY_HERO_DELAY = 4000;
+
 function Hero({ t, go, isMG, isFR }) {
+  const [heroIndex, setHeroIndex] = useState(0);
+  useEffect(() => {
+    const timer = window.setTimeout(
+      () => setHeroIndex(i => (i + 1) % HERY_REAL_HERO_PHOTOS.length),
+      HERY_HERO_DELAY
+    );
+    return () => window.clearTimeout(timer);
+  }, [heroIndex]);
+  useEffect(() => {
+    const photo = new Image();
+    photo.src = HERY_REAL_HERO_PHOTOS[(heroIndex + 1) % HERY_REAL_HERO_PHOTOS.length];
+  }, [heroIndex]);
+
+  const step = direction => setHeroIndex(i =>
+    (i + direction + HERY_REAL_HERO_PHOTOS.length) % HERY_REAL_HERO_PHOTOS.length
+  );
+  const labels = isMG
+    ? {previous: "Sary teo aloha", next: "Sary manaraka", photo: "Sarin'ny Accueil"}
+    : isFR
+      ? {previous: "Photo précédente", next: "Photo suivante", photo: "Photos d'accueil"}
+      : {previous: "Previous photo", next: "Next photo", photo: "Homepage photographs"};
+
   return (
-    <section
-      id="home"
-      className="hero"
-    >
-      <div
-        className="hero-bg"
-        style={{
-          backgroundImage:
-            `url(${imgs.hero})`,
-        }}
-      />
+    <section id="home" className="hero">
+      <div className="hery-hero-slideshow" role="region" aria-roledescription="carousel" aria-label={labels.photo}>
+        {HERY_REAL_HERO_PHOTOS.map((src, index) => (
+          <img key={src} src={src} alt="" aria-hidden="true"
+            className={`hery-hero-photo${heroIndex === index ? " is-active" : ""}`}
+            loading={index === 0 ? "eager" : "lazy"}
+            fetchPriority={index === 0 ? "high" : "auto"}
+            decoding="async"
+            onError={event => {
+              if (!event.currentTarget.src.endsWith("/images/hero.jpg")) {
+                event.currentTarget.src = "/images/hero.jpg";
+              }
+            }}
+          />
+        ))}
+      </div>
 
       <div className="hero-overlay" />
+
+      <div className="hery-hero-controls">
+        <button type="button" aria-label={labels.previous} onClick={() => step(-1)}>
+          <ArrowLeft size={18} />
+        </button>
+        <button type="button" aria-label={labels.next} onClick={() => step(1)}>
+          <ArrowRight size={18} />
+        </button>
+      </div>
+      <div className="hery-hero-dots" role="group" aria-label={labels.photo}>
+        {HERY_REAL_HERO_PHOTOS.map((src, index) => (
+          <button key={src} type="button"
+            className={heroIndex === index ? "is-active" : ""}
+            aria-label={`${labels.photo} ${index + 1}`}
+            aria-current={heroIndex === index ? "true" : undefined}
+            onClick={() => setHeroIndex(index)}
+          />
+        ))}
+      </div>
 
       <div className="hero-gradient" />
 

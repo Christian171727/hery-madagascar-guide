@@ -7756,3 +7756,17 @@ html[data-theme="dark"] .conservation-gallery-actions button {
   .post.featured .wildlife-feature-stage img.wildlife-feature-photo.active { transform: none; }
   .wildlife-feature-progress>span,.wildlife-feature-dynamic,.wildlife-feature-image-caption { animation: none; }
 }
+
+/* Original COUVERTURE baobab photographs: rotating homepage background. */
+.hery-hero-slideshow{position:absolute;inset:0;z-index:0;overflow:hidden;background:#162b2d;pointer-events:none}
+.hery-hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;opacity:0;transition:opacity 1050ms ease;filter:none;transform:scale(1.015);pointer-events:none}
+.hery-hero-photo.is-active{opacity:1;animation:hery-cover-drift 4s linear both}
+@keyframes hery-cover-drift{from{transform:scale(1.015)}to{transform:scale(1.045)}}
+.hery-hero-controls{position:absolute;right:clamp(10px,2vw,35px);top:49%;transform:translateY(-50%);z-index:7;display:flex;flex-direction:column;gap:10px}
+.hery-hero-controls button{display:grid;place-items:center;width:42px;height:42px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(5,22,33,.50);color:#fff;backdrop-filter:blur(5px);cursor:pointer;transition:background .2s ease,transform .2s ease}
+.hery-hero-controls button:hover,.hery-hero-controls button:focus-visible{background:rgba(205,164,84,.93);transform:scale(1.07);outline-offset:3px}
+.hery-hero-dots{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:7;display:flex;gap:10px;align-items:center;justify-content:center}
+.hery-hero-dots button{height:10px;width:10px;border:1px solid rgba(255,255,255,.9);border-radius:50%;background:rgba(255,255,255,.40);padding:0;cursor:pointer;transition:width .25s ease,background .25s ease}
+.hery-hero-dots button.is-active{width:26px;border-radius:99px;border-color:#f1c66e;background:#f1c66e}
+@media(max-width:720px){.hery-hero-controls{right:10px;top:auto;bottom:90px;transform:none;flex-direction:row}.hery-hero-controls button{width:33px;height:33px}.hery-hero-dots{bottom:14px;gap:7px}.hery-hero-dots button{width:8px;height:8px}.hery-hero-dots button.is-active{width:20px}}
+@media(prefers-reduced-motion:reduce){.hery-hero-photo{transition:none!important}.hery-hero-photo.is-active{animation:none!important}}
