@@ -26,6 +26,7 @@ import {
   Users,
   Search,
   Play,
+  Pause,
   Clock,
   Mountain,
   TreePine,
