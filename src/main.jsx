@@ -2125,7 +2125,7 @@ function Destination({
           <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
           <img src={d[2]} alt={d[0]} loading="lazy" />
-        )
+        )}
 
         <div className="dest-overlay" />
 
