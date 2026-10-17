@@ -74,11 +74,13 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
   const [photos, setPhotos] = useState([]);
   const [ready, setReady] = useState(false);
   const [current, setCurrent] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [manualPaused, setManualPaused] = useState(false);
+  const [hoverPaused, setHoverPaused] = useState(false);
+  const [focusPaused, setFocusPaused] = useState(false);
+  const [previousIndex, setPreviousIndex] = useState(null);
   const [visible, setVisible] = useState(false);
   const [pageVisible, setPageVisible] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const [loaded, setLoaded] = useState({});
 
   useEffect(() => {
     const node = galleryRef.current;
@@ -134,6 +136,7 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
       if (!canceled) {
         setPhotos(results.filter(Boolean));
         setCurrent(0);
+        setPreviousIndex(null);
         setReady(true);
       }
     }
@@ -150,15 +153,17 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
   const caption = photos.length > 0
     ? captions[item.index]
     : [ui.fallbackTitle, ui.fallbackText];
+  const paused = manualPaused || hoverPaused || focusPaused;
   const shouldPlay = visible && pageVisible && !paused && !reduceMotion && available.length > 1 && ready;
 
   useEffect(() => {
     if (!shouldPlay) return;
     const handle = window.setInterval(() => {
-      setCurrent((n) => (n + 1) % available.length);
+      setPreviousIndex(current);
+      setCurrent((current + 1) % available.length);
     }, INTERVAL);
     return () => window.clearInterval(handle);
-  }, [shouldPlay, available.length]);
+  }, [shouldPlay, available.length, current]);
 
   useEffect(() => {
     if (available.length < 2 || !visible) return;
@@ -168,42 +173,54 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
     image.src = next.src;
   }, [current, available.length, ready, visible]);
 
-  const previous = () => setCurrent((n) => (n - 1 + available.length) % available.length);
-  const next = () => setCurrent((n) => (n + 1) % available.length);
+  const goTo = (index) => {
+    if (index === current) return;
+    setPreviousIndex(current);
+    setCurrent(index);
+  };
+  const previous = () => goTo((current - 1 + available.length) % available.length);
+  const next = () => goTo((current + 1) % available.length);
 
   return (
     <div
       className="conservation-gallery"
       ref={galleryRef}
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
+      onMouseEnter={() => setHoverPaused(true)}
+      onMouseLeave={() => setHoverPaused(false)}
+      onFocusCapture={() => setFocusPaused(true)}
       onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false);
-      }}
+        if (!event.currentTarget.contains(event.relatedTarget)) setFocusPaused(false);
+      }
       role="region"
       aria-roledescription="carousel"
       aria-label="HERY Madagascar conservation photo gallery"
     >
       <div className="conservation-gallery-stage">
-        {available.map((photo, index) => (
+        {previousIndex !== null && available[previousIndex] && available[previousIndex].src !== item.src && (
           <img
-            key={photo.src}
-            className={`conservation-gallery-photo${index === current ? " is-current" : ""}`}
-            src={photo.src}
-            alt={photo.id === "forest" ? "Forest in Madagascar" : `Conservation and community activities in Madagascar — photo ${photo.id}`}
-            loading="lazy"
+            key={`previous-${available[previousIndex].src}`}
+            className="conservation-gallery-photo is-previous"
+            src={available[previousIndex].src}
+            alt=""
+            aria-hidden="true"
             decoding="async"
-            onLoad={() => setLoaded((list) => ({ ...list, [photo.src]: true }))}
-            onError={() => {
-              if (photo.id !== "forest") {
-                setPhotos((list) => list.filter((entry) => entry.src !== photo.src));
-                setCurrent(0);
-              }
-            }}
-            aria-hidden={index !== current}
           />
-        ))}
+        )}
+        <img
+          key={item.src}
+          className="conservation-gallery-photo is-current"
+          src={item.src}
+          alt={item.id === "forest" ? "Forest in Madagascar" : `Conservation and community activities in Madagascar — photo ${item.id}`}
+          loading="lazy"
+          decoding="async"
+          onError={() => {
+            if (item.id !== "forest") {
+              setPhotos((list) => list.filter((entry) => entry.src !== item.src));
+              setCurrent(0);
+              setPreviousIndex(null);
+            }
+          }}
+        />
         <div className="conservation-gallery-shade" aria-hidden="true" />
         <div className="conservation-gallery-caption" key={item.src + lang}>
           <span className="conservation-gallery-eyebrow"><Leaf size={15} /> {ui.category}</span>
@@ -225,7 +242,7 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
               <button
                 type="button"
                 key={photo.src}
-                onClick={() => setCurrent(index)}
+                onClick={() => goTo(index)}
                 className={`conservation-gallery-dot${index === current ? " is-current" : ""}`}
                 aria-label={`${ui.goto} ${index + 1}`}
                 aria-current={index === current ? "true" : undefined}
@@ -234,8 +251,8 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
           </div>
           <div className="conservation-gallery-actions">
             <button type="button" onClick={previous} aria-label={ui.back}><ArrowLeft size={17} /></button>
-            <button type="button" onClick={() => setPaused((value) => !value)} aria-label={paused ? ui.play : ui.pause}>
-              {paused ? <Play size={16} /> : <Pause size={16} />}
+            <button type="button" onClick={() => setManualPaused((value) => !value)} aria-label={manualPaused ? ui.play : ui.pause}>
+              {manualPaused ? <Play size={16} /> : <Pause size={16} />}
             </button>
             <button type="button" onClick={next} aria-label={ui.next}><ArrowRight size={17} /></button>
           </div>
