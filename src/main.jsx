@@ -39,6 +39,7 @@ import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
+import PalmariumGallery from "./PalmariumGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -2123,6 +2124,8 @@ function Destination({
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
           <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+        ) : d[0] === "Palmarium / Ankan'ny Nofy" ? (
+          <PalmariumGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
           <img src={d[2]} alt={d[0]} loading="lazy" />
         )}
@@ -2157,7 +2160,13 @@ function Destination({
         </h3>
 
         <p>
-          {isMG ? mgUI.destinations[i] || d[1] : isFR ? frExtras.destinations[i] || d[1] : d[1]}
+          {d[0] === "Palmarium / Ankan'ny Nofy"
+            ? (isMG
+              ? "Hihaona amin'ireo gidro mahavariana ao amin'ny natiora maitso atsinanan'i Madagasikara."
+              : isFR
+                ? "Rencontrez des lémuriens fascinants au cœur de l'Est luxuriant de Madagascar."
+                : "Meet unforgettable lemurs in the lush forests of eastern Madagascar.")
+            : isMG ? mgUI.destinations[i] || d[1] : isFR ? frExtras.destinations[i] || d[1] : d[1]}
         </p>
 
         <button
