@@ -38,6 +38,7 @@ import "./style.css";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
+import SainteMarieGallery from "./SainteMarieGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
@@ -2167,6 +2168,8 @@ function Destination({
       <div className="dest-img">
         {d[0] === "Avenue of Baobabs" ? (
           <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
+        ) : d[0] === "Sainte Marie" ? (
+          <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Kirindy Forest" ? (
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
@@ -2209,7 +2212,13 @@ function Destination({
         </h3>
 
         <p>
-          {d[0] === "Manambolo River & Gorge"
+          {d[0] === "Sainte Marie"
+            ? (isMG
+              ? "Masoandro mody mamirapiratra, morontsiraka mahafinaritra ary fahatsiarovana tsy hay hadinoina."
+              : isFR
+                ? "Soleils couchants dorés, rencontres authentiques et souvenirs inoubliables au bord de la mer."
+                : "Golden sunsets, authentic coastal encounters and seaside memories to treasure.")
+            : d[0] === "Manambolo River & Gorge"
             ? (isMG
               ? "Lohasaha mahavariana, fiampitana renirano ary dia tsy hay hadinoina."
               : isFR
