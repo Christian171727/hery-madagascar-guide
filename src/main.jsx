@@ -37,6 +37,7 @@ import "./style.css";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
+import KirindyGallery from "./KirindyGallery.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -2117,6 +2118,8 @@ function Destination({
       <div className="dest-img">
         {d[0] === "Avenue of Baobabs" ? (
           <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
+        ) : d[0] === "Kirindy Forest" ? (
+          <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
           <img src={d[2]} alt={d[0]} loading="lazy" />
         )}
