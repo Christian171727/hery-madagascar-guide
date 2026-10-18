@@ -46,6 +46,7 @@ import MenabeGallery from "./MenabeGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
+import HiddenMomentsExperience from "./HiddenMomentsExperience.jsx";
 import NorthernMadagascarGallery from "./NorthernMadagascarGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
 import CultureShowcase from "./CultureShowcase.jsx";
@@ -1619,6 +1620,11 @@ function App() {
           isFR={isFR}
         />
 
+        <HiddenMomentsExperience
+          lang={isMG ? "mg" : isFR ? "fr" : "en"}
+          onContact={() => go("contact")}
+        />
+
         <Blog
           t={t}
           isMG={isMG}
@@ -2849,6 +2855,14 @@ function Services({ t, go, isMG, isFR }) {
             </motion.article>
           )
         )}
+      </div>
+
+      <div className="hm-service-invite">
+        <span>{isMG ? "Te hiaina fotoana miavaka eo ambanin'ny baobab ve ianao?" : isFR ? "Envie d'un moment privilégié parmi les baobabs ?" : "Looking for something more personal than an ordinary tour?"}</span>
+        <button type="button" onClick={() => go("hidden-moments")}>
+          {isMG ? "Fantaro ny fotoana manokana" : isFR ? "Découvrir nos instants privilégiés" : "Explore our hidden moments"}
+          <ArrowRight size={16} />
+        </button>
       </div>
     </section>
   );
