@@ -1,130 +1,140 @@
 import React, { useEffect, useState } from "react";
-import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
-const PHOTOS = Array.from({ length: 10 }, (_, i) => "/images/palmarium/palmarium" + (i + 1) + ".jpeg");
+// Seven owner-provided photographs. The words beneath the card follow the active photo.
+const PHOTOS = Array.from({ length: 7 }, (_, index) => ({
+  id: index + 1,
+  src: `/images/palmarium-new/palmarium-${String(index + 1).padStart(2, "0")}.avif`,
+}));
 const FALLBACK = "/images/Palmarium.jpg";
-const COPY = {
+const DELAY_MS = 4000;
+
+const STORIES = {
   en: {
     previous: "Previous photo", next: "Next photo", pause: "Pause slideshow", play: "Resume slideshow",
-    slides: [
-      ["A world beyond the ordinary", "Meet the lemurs of Madagascar's green eastern forests.", "PALMARIUM · ANKAN'NY NOFY"],
-      ["Eyes full of curiosity", "Every forest encounter has a story to tell.", "WILDLIFE ENCOUNTERS"],
-      ["A moment to remember", "Get closer to Madagascar's fascinating natural world.", "LEMUR DISCOVERY"],
-      ["Life among the branches", "Discover the playful spirit of the treetops.", "NATURE & WILDLIFE"],
-      ["Nature brings us together", "Create special memories surrounded by forest life.", "FOREST EXPERIENCES"],
-      ["Discover their wild side", "Unforgettable wildlife moments await your camera.", "MADAGASCAR WILDLIFE"],
-      ["Into the green canopy", "Slow down, look up and enjoy the forest.", "EASTERN MADAGASCAR"],
-      ["An enchanting encounter", "Be amazed by the expressions of Madagascar's lemurs.", "LEMUR DISCOVERY"],
-      ["Every glance is a memory", "Let the magic of wildlife surprise you.", "NATURE CLOSE-UP"],
-      ["Your next story starts here", "Explore an unforgettable escape with HERY as your guide.", "DISCOVER WITH HERY"]
-    ]
+    alt: "Lemurs and rainforest life at Palmarium / Ankan'ny Nofy",
+    scenes: [
+      ["Eyes full of wonder", "Golden eyes and a russet ruff make this lemur portrait impossible to forget. Meet Madagascar's forest personalities up close.", "A PORTRAIT OF THE WILD"],
+      ["The art of climbing", "With a sure grip on the trunk, a dark-furred lemur reveals the effortless agility of life among the trees.", "TREE-TOP EXPLORER"],
+      ["A forest with secrets", "Sunlight filters between slender trunks. Look carefully: movement in the canopy can turn a quiet walk into a discovery.", "INTO THE GREEN"],
+      ["A curious pause", "A dark lemur clings to a tree and takes in its surroundings. Sometimes the most unforgettable moment is the stillest one.", "CLOSE TO NATURE"],
+      ["Black, white and unforgettable", "A striking black-and-white lemur rests among fresh green leaves — a beautiful glimpse into Madagascar's biodiversity.", "LEMUR ENCOUNTERS"],
+      ["Follow the forest canopy", "Look beyond the leaves and up into the branches: the rainforest is a living world waiting to be explored.", "RAINFOREST STORIES"],
+      ["A little surprise in the trees", "A long-tailed forest visitor pauses among the trunks. Slow down and notice the tiny details that make the wild so special.", "HIDDEN FOREST LIFE"],
+    ],
   },
   fr: {
     previous: "Photo précédente", next: "Photo suivante", pause: "Mettre en pause", play: "Reprendre le diaporama",
-    slides: [
-      ["Un monde à part", "Rencontrez les lémuriens des forêts verdoyantes de l'Est.", "PALMARIUM · ANKAN'NY NOFY"],
-      ["Des regards curieux", "Chaque rencontre en forêt raconte une histoire.", "RENCONTRES SAUVAGES"],
-      ["Un instant inoubliable", "Approchez la nature fascinante de Madagascar.", "DÉCOUVERTE DES LÉMURIENS"],
-      ["La vie dans les branches", "Découvrez l'énergie des habitants de la canopée.", "NATURE & FAUNE"],
-      ["La nature nous rassemble", "Créez des souvenirs uniques au cœur de la forêt.", "EXPÉRIENCE EN FORÊT"],
-      ["Découvrez leur côté sauvage", "Vivez des instants qui méritent une photo.", "FAUNE DE MADAGASCAR"],
-      ["Au cœur de la canopée", "Prenez le temps de contempler la forêt tropicale.", "EST DE MADAGASCAR"],
-      ["Une rencontre magique", "Laissez-vous émerveiller par ces lémuriens expressifs.", "RENCONTRES AVEC LES LÉMURIENS"],
-      ["Un regard, un souvenir", "La vie sauvage vous réserve de belles surprises.", "NATURE EN GROS PLAN"],
-      ["Votre aventure commence ici", "Explorez autrement avec HERY, votre guide local.", "DÉCOUVREZ AVEC HERY"]
-    ]
+    alt: "Lémuriens et forêt tropicale au Palmarium / Ankan'ny Nofy",
+    scenes: [
+      ["Un regard inoubliable", "Ses yeux dorés et sa fourrure rousse rendent ce portrait de lémurien fascinant. Approchez la personnalité des habitants de la forêt.", "PORTRAIT SAUVAGE"],
+      ["L'art de grimper", "Agrippé au tronc, ce lémurien au pelage sombre révèle toute l'agilité de la vie dans les arbres.", "EXPLORATEUR DES ARBRES"],
+      ["Une forêt pleine de secrets", "La lumière traverse les arbres élancés. Observez bien : un mouvement dans la canopée peut transformer la promenade en découverte.", "AU CŒUR DU VERT"],
+      ["Une pause curieuse", "Un lémurien sombre s'accroche à un arbre et observe son environnement. Les instants les plus calmes sont parfois les plus mémorables.", "AU PLUS PRÈS DE LA NATURE"],
+      ["Noir, blanc et remarquable", "Un lémurien noir et blanc se repose parmi les feuilles : un superbe aperçu de la biodiversité malgache.", "RENCONTRE AVEC LES LÉMURIENS"],
+      ["Levez les yeux vers la canopée", "Au-delà des feuilles et des branches, la forêt tropicale cache un monde vivant qui ne demande qu'à être découvert.", "HISTOIRES DE FORÊT"],
+      ["Une surprise parmi les arbres", "Un discret visiteur à longue queue s'arrête sur les troncs. Prenez le temps d'admirer les détails de la vie sauvage.", "VIE SECRÈTE DE LA FORÊT"],
+    ],
   },
   mg: {
-    previous: "Sary teo aloha", next: "Sary manaraka", pause: "Ajanona", play: "Tohizana",
-    slides: [
-      ["Tontolo hafa mihitsy", "Hihaona amin'ireo gidro mahavariana any Atsinanana.", "PALMARIUM · ANKAN'NY NOFY"],
-      ["Maso feno fahalianana", "Samy manana ny tantarany ny fihaonana anaty ala.", "ZAVABOARY"],
-      ["Fotoana tsy hay hadinoina", "Fantaro akaiky ny natiora mampiavaka an'i Madagasikara.", "FANTARO NY GIDRO"],
-      ["Fiainana eny an-tampon-kazo", "Ankafizo ireo fihetsika mahafinaritra eny an'ala.", "NATIORA SY BIBY"],
-      ["Mampiray antsika ny natiora", "Mamoròna fahatsiarovana miavaka anaty ala.", "FITSIKIHANA NY ALA"],
-      ["Hakitroky ny fiainana", "Misy fotoana mahafinaritra mendrika horaketina an-tsary.", "BIBY ETO MADAGASIKARA"],
-      ["Mitsangàna, jereo ny ala", "Ankafizo am-pilaminana ny hakanton'ny natiora.", "ATSINANAN'I MADAGASIKARA"],
-      ["Fihaonana mahavariana", "Jereo akaiky ireo endrika mampiavaka ny gidro.", "FANTARO NY GIDRO"],
-      ["Fijery iray, fahatsiarovana", "Mahagaga foana ny fiainan'ny biby anaty ala.", "NATIORA AKAiKY"],
-      ["Eto no manomboka ny dianao", "HERY no hitarika anao hahita zava-baovao.", "MIARAKA AMIN'I HERY"]
-    ]
-  }
+    previous: "Sary teo aloha", next: "Sary manaraka", pause: "Ajanona aloha", play: "Tohizana ny sary",
+    alt: "Gidro sy zavamananaina anaty ala ao Palmarium / Ankan'ny Nofy",
+    scenes: [
+      ["Maso mampitolagaga", "Maso mivolombolamena sy volo mena no mampiavaka ity gidro ity. Fantaro akaiky ireo biby miavaka ao anaty ala.", "HAKANTON'NY BIBY"],
+      ["Mahay miakatra hazo", "Mifikitra mafy amin'ny vatan-kazo ny gidro mainty, mampiseho ny fahaizany miaina sy mihetsika eny ambony hazo.", "MPITETY HAZO"],
+      ["Ala feno zava-miafina", "Mamirapiratra eo anelanelan'ny hazo ny tara-masoandro. Diniho tsara fa mety hahita zavamananaina eny amin'ny rantsana ianao.", "FANTARO NY ALA"],
+      ["Fotoana mangina mahavariana", "Mijanona eo amin'ny vatan-kazo ilay gidro ary mandinika ny manodidina. Na fotoana fohy aza dia mety tsy hay hadinoina.", "AKAIKIN'NY NATIORA"],
+      ["Mainty sy fotsy, tena miavaka", "Gidro mainty sy fotsy mipetraka eny amin'ny rantsana maitso: iray amin'ireo hakanton'ny zavaboary eto Madagasikara.", "FIHAONANA AMIN'NY GIDRO"],
+      ["Jereo eny ambony ravinkazo", "Any ambadiky ny ravina sy ny rantsana no misy tontolo velona, feno zavatra mahavariana azo fantarina.", "TANTARAN'NY ALA"],
+      ["Zavaboary miafina eny amin'ny hazo", "Zavamananaina manana rambony lava no hita eo amin'ny hazo. Mijanòna kely hijery ireo antsipirian'ny fiainana anaty ala.", "ZAVA-MIAFIN'NY ALA"],
+    ],
+  },
 };
-const CSS = [
-  ".dest-img .palmarium-gallery{position:absolute;inset:0;overflow:hidden;isolation:isolate;background:#132c24;color:#fff}",
-  ".dest-img .palmarium-gallery .palmarium-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1);filter:none;transition:opacity .95s ease;pointer-events:none}",
-  ".dest-img .palmarium-gallery .palmarium-slide.active{opacity:1;animation:palmarium-zoom 4s ease-out both}",
-  ".destination-card:hover .dest-img .palmarium-gallery .palmarium-slide{filter:none}",
-  "@keyframes palmarium-zoom{from{transform:scale(1)}to{transform:scale(1.07)}}",
-  ".dest-img .palmarium-gradient{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 27%,rgba(7,18,12,.08) 45%,rgba(5,18,15,.85) 100%);pointer-events:none}",
-  ".dest-img .palmarium-caption{position:absolute;left:14px;right:14px;bottom:55px;z-index:3;text-shadow:0 2px 10px rgba(0,0,0,.55);pointer-events:none;animation:palmarium-rise .55s ease both}",
-  ".dest-img .palmarium-caption small{display:block;color:#f0dba2;font-size:9px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;margin:0 0 5px}",
-  ".dest-img .palmarium-caption strong{display:block;font-size:16px;line-height:1.22;font-weight:800;max-width:265px}",
-  ".dest-img .palmarium-caption p{font-size:11px;line-height:1.4;margin:5px 0 0;color:#fff;max-width:275px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}",
-  "@keyframes palmarium-rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}",
-  ".dest-img .palmarium-controls{position:absolute;bottom:13px;left:12px;right:12px;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:6px}",
-  ".dest-img .palmarium-counter{padding:7px 10px;border-radius:999px;background:rgba(7,18,15,.65);font-size:11px;color:#fff;font-weight:800;backdrop-filter:blur(8px)}",
-  ".dest-img .palmarium-buttons{display:flex;gap:5px}",
-  ".dest-img .palmarium-buttons button{display:grid;place-items:center;width:31px;height:31px;border:1px solid rgba(255,255,255,.5);border-radius:50%;background:rgba(12,27,21,.69);color:#fff;cursor:pointer;padding:0;backdrop-filter:blur(6px)}",
-  ".dest-img .palmarium-buttons button:hover,.dest-img .palmarium-buttons button:focus-visible{background:#627e55}",
-  ".dest-img .palmarium-timer{position:absolute;bottom:0;left:0;right:0;height:3px;z-index:5;background:rgba(255,255,255,.25)}",
-  ".dest-img .palmarium-timer>span{display:block;width:100%;height:100%;background:#d9bb7d;transform-origin:left;animation:palmarium-fill 4s linear both}",
-  "@keyframes palmarium-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}",
-  "@media(prefers-reduced-motion:reduce){.dest-img .palmarium-gallery .palmarium-slide.active,.dest-img .palmarium-caption{animation:none}.dest-img .palmarium-gallery .palmarium-slide{transition:none}}"
-].join("\n");
 
-export default function PalmariumGallery({ lang = "en" }) {
+const CSS = `
+.dest-img .palmarium-gallery{position:absolute;inset:0;z-index:1;overflow:hidden;isolation:isolate;background:#193323;color:#fff}
+.dest-img .palmarium-gallery .palmarium-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;opacity:0;transform:scale(1.045)!important;filter:none!important;transition:opacity .9s ease,transform 4s linear;pointer-events:none}
+.dest-img .palmarium-gallery .palmarium-slide.is-active{opacity:1;transform:scale(1)!important}
+.destination-card:hover .dest-img .palmarium-gallery .palmarium-slide{filter:none!important}
+.palmarium-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,transparent 73%,rgba(10,28,20,.44));pointer-events:none}
+.palmarium-top-tag{position:absolute;left:14px;bottom:63px;z-index:4;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.32);background:rgba(9,39,25,.65);backdrop-filter:blur(7px);padding:7px 11px;border-radius:999px;font-size:9px;letter-spacing:.1em;font-weight:800;color:#f1df9f}
+.palmarium-toolbar{position:absolute;bottom:15px;left:13px;right:13px;z-index:6;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.palmarium-count{display:inline-block;background:rgba(9,34,23,.76);backdrop-filter:blur(8px);border-radius:999px;padding:8px 12px;color:#fff;font-size:11px;font-weight:800;letter-spacing:.07em;font-variant-numeric:tabular-nums}
+.palmarium-actions{display:flex;gap:6px}
+.palmarium-actions button{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(8,32,22,.74);border:1px solid rgba(255,255,255,.64);backdrop-filter:blur(7px);color:#fff;padding:0;cursor:pointer;transition:background .2s,transform .2s}
+.palmarium-actions button:hover,.palmarium-actions button:focus-visible{background:#9a743d;transform:translateY(-2px)}
+.palmarium-progress{position:absolute;bottom:0;left:0;right:0;z-index:7;height:4px;background:rgba(255,255,255,.27)}
+.palmarium-progress span{display:block;width:100%;height:100%;background:linear-gradient(90deg,#d6aa54,#f2dfb1);transform-origin:left;animation:palmarium-fill 4s linear both}
+.destination-card .dest-body .palmarium-detail{margin:15px 0 12px;padding:11px 0 11px 14px;border-left:3px solid #bc974f;min-height:156px;animation:palmarium-rise .72s cubic-bezier(.18,.72,.2,1) both}
+.destination-card .dest-body .palmarium-detail small{display:block;font-size:9px;letter-spacing:.12em;line-height:1.5;color:var(--gold-600,#ad823a);font-weight:900;margin-bottom:7px}
+.destination-card .dest-body .palmarium-detail strong{display:block;font-family:'Cormorant Garamond',serif;font-weight:800;font-size:clamp(21px,1.8vw,26px);line-height:1.08;color:var(--ink,#1c352a)}
+.destination-card .dest-body .palmarium-detail p{margin:8px 0 0;font-size:11px;line-height:1.65;color:var(--muted,#50645a)}
+@keyframes palmarium-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes palmarium-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:650px){.destination-card .dest-body .palmarium-detail{min-height:168px}.destination-card .dest-body .palmarium-detail strong{font-size:23px}}
+@media(prefers-reduced-motion:reduce){.dest-img .palmarium-gallery .palmarium-slide{transition:none!important;transform:none!important}.palmarium-detail,.palmarium-progress span{animation:none!important}}
+`;
+
+export default function PalmariumGallery({ lang = "en", onSceneChange }) {
+  const locale = STORIES[lang] || STORIES.en;
   const [images, setImages] = useState(PHOTOS);
-  const [current, setCurrent] = useState(0);
+  const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const locale = COPY[lang] || COPY.en;
-  const number = Number((images[current] || "").match(/palmarium(\d+)\.jpeg/)?.[1] || 1);
-  const info = locale.slides[number - 1] || locale.slides[0];
+  const current = Math.min(index, images.length - 1);
+  const photo = images[current];
+  const scene = locale.scenes[(photo?.id || 1) - 1] || locale.scenes[0];
+
+  useEffect(() => {
+    onSceneChange?.({ id: photo?.id || 1, kicker: scene[2], title: scene[0], description: scene[1] });
+  }, [photo?.id, lang, onSceneChange]);
 
   useEffect(() => {
     if (paused || images.length < 2) return;
-    const timer = window.setTimeout(() => setCurrent(i => (i + 1) % images.length), 4000);
+    const timer = window.setTimeout(() => setIndex(i => (i + 1) % images.length), DELAY_MS);
     return () => window.clearTimeout(timer);
-  }, [current, paused, images.length]);
+  }, [index, paused, images.length]);
 
   useEffect(() => {
     if (images.length < 2) return;
-    const preload = new Image();
-    preload.src = images[(current + 1) % images.length];
+    const upcoming = new Image();
+    upcoming.src = images[(current + 1) % images.length].src;
   }, [current, images]);
 
-  const step = (direction) => setCurrent(i => (i + direction + images.length) % images.length);
-  const handleError = (src) => {
+  function handleError(src) {
     if (src === FALLBACK) return;
-    setImages(old => {
-      const remaining = old.filter(item => item !== src);
-      return remaining.length ? remaining : [FALLBACK];
+    setImages(existing => {
+      const available = existing.filter(item => item.src !== src);
+      return available.length ? available : [{ id: 1, src: FALLBACK }];
     });
-    setCurrent(0);
-  };
+    setIndex(0);
+  }
 
-  return <div className="palmarium-gallery" role="region" aria-roledescription="carousel" aria-label="Palmarium Ankan'ny Nofy wildlife photo carousel">
-    <style>{CSS}</style>
-    {images.map((src, index) =>
-      <img key={src} src={src} alt={index === current ? info[0] + " — Madagascar" : ""}
-        aria-hidden={index !== current} decoding="async" loading={index < 2 ? "eager" : "lazy"}
-        className={"palmarium-slide" + (index === current ? " active" : "")}
-        onError={() => handleError(src)} />
-    )}
-    <div className="palmarium-gradient" aria-hidden="true" />
-    <div className="palmarium-caption" key={current + "-" + lang}>
-      <small>{info[2]}</small><strong>{info[0]}</strong><p>{info[1]}</p>
+  const move = offset => setIndex(i => (i + offset + images.length) % images.length);
+  return (
+    <div className="palmarium-gallery" role="region" aria-roledescription="carousel" aria-label={locale.alt}>
+      <style>{CSS}</style>
+      {images.map((item, i) => (
+        <img key={item.src} src={item.src}
+          alt={i === current ? scene[0] : ""} aria-hidden={i !== current}
+          className={`palmarium-slide${i === current ? " is-active" : ""}`}
+          decoding="async" loading={i < 2 ? "eager" : "lazy"}
+          onError={() => handleError(item.src)} />
+      ))}
+      <div className="palmarium-shade" aria-hidden="true" />
+      <span className="palmarium-top-tag"><Leaf size={12} /> PALMARIUM · WILDLIFE</span>
+      {images.length > 1 && (
+        <>
+          <div className="palmarium-toolbar">
+            <span className="palmarium-count">{String(current + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</span>
+            <div className="palmarium-actions">
+              <button type="button" onClick={() => move(-1)} aria-label={locale.previous}><ArrowLeft size={16} /></button>
+              <button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? locale.play : locale.pause}>{paused ? <Play size={15} /> : <Pause size={15} />}</button>
+              <button type="button" onClick={() => move(1)} aria-label={locale.next}><ArrowRight size={16} /></button>
+            </div>
+          </div>
+          {!paused && <div className="palmarium-progress" aria-hidden="true"><span key={photo?.src || "fallback"} /></div>}
+        </>
+      )}
     </div>
-    <div className="palmarium-controls">
-      <span className="palmarium-counter">{String(current + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</span>
-      <div className="palmarium-buttons">
-        <button type="button" onClick={() => step(-1)} aria-label={locale.previous}><ArrowLeft size={15} /></button>
-        <button type="button" onClick={() => setPaused(p => !p)} aria-label={paused ? locale.play : locale.pause}>{paused ? <Play size={15} /> : <Pause size={15} />}</button>
-        <button type="button" onClick={() => step(1)} aria-label={locale.next}><ArrowRight size={15} /></button>
-      </div>
-    </div>
-    <div className="palmarium-timer" aria-hidden="true">
-      {!paused && <span key={current + "-" + paused} />}
-    </div>
-  </div>;
+  );
 }

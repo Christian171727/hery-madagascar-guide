@@ -2207,6 +2207,7 @@ function Destination({
   const [tsingyScene, setTsingyScene] = useState(null);
   const [menabeScene, setMenabeScene] = useState(null);
   const [andasibeScene, setAndasibeScene] = useState(null);
+  const [palmariumScene, setPalmariumScene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2245,7 +2246,7 @@ function Destination({
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
           <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setAndasibeScene} />
         ) : d[0] === "Palmarium / Ankan'ny Nofy" ? (
-          <PalmariumGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+          <PalmariumGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setPalmariumScene} />
         ) : d[0] === "Manambolo River & Gorge" ? (
           <ManamboloGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
@@ -2281,7 +2282,17 @@ function Destination({
           {d[0]}
         </h3>
 
-        {d[0] === "Andasibe & Eastern Madagascar" ? (
+        {d[0] === "Palmarium / Ankan'ny Nofy" ? (
+          <div
+            className="palmarium-detail"
+            key={"palmarium-" + (palmariumScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
+            aria-live="off"
+          >
+            <small>{palmariumScene?.kicker || (isMG ? "HAKANTON'NY BIBY" : isFR ? "PORTRAIT SAUVAGE" : "A PORTRAIT OF THE WILD")}</small>
+            <strong>{palmariumScene?.title || (isMG ? "Maso mampitolagaga" : isFR ? "Un regard inoubliable" : "Eyes full of wonder")}</strong>
+            <p>{palmariumScene?.description || (isMG ? "Maso mivolombolamena sy volo mena no mampiavaka ity gidro ity. Fantaro akaiky ireo biby miavaka ao anaty ala." : isFR ? "Ses yeux dorés et sa fourrure rousse rendent ce portrait de lémurien fascinant." : "Golden eyes and a russet ruff make this lemur portrait impossible to forget.")}</p>
+          </div>
+        ) : d[0] === "Andasibe & Eastern Madagascar" ? (
           <div
             className="andasibe-story"
             key={"andasibe-" + (andasibeScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
@@ -2336,12 +2347,6 @@ function Destination({
               : isFR
                 ? "Gorges spectaculaires, traversées fluviales et rencontres authentiques."
                 : "Spectacular river gorges, scenic crossings and unforgettable local encounters.")
-            : d[0] === "Palmarium / Ankan'ny Nofy"
-            ? (isMG
-              ? "Hihaona amin'ireo gidro mahavariana ao amin'ny natiora maitso atsinanan'i Madagasikara."
-              : isFR
-                ? "Rencontrez des lémuriens fascinants au cœur de l'Est luxuriant de Madagascar."
-                : "Meet unforgettable lemurs in the lush forests of eastern Madagascar.")
             : isMG ? mgUI.destinations[i] || d[1] : isFR ? frExtras.destinations[i] || d[1] : d[1]}
         </p>
         )}
