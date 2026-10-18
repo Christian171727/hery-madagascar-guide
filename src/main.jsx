@@ -2206,6 +2206,7 @@ function Destination({
   const [rn7Scene, setRn7Scene] = useState(null);
   const [tsingyScene, setTsingyScene] = useState(null);
   const [menabeScene, setMenabeScene] = useState(null);
+  const [andasibeScene, setAndasibeScene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2242,7 +2243,7 @@ function Destination({
         ) : d[0] === "Kirindy Forest" ? (
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
-          <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+          <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setAndasibeScene} />
         ) : d[0] === "Palmarium / Ankan'ny Nofy" ? (
           <PalmariumGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Manambolo River & Gorge" ? (
@@ -2280,7 +2281,17 @@ function Destination({
           {d[0]}
         </h3>
 
-        {d[0] === "Morondava & Menabe" ? (
+        {d[0] === "Andasibe & Eastern Madagascar" ? (
+          <div
+            className="andasibe-story"
+            key={"andasibe-" + (andasibeScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
+            aria-live="off"
+          >
+            <small>{andasibeScene?.kicker || (isMG ? "MASO MIFANKAHITA" : isFR ? "FACE À FACE" : "FACE TO FACE")}</small>
+            <strong>{andasibeScene?.title || (isMG ? "Fijery mahafinaritra ao anaty ala" : isFR ? "Un regard qui raconte la forêt" : "A curious forest gaze")}</strong>
+            <p>{andasibeScene?.description || (isMG ? "Jereo akaiky ny mason'ny gidro ary ankafizo ny hakanton'ny ala velona eto Madagasikara." : isFR ? "Croisez le regard expressif d'un lémurien et ressentez la magie des forêts malgaches." : "Meet the expressive eyes of a lemur and feel the magic of Madagascar's living forests.")}</p>
+          </div>
+        ) : d[0] === "Morondava & Menabe" ? (
           <div className="menabe-detail"
             key={"menabe-" + (menabeScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")} aria-live="off">
             <small>{menabeScene?.kicker || (isMG ? "DIA FENO ZAVA-BAOVAO" : isFR ? "ESPRIT D'AVENTURE" : "A SENSE OF ADVENTURE")}</small>
