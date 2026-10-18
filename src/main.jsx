@@ -41,6 +41,7 @@ import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
 import SainteMarieGallery from "./SainteMarieGallery.jsx";
 import RN7Gallery from "./RN7Gallery.jsx";
+import TsingyGallery from "./TsingyGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
@@ -2202,6 +2203,7 @@ function Destination({
 }) {
   const [sainteMarieScene, setSainteMarieScene] = useState(null);
   const [rn7Scene, setRn7Scene] = useState(null);
+  const [tsingyScene, setTsingyScene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2231,6 +2233,8 @@ function Destination({
           <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setSainteMarieScene} />
         ) : d[0] === "RN7" ? (
           <RN7Gallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setRn7Scene} />
+        ) : d[0] === "Tsingy de Bemaraha" ? (
+          <TsingyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setTsingyScene} />
         ) : d[0] === "Kirindy Forest" ? (
           <KirindyGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : d[0] === "Andasibe & Eastern Madagascar" ? (
@@ -2272,7 +2276,17 @@ function Destination({
           {d[0]}
         </h3>
 
-        {d[0] === "Sainte Marie" ? (
+        {d[0] === "Tsingy de Bemaraha" ? (
+          <div
+            className="tsingy-detail"
+            key={"tsingy-" + (tsingyScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
+            aria-live="off"
+          >
+            <small>{tsingyScene?.kicker || (isMG ? "FITADIAVANA ZAVA-BAOVAO" : isFR ? "L'ART D'EXPLORER" : "THE ART OF EXPLORATION")}</small>
+            <strong>{tsingyScene?.title || (isMG ? "Fiainana miafina eny anaty vato" : isFR ? "Une vie cachée dans les rochers" : "Life hidden among the rocks")}</strong>
+            <p>{tsingyScene?.description || (isMG ? "Diniho akaiky: na dia ny vatolampy aza dia misy zava-mahatalanjona tokony ho fantarina." : isFR ? "Regardez de plus près : même le monde minéral des tsingy recèle des trésors inattendus." : "Look closer: even the rugged limestone world holds extraordinary details waiting to be discovered.")}</p>
+          </div>
+        ) : d[0] === "Sainte Marie" ? (
           <div
             className="sainte-marie-detail"
             key={`${sainteMarieScene?.id || 1}-${isMG ? "mg" : isFR ? "fr" : "en"}`}
