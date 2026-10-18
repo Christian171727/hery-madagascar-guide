@@ -48,6 +48,7 @@ import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
 import HiddenMomentsExperience from "./HiddenMomentsExperience.jsx";
+import FieldJourneyVideo from "./FieldJourneyVideo.jsx";
 import NorthernMadagascarGallery from "./NorthernMadagascarGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
 import CultureShowcase from "./CultureShowcase.jsx";
@@ -1622,6 +1623,11 @@ function App() {
         />
 
         <HiddenMomentsExperience
+          lang={isMG ? "mg" : isFR ? "fr" : "en"}
+          onContact={() => go("contact")}
+        />
+
+        <FieldJourneyVideo
           lang={isMG ? "mg" : isFR ? "fr" : "en"}
           onContact={() => go("contact")}
         />
