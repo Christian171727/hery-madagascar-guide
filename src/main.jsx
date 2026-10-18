@@ -42,6 +42,7 @@ import BaobabGallery from "./BaobabGallery.jsx";
 import SainteMarieGallery from "./SainteMarieGallery.jsx";
 import RN7Gallery from "./RN7Gallery.jsx";
 import TsingyGallery from "./TsingyGallery.jsx";
+import MenabeGallery from "./MenabeGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
@@ -2204,6 +2205,7 @@ function Destination({
   const [sainteMarieScene, setSainteMarieScene] = useState(null);
   const [rn7Scene, setRn7Scene] = useState(null);
   const [tsingyScene, setTsingyScene] = useState(null);
+  const [menabeScene, setMenabeScene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2227,7 +2229,9 @@ function Destination({
       }}
     >
       <div className="dest-img">
-        {d[0] === "Avenue of Baobabs" ? (
+        {d[0] === "Morondava & Menabe" ? (
+          <MenabeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setMenabeScene} />
+        ) : d[0] === "Avenue of Baobabs" ? (
           <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
         ) : d[0] === "Sainte Marie" ? (
           <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setSainteMarieScene} />
@@ -2276,7 +2280,14 @@ function Destination({
           {d[0]}
         </h3>
 
-        {d[0] === "Tsingy de Bemaraha" ? (
+        {d[0] === "Morondava & Menabe" ? (
+          <div className="menabe-detail"
+            key={"menabe-" + (menabeScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")} aria-live="off">
+            <small>{menabeScene?.kicker || (isMG ? "DIA FENO ZAVA-BAOVAO" : isFR ? "ESPRIT D'AVENTURE" : "A SENSE OF ADVENTURE")}</small>
+            <strong>{menabeScene?.title || (isMG ? "Dia miavaka tsy hay hadinoina" : isFR ? "Une aventure hors du commun" : "A journey beyond the ordinary")}</strong>
+            <p>{menabeScene?.description || (isMG ? "Fantaro ny lafiny hafa amin'i Madagasikara, ny tontolo mahavariana ary ny fotoana tena izy." : isFR ? "Découvrez une autre facette de Madagascar : des paysages remarquables et des instants à vivre pleinement." : "Discover another side of Madagascar: remarkable landscapes and real moments worth experiencing.")}</p>
+          </div>
+        ) : d[0] === "Tsingy de Bemaraha" ? (
           <div
             className="tsingy-detail"
             key={"tsingy-" + (tsingyScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
