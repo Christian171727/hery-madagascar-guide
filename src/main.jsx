@@ -46,6 +46,7 @@ import MenabeGallery from "./MenabeGallery.jsx";
 import KirindyGallery from "./KirindyGallery.jsx";
 import AndasibeGallery from "./AndasibeGallery.jsx";
 import PalmariumGallery from "./PalmariumGallery.jsx";
+import NorthernMadagascarGallery from "./NorthernMadagascarGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
 import CultureShowcase from "./CultureShowcase.jsx";
 import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
@@ -887,6 +888,12 @@ const destinations = [
     "Landscapes, villages and southern route",
     imgs.rn7,
     "12",
+  ],
+  [
+    "Northern Madagascar",
+    "Discover the chameleons, forests and hidden wildlife of northern Madagascar",
+    "/images/northern-madagascar/north-1.avif",
+    "13",
   ],
 ];
 
@@ -2208,6 +2215,7 @@ function Destination({
   const [menabeScene, setMenabeScene] = useState(null);
   const [andasibeScene, setAndasibeScene] = useState(null);
   const [palmariumScene, setPalmariumScene] = useState(null);
+  const [northScene, setNorthScene] = useState(null);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2247,6 +2255,8 @@ function Destination({
           <AndasibeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setAndasibeScene} />
         ) : d[0] === "Palmarium / Ankan'ny Nofy" ? (
           <PalmariumGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setPalmariumScene} />
+        ) : d[0] === "Northern Madagascar" ? (
+          <NorthernMadagascarGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setNorthScene} />
         ) : d[0] === "Manambolo River & Gorge" ? (
           <ManamboloGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} />
         ) : (
@@ -2282,7 +2292,15 @@ function Destination({
           {d[0]}
         </h3>
 
-        {d[0] === "Palmarium / Ankan'ny Nofy" ? (
+        {d[0] === "Northern Madagascar" ? (
+          <div className="north-story"
+            key={"north-" + (northScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
+            aria-live="off">
+            <small>{northScene?.kicker || (isMG ? "BIBY MAHAY MIAFINA" : isFR ? "CACHÉ À LA VUE DE TOUS" : "HIDDEN IN PLAIN SIGHT")}</small>
+            <strong>{northScene?.title || (isMG ? "Mahay miafina amin'ny hodi-kazo" : isFR ? "Un petit maître du camouflage" : "A tiny master of disguise")}</strong>
+            <p>{northScene?.description || (isMG ? "Diniho tsara ny hazo: saika tsy hita mihitsy ity biby mandady kely ity noho ny lokony." : isFR ? "Regardez l'écorce de près : ce petit reptile se fond presque parfaitement dans son environnement." : "Look closely at the tree bark: this little reptile almost disappears into its natural surroundings.")}</p>
+          </div>
+        ) : d[0] === "Palmarium / Ankan'ny Nofy" ? (
           <div
             className="palmarium-detail"
             key={"palmarium-" + (palmariumScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
