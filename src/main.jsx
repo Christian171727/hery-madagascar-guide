@@ -2313,9 +2313,9 @@ function Destination({
             key={`${rn7Scene?.id || 1}-${isMG ? "mg" : isFR ? "fr" : "en"}`}
             aria-live="off"
           >
-            <small>{rn7Scene?.kicker || (isMG ? "DIA MANKANY ATSIMO" : isFR ? "SUR LA ROUTE DU SUD" : "THE SOUTHERN ROUTE")}</small>
-            <strong>{rn7Scene?.title || (isMG ? "Eto no manomboka ny fahitana ny atsimo" : isFR ? "Le sud commence par la découverte" : "The south begins with discovery")}</strong>
-            <p>{rn7Scene?.description || (isMG ? "Mijanòna eo ambanin'ny aloky ny hazo ary ankafizo ny hakanton'ny atsimon'i Madagasikara." : isFR ? "Prenez votre temps à l'ombre des arbres et savourez l'accueil du sud de Madagascar." : "Slow down beneath the trees and enjoy the warm welcome of southern Madagascar.")}</p>
+            <small>{rn7Scene?.kicker || (isMG ? "FIHAONANA AMIN'NY MAKI" : isFR ? "RENCONTRE AVEC LES LÉMURIENS" : "LEMUR ENCOUNTERS")}</small>
+            <strong>{rn7Scene?.title || (isMG ? "Hihaona amin'ireo maki mahavariana" : isFR ? "Rencontrez les makis de Madagascar" : "Meet Madagascar's ring-tailed lemurs")}</strong>
+            <p>{rn7Scene?.description || (isMG ? "Jereo akaiky ny maki manana rambony misy tsipika mainty sy fotsy. Ny fihetsiny sy ny fijeriny dia mamela fahatsiarovana mamy." : isFR ? "Un groupe de lémuriens à queue annelée vous invite à l'observation. Leurs regards et leurs queues rayées rendent la rencontre inoubliable." : "A family of iconic makis greets the curious traveller. Their striped tails and expressive faces make each encounter special.")}</p>
           </div>
         ) : (
         <p>

@@ -1,55 +1,176 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 
-const PHOTOS = Array.from({ length: 6 }, (_, i) => ({
-  id: i + 1,
-  src: `/images/rn7/rn7${i + 1}.avif`,
-}));
+const PHOTOS = [
+  { id: 1, src: "/images/rn7-wildlife/wildlife1.avif", position: "center center" },
+  { id: 2, src: "/images/rn7-wildlife/wildlife2.avif", position: "center center" },
+  { id: 3, src: "/images/rn7-wildlife/wildlife3.avif", position: "28% center" },
+  { id: 4, src: "/images/rn7-wildlife/wildlife4.avif", position: "center center" },
+  { id: 5, src: "/images/rn7-wildlife/wildlife5.avif", position: "center center" },
+  { id: 6, src: "/images/rn7-wildlife/wildlife6.avif", position: "center center" },
+  { id: 7, src: "/images/rn7-wildlife/wildlife7.avif", position: "center center" },
+  { id: 8, src: "/images/rn7-wildlife/wildlife8.avif", position: "center center" },
+];
 const FALLBACK = "/images/RN7.jpg";
 const DELAY = 4000;
 
 const COPY = {
-  en: {
-    previous: "Previous photo", next: "Next photo", pause: "Pause slideshow", play: "Resume slideshow",
-    scenes: [
-      ["The south begins with discovery", "Slow down beneath the trees and enjoy the warm welcome of southern Madagascar.", "THE SOUTHERN ROUTE"],
-      ["Beyond the road, turquoise shores", "Follow the southern journey to Mangily, where traditional boats rest beside blue waters.", "MANGILY COAST"],
-      ["A breath of ocean freedom", "Sandy beaches and colorful pirogues invite you to take your time and explore.", "COASTAL DISCOVERY"],
-      ["Where the journey meets the sea", "Palm-fringed shores and endless blue horizons turn each stop into a memory.", "SOUTHERN ESCAPE"],
-      ["Nature's quieter side", "Discover the delicate beauty of mangroves and the wildlife around the water.", "MANGROVE LIFE"],
-      ["Every detail holds a surprise", "From birds to forest textures, the south rewards those who look a little closer.", "WILDLIFE ENCOUNTERS"],
-    ],
+  "en": {
+    "previous": "Previous photo",
+    "next": "Next photo",
+    "pause": "Pause slideshow",
+    "play": "Resume slideshow",
+    "tag": "WILDLIFE ALONG RN7",
+    "scenes": [
+      [
+        "Meet Madagascar's ring-tailed lemurs",
+        "A family of iconic makis greets the curious traveller. Their striped tails and expressive faces make each encounter special.",
+        "LEMUR ENCOUNTERS"
+      ],
+      [
+        "A feathered treasure of the forest",
+        "Discover a beautifully patterned forest bird. Patience and a quiet moment can reveal extraordinary details.",
+        "RAINFOREST BIRDS"
+      ],
+      [
+        "A master of camouflage",
+        "Spot a chameleon resting among the branches. Madagascar's reptiles reward those who slow down and look closely.",
+        "CHAMELEON DISCOVERY"
+      ],
+      [
+        "Follow the forest's hidden paths",
+        "Walk beneath Ranomafana's green canopy, where every turn promises fresh air, new sounds and unexpected discoveries.",
+        "RANOMAFANA TRAILS"
+      ],
+      [
+        "The beauty of a forest bird",
+        "Look closer at the delicate patterns and jewel-like colours of a bird moving quietly along the forest floor.",
+        "HIDDEN FOREST LIFE"
+      ],
+      [
+        "Striped tails, unforgettable moments",
+        "Meet the lively ring-tailed lemurs of Madagascar's southern landscapes, a remarkable highlight of the RN7 journey.",
+        "MADAGASCAR MAKIS"
+      ],
+      [
+        "Adventure beneath the rainforest canopy",
+        "From shaded trails to wildlife calls, a guided forest walk invites you to connect with Madagascar's living nature.",
+        "WALK INTO NATURE"
+      ],
+      [
+        "Wild beauty, up close",
+        "Even a brief pause can reveal a rare-looking moment: fine feathers, bright colours and the secrets of a forest bird.",
+        "NATURE'S LITTLE WONDERS"
+      ]
+    ]
   },
-  fr: {
-    previous: "Photo précédente", next: "Photo suivante", pause: "Mettre en pause", play: "Reprendre le diaporama",
-    scenes: [
-      ["Le sud commence par la découverte", "Prenez votre temps à l'ombre des arbres et savourez l'accueil du sud de Madagascar.", "SUR LA ROUTE DU SUD"],
-      ["Au-delà de la route, la mer turquoise", "Poursuivez votre voyage jusqu'à Mangily, où les pirogues bordent les eaux bleues.", "CÔTE DE MANGILY"],
-      ["Une bouffée de liberté en bord de mer", "Plages de sable et pirogues colorées vous invitent à ralentir et à explorer.", "DÉCOUVERTE CÔTIÈRE"],
-      ["Là où le voyage rejoint l'océan", "Les plages bordées de palmiers et les horizons bleus promettent de beaux souvenirs.", "ÉVASION AU SUD"],
-      ["La nature dans toute sa douceur", "Découvrez la beauté fragile des mangroves et la vie sauvage près de l'eau.", "VIE DES MANGROVES"],
-      ["Chaque détail est une surprise", "Des oiseaux aux secrets de la forêt, le sud récompense les regards curieux.", "RENCONTRES SAUVAGES"],
-    ],
+  "fr": {
+    "previous": "Photo précédente",
+    "next": "Photo suivante",
+    "pause": "Mettre en pause",
+    "play": "Reprendre le diaporama",
+    "tag": "FAUNE SUR LA RN7",
+    "scenes": [
+      [
+        "Rencontrez les makis de Madagascar",
+        "Un groupe de lémuriens à queue annelée vous invite à l'observation. Leurs regards et leurs queues rayées rendent la rencontre inoubliable.",
+        "RENCONTRE AVEC LES LÉMURIENS"
+      ],
+      [
+        "Un trésor à plumes dans la forêt",
+        "Admirez un oiseau forestier au plumage fascinant. Le calme et la patience révèlent de petits trésors de la nature.",
+        "OISEAUX DE LA FORÊT"
+      ],
+      [
+        "Un maître du camouflage",
+        "Repérez un caméléon parmi les branches. Les reptiles malgaches réservent de belles surprises aux regards attentifs.",
+        "DÉCOUVERTE DU CAMÉLÉON"
+      ],
+      [
+        "Sur les sentiers secrets de la forêt",
+        "Marchez sous la canopée verdoyante de Ranomafana, entre chants d'oiseaux, air frais et découvertes inattendues.",
+        "SENTIERS DE RANOMAFANA"
+      ],
+      [
+        "La beauté d'un oiseau forestier",
+        "Observez la finesse des motifs et les reflets des plumes d'un oiseau discret au sol de la forêt.",
+        "VIE SECRÈTE DE LA FORÊT"
+      ],
+      [
+        "Queues rayées, souvenirs précieux",
+        "Les makis emblématiques des paysages du sud offrent un moment fort d'un voyage le long de la RN7.",
+        "LES MAKIS DE MADAGASCAR"
+      ],
+      [
+        "L'aventure sous la canopée",
+        "Entre sentiers ombragés et sons de la faune, une balade guidée vous rapproche de la nature malgache.",
+        "IMMERSION NATURE"
+      ],
+      [
+        "La nature sauvage, tout près",
+        "Un instant d'observation dévoile plumage délicat, belles couleurs et secrets d'un oiseau forestier.",
+        "MERVEILLES DISCRÈTES"
+      ]
+    ]
   },
-  mg: {
-    previous: "Sary teo aloha", next: "Sary manaraka", pause: "Ajanona aloha", play: "Tohizana ny sary",
-    scenes: [
-      ["Eto no manomboka ny fahitana ny atsimo", "Mijanòna eo ambanin'ny aloky ny hazo ary ankafizo ny hakanton'ny atsimon'i Madagasikara.", "DIA MANKANY ATSIMO"],
-      ["Any ambadiky ny lalana ny ranomasina", "Tohizo ny dianao mankany Mangily, ahitana lakana sy ranomasina manga mahafinaritra.", "MORONTSIRAK'I MANGILY"],
-      ["Hafaliana eny amoron-dranomasina", "Fasika sy lakana miloko no manasa anao hitsidika sy hankafy fotoana miavaka.", "FANTARO NY MORONTSIRAKA"],
-      ["Mifanojo ny dia sy ny ranomasina", "Morontsiraka feno rofia sy lanitra manga no mamorona fahatsiarovana mamy.", "FITSAHARAM-PANAHY ATSIMO"],
-      ["Ny hakanton'ny natiora mangina", "Fantaro ireo ala honko sy zavamananaina manodidina ny rano.", "ALA HONKO"],
-      ["Mahagaga ny antsipiriany tsirairay", "Ny vorona sy ny zava-misy anaty ala dia mampiavaka ny fitsidihana atsimo.", "FANTARO NY ZAVABOARY"],
-    ],
-  },
+  "mg": {
+    "previous": "Sary teo aloha",
+    "next": "Sary manaraka",
+    "pause": "Ajanona aloha",
+    "play": "Tohizana ny sary",
+    "tag": "BIBY SY NATIORA AMIN'NY RN7",
+    "scenes": [
+      [
+        "Hihaona amin'ireo maki mahavariana",
+        "Jereo akaiky ny maki manana rambony misy tsipika mainty sy fotsy. Ny fihetsiny sy ny fijeriny dia mamela fahatsiarovana mamy.",
+        "FIHAONANA AMIN'NY MAKI"
+      ],
+      [
+        "Vorona kanto miafina anaty ala",
+        "Misy vorona mahafinaritra manana volo voaravaka tsara. Ny faharetana sy ny fandinihana no ahitana azy.",
+        "VORONA ANATY ALA"
+      ],
+      [
+        "Mahay miafina ny tanalahy",
+        "Jereo ny tanalahy mitsambikina sy miala sasatra eny amin'ny sampan-kazo. Feno zava-mahagaga ny biby eto Madagasikara.",
+        "FANTARO NY TANALAHY"
+      ],
+      [
+        "Araho ny lalana miafina anaty ala",
+        "Mitsangatsangàna eo ambanin'ny hazo maitso ao Ranomafana, mihaino ny feon'ny vorona ary mahita zava-baovao.",
+        "LALAN'I RANOMAFANA"
+      ],
+      [
+        "Hatsaran'ny vorona eny anaty ala",
+        "Diniho ny endriky ny volo sy ny lokon'ilay vorona mandeha mangina eny amin'ny tany rakotra ravina.",
+        "FIANAN'NY ALA"
+      ],
+      [
+        "Rambo miloko, fotoana tsy hay hadinoina",
+        "Ny maki malaza manana rambony misy tsipika dia anisan'ny fahitana mahafinaritra mandritra ny dia any atsimo.",
+        "MAKI ETO MADAGASIKARA"
+      ],
+      [
+        "Fizahantany eo ambanin'ny hazo avo",
+        "Ny lalan'ala sy ny feon'ny biby dia mampahatsapa ny hakanton'ny natiora eto Madagasikara.",
+        "TSIDIHO NY NATIORA"
+      ],
+      [
+        "Zava-mahagaga hita akaiky",
+        "Fotoana fohy hijanonana dia ampy hahitana ny volo miloko sy ny fiainana miafin'ny vorona anaty ala.",
+        "HAKANTON'NY ZAVABOARY"
+      ]
+    ]
+  }
 };
 
 const CSS = `
-.dest-img .rn7-gallery{position:absolute;inset:0;z-index:1;overflow:hidden;isolation:isolate;background:#2b241f;color:#fff}
-.dest-img .rn7-gallery .rn7-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1)!important;filter:none!important;transition:opacity .82s ease;pointer-events:none}
-.dest-img .rn7-gallery .rn7-slide.is-active{opacity:1}
+.dest-img .rn7-gallery{position:absolute;inset:0;z-index:1;overflow:hidden;isolation:isolate;background:#1d3c2d;color:#fff}
+.dest-img .rn7-gallery .rn7-slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.045)!important;filter:none!important;transition:opacity .9s ease,transform 4s ease;pointer-events:none}
+.dest-img .rn7-gallery .rn7-slide.is-active{opacity:1;transform:scale(1)!important}
 .destination-card:hover .dest-img .rn7-gallery .rn7-slide{filter:none!important;transform:scale(1)!important}
-.rn7-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 58%,rgba(33,24,18,.10) 81%,rgba(33,24,18,.37) 100%);pointer-events:none}
+.rn7-shade{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,transparent 65%,rgba(6,26,20,.08) 78%,rgba(4,24,18,.49) 100%);pointer-events:none}
+.rn7-forest-tag{position:absolute;bottom:64px;left:14px;z-index:4;border:1px solid rgba(252,230,170,.47);border-radius:8px;background:rgba(9,43,29,.65);backdrop-filter:blur(6px);color:#ffe5ad;padding:6px 9px;font-size:9px;letter-spacing:.1em;font-weight:900;max-width:calc(100% - 25px);pointer-events:none}
 .rn7-toolbar{position:absolute;left:12px;right:12px;bottom:15px;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .rn7-counter{display:inline-flex;align-items:center;padding:7px 10px;border-radius:999px;background:rgba(18,14,12,.66);color:#fff;font-size:11px;font-weight:800;letter-spacing:.07em;backdrop-filter:blur(7px)}
 .rn7-actions{display:flex;gap:5px}
@@ -64,7 +185,7 @@ const CSS = `
 @keyframes rn7-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes rn7-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media(max-width:600px){.destination-card .dest-body .rn7-detail{min-height:120px}.destination-card .dest-body .rn7-detail strong{font-size:22px}}
-@media(prefers-reduced-motion:reduce){.rn7-slide{transition:none!important}.rn7-detail,.rn7-progress span{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.rn7-slide{transition:none!important;transform:none!important}.rn7-detail,.rn7-progress span{animation:none!important}}
 `;
 
 export default function RN7Gallery({ lang = "en", onSceneChange }) {
@@ -115,8 +236,8 @@ export default function RN7Gallery({ lang = "en", onSceneChange }) {
         <img
           key={item.src}
           src={item.src}
-          className={`rn7-slide${i === current ? " is-active" : ""}`}
-          alt={i === current ? scene[0] : ""}
+          className={`rn7-slide${i === current ? " is-active" : ""}`} style={{ objectPosition: item.position || "center" }}
+          alt={i === current ? `${scene[0]} — RN7, Madagascar` : ""}
           aria-hidden={i !== current}
           loading={i < 2 ? "eager" : "lazy"}
           decoding="async"
@@ -124,6 +245,7 @@ export default function RN7Gallery({ lang = "en", onSceneChange }) {
         />
       ))}
       <div className="rn7-shade" aria-hidden="true" />
+      <span className="rn7-forest-tag">{locale.tag}</span>
       {images.length > 1 && (
         <>
           <div className="rn7-toolbar">
