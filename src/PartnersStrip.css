@@ -1,0 +1,101 @@
+/* Partners strip: accessible marquee directly above the footer. */
+.hery-partners{
+  position:relative;
+  overflow:hidden;
+  padding:clamp(34px,5vw,66px) 0 38px;
+  border-top:1px solid rgba(33,65,70,.13);
+  background:linear-gradient(125deg,#f9faf7 0%,#eef4f1 58%,#f8f7f1 100%);
+  color:#193541;
+}
+.hery-partners-heading{
+  max-width:1140px;
+  margin:0 auto 28px;
+  padding:0 25px;
+  text-align:center;
+}
+.hery-partners-eyebrow{
+  display:flex;justify-content:center;align-items:center;gap:7px;
+  color:#a17336;font-size:11px;font-weight:800;letter-spacing:.16em;
+}
+.hery-partners-heading h2{
+  margin:10px 0 8px;
+  color:#18394a;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:clamp(36px,5vw,56px);
+  line-height:1.05;
+}
+.hery-partners-heading p{
+  max-width:680px;margin:0 auto;color:#506678;
+  font-size:14px;line-height:1.8;
+}
+.hery-partners-window{
+  overflow:hidden;
+  width:100%;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);
+  mask-image:linear-gradient(90deg,transparent 0%,black 6%,black 94%,transparent 100%);
+}
+.hery-partners-track{
+  display:flex;width:max-content;
+  animation:hery-partners-left 22s linear infinite;
+  will-change:transform;
+}
+.hery-partners-window:hover .hery-partners-track,
+.hery-partners-window:focus-within .hery-partners-track{animation-play-state:paused}
+.hery-partners-set{
+  flex:0 0 clamp(650px,94vw,1100px);
+  width:clamp(650px,94vw,1100px);
+  box-sizing:border-box;
+  display:flex;align-items:center;justify-content:space-around;gap:28px;
+  padding:8px 26px 15px;
+}
+.hery-partner-link{
+  display:inline-flex;align-items:center;gap:15px;
+  min-width:0;padding:12px 18px 12px 12px;
+  text-decoration:none!important;
+  border:1px solid rgba(46,76,73,.13);
+  border-radius:18px;
+  background:#fff;
+  box-shadow:0 9px 27px rgba(28,57,57,.1);
+  color:#193b45!important;
+  transition:box-shadow .2s ease,transform .2s ease,border-color .2s ease;
+}
+.hery-partner-link:hover,.hery-partner-link:focus-visible{
+  transform:translateY(-3px);
+  box-shadow:0 15px 32px rgba(28,57,57,.17);
+  border-color:#c8a36b;
+  outline-offset:4px;
+}
+.hery-partner-logo-wrap{
+  flex:0 0 82px;width:82px;height:82px;
+  display:grid;place-items:center;
+  overflow:hidden;border-radius:11px;background:white;
+}
+.hery-partner-logo-wrap img{
+  display:block;width:100%;height:100%;object-fit:contain;
+}
+.hery-partner-name{
+  max-width:235px;font-size:16px;line-height:1.25;
+  font-weight:800;white-space:normal;
+}
+.hery-partner-link-icon{flex:none;color:#ba8b43}
+.hery-partner-next{
+  display:inline-flex;align-items:center;gap:10px;
+  max-width:280px;color:#6b806e;font-size:14px;font-weight:650;line-height:1.5;
+}
+.hery-partner-next svg{flex:none;color:#bf9454}
+@keyframes hery-partners-left{to{transform:translateX(-50%)}}
+@media(max-width:600px){
+  .hery-partners{padding:32px 0 29px}
+  .hery-partners-heading{padding:0 21px;margin-bottom:18px}
+  .hery-partners-heading p{font-size:12px;line-height:1.7}
+  .hery-partners-set{gap:22px;padding:6px 12px 14px}
+  .hery-partner-link{gap:9px;padding:8px 11px 8px 8px;border-radius:14px}
+  .hery-partner-logo-wrap{flex-basis:68px;width:68px;height:68px}
+  .hery-partner-name{font-size:13px;max-width:140px}
+  .hery-partner-next{font-size:12px;max-width:160px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hery-partners-track{animation:none!important;transform:none!important}
+  .hery-partners-set[aria-hidden="true"]{display:none}
+  .hery-partner-link{transition:none}
+}

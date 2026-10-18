@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 
 import "./style.css";
+import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
@@ -1651,6 +1652,8 @@ function App() {
           isFR={isFR}
         />
       </main>
+
+      <PartnersStrip lang={isMG ? "mg" : isFR ? "fr" : "en"} />
 
       <Footer
         t={t}
@@ -3956,6 +3959,11 @@ function Footer({ t, go, isMG, isFR }) {
             }
           >
             {isMG ? mgUI.footer.blog : isFR ? frExtras.footer.blog : "Blog"}
+          </button>
+          <button
+            onClick={() => go("partners")}
+          >
+            {isMG ? "Mpiara-miombon'antoka" : isFR ? "Partenaires" : "Partners"}
           </button>
         </div>
 
