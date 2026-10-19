@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 
 import "./style.css";
+import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
@@ -636,14 +637,14 @@ const copy = {
 
     heroTitle: (
       <>
-        Discover Madagascar
+        探索马达加斯加
         <br />
-        <em>step by step.</em>
+        <em>一步一个脚印。</em>
       </>
     ),
 
     heroSub:
-      "Wildlife encounters. Night skies. Living landscapes.",
+      "邂逅野生动物。仰望星空。探索鲜活景观。",
 
     heroText:
       "结合当地向导、野生动物观察、摄影、天文摄影、生物多样性探索与自然保护的真实体验。",
@@ -688,7 +689,7 @@ const copy = {
       "下一次冒险",
 
     offerTitle:
-      "Discover Madagascar step by step.",
+      "一步一步探索马达加斯加。",
 
     offerText:
       "个性化、灵活并尊重自然的旅行体验。",
@@ -737,7 +738,7 @@ const copy = {
       "无法发送留言，请检查 EmailJS 配置。",
 
     footer:
-      "Wildlife encounters. Night skies. Living landscapes.",
+      "邂逅野生动物。仰望星空。探索鲜活景观。",
 
     astroTitle:
       "天文摄影",
@@ -1423,6 +1424,9 @@ function App() {
   const isMG = lang === "mg";
   const isFR = lang === "fr";
 
+  // Supplement the nine native locales in carousels and sections.
+  useEffect(() => activateExtraTranslations(lang), [lang]);
+
   useReveal();
 
   useEffect(() => {
@@ -1624,12 +1628,12 @@ function App() {
         />
 
         <HiddenMomentsExperience
-          lang={isMG ? "mg" : isFR ? "fr" : "en"}
+          lang={lang}
           onContact={() => go("contact")}
         />
 
         <FieldJourneyVideo
-          lang={isMG ? "mg" : isFR ? "fr" : "en"}
+          lang={lang}
           onContact={() => go("contact")}
         />
 
@@ -1660,7 +1664,7 @@ function App() {
         />
       </main>
 
-      <PartnersStrip lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+      <PartnersStrip lang={lang} />
 
       <Footer
         t={t}
