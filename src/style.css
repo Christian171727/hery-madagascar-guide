@@ -7770,3 +7770,19 @@ html[data-theme="dark"] .conservation-gallery-actions button {
 .hery-hero-dots button.is-active{width:26px;border-radius:99px;border-color:#f1c66e;background:#f1c66e}
 @media(max-width:720px){.hery-hero-controls{right:10px;top:auto;bottom:90px;transform:none;flex-direction:row}.hery-hero-controls button{width:33px;height:33px}.hery-hero-dots{bottom:14px;gap:7px}.hery-hero-dots button{width:8px;height:8px}.hery-hero-dots button.is-active{width:20px}}
 @media(prefers-reduced-motion:reduce){.hery-hero-photo{transition:none!important}.hery-hero-photo.is-active{animation:none!important}}
+
+/* Keep the supplied portrait chameleon fully visible on the Forest photo card. */
+.premium-photo-image--forest .premium-photo-backdrop {
+  position:absolute; inset:-18px; z-index:0;
+  background-size:cover; background-position:center 42%;
+  filter:blur(18px) brightness(.58) saturate(.9);
+  transform:scale(1.08); pointer-events:none;
+}
+.premium-photo-image--forest > img {
+  z-index:1; object-fit:contain; object-position:center;
+  transform:none !important; filter:none !important;
+}
+.premium-photo-image--forest .premium-photo-gradient {z-index:2}
+@media(max-width:620px){
+  .premium-photo-image--forest .premium-photo-backdrop {filter:blur(13px) brightness(.58)}
+}

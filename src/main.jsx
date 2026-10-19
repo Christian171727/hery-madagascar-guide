@@ -1301,7 +1301,7 @@ const mgUI = {
   photos: [
     ["Bibidia eto Madagasikara", "BIBIDIA", "Bibidia · Madagasikara", "Fantaro ireo bibidia tsy fahita firy amin’ny fitsidihana manaja ny fonenany."],
     ["Baobaba eto Madagasikara", "BAOBABA", "Hazavan’ny hariva · Andrefana", "Ankafizo ny hakanton’ireo baobaba sy ny hazavana volamena amin’ny hariva."],
-    ["Alan’i Madagasikara", "ALA", "Harena voajanahary · Atsinanana", "Mitsidiha ala feno karazan-javamananaina sy tontolo voajanahary miavaka."],
+    ["Alan’i Madagasikara", "ALA", "Tanalahy · Madagasikara", "Jereo akaiky ilay tanalahy maitso mipetraka eny amin'ny rantsankazo, iray amin'ireo zava-mahagaga sy lokon'ny zavaboary eto Madagasikara."],
     ["Morontsirak’i Madagasikara", "MORONTSIRAKA", "Fiainana an-nosy · Madagasikara", "Fantaro ny tora-pasika, ranomasina manga ary ny fiainan’ny mponina amorontsiraka."],
   ],
   astro: { kicker: "LANITRY NY ALINA", features: ["Vahindanitra", "Fakàna sary maharitra", "Fakàna sary amin’ny alina", "Baobaba sy lanitra feno kintana"] },
@@ -2425,12 +2425,11 @@ function PhotoSection({ t, isMG }) {
       description: "Iconic landscapes, golden light and the Avenue of Baobabs.",
     },
     {
-      image: imgs.forest,
+      image: "/images/photography/madagascar-forest-chameleon.webp",
       title: "Madagascar Forest",
       label: "FOREST",
-      location: "Biodiversity · Eastern Madagascar",
-      description: "Explore Madagascar's forests and discover remarkable biodiversity, endemic species and landscapes shaped by nature and local communities.",
-      description: "Biodiversity, forests and immersive field experiences.",
+      location: "Chameleon · Madagascar",
+      description: "Look closer at the hidden life of Madagascar's forests: a beautiful green chameleon resting among the branches reveals the extraordinary colors of island wildlife.",
     },
     {
       image: imgs.coast,
@@ -2546,10 +2545,17 @@ function PhotoSection({ t, isMG }) {
                 }
               }}
             >
-              <div className="premium-photo-image">
+              <div className={index === 2 ? "premium-photo-image premium-photo-image--forest" : "premium-photo-image"}>
+                {index === 2 && (
+                  <div
+                    className="premium-photo-backdrop"
+                    style={{ backgroundImage: `url(${photo.image})` }}
+                    aria-hidden="true"
+                  />
+                )}
                 <img
                   src={photo.image}
-                  alt={photo.title}
+                  alt={index === 2 ? "Green chameleon on a branch in Madagascar's forest" : photo.title}
                   loading="lazy"
                 />
 
@@ -2617,7 +2623,7 @@ function PhotoSection({ t, isMG }) {
             <div className="photo-lightbox-image-wrap">
               <img
                 src={displayPhotos[selected].image}
-                alt={displayPhotos[selected].title}
+                alt={selected === 2 ? "Green chameleon on a branch in Madagascar's forest" : displayPhotos[selected].title}
                 className="photo-lightbox-image"
               />
             </div>
