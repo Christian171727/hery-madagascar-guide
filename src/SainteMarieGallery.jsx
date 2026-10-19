@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
 // Six owner-provided Sainte Marie photographs, compressed for faster loading.
 const PHOTOS = Array.from({ length: 6 }, (_, i) => ({
   id: i + 1,
-  src: `/images/sainte-marie/saintmarie${i + 1}.avif`,
+  src: `/images/sainte-marie/saintmarie${i + 1}.avif?v=20261019b`,
 }));
 const FALLBACK = "/images/SainteMarie.jpg";
 const DELAY = 4000;
@@ -14,36 +14,36 @@ const COPY = {
     previous: "Previous photo", next: "Next photo",
     pause: "Pause slideshow", play: "Resume slideshow",
     scenes: [
-      ["Where the sky meets the sea", "Golden sunsets, fishing boats and moments you'll wish could last forever.", "ISLAND ESCAPE"],
-      ["Follow the rhythm of the ocean", "Step away from the ordinary and discover the magic of the Malagasy coast.", "COASTAL MAGIC"],
-      ["Your next seaside story", "Bright horizons and welcoming coastal life invite you to explore.", "SEA & DISCOVERY"],
-      ["Beauty in every simple moment", "Discover local traditions, warm encounters and life by the water.", "CULTURE & COAST"],
-      ["Slow down. Feel the moment.", "Some of Madagascar's most beautiful memories begin with a quiet view.", "NATURE & SERENITY"],
-      ["Every wave tells a story", "Feel the freedom of the shore and take home memories that stay with you.", "UNFORGETTABLE MOMENTS"],
+      ["Blue horizons of Sainte Marie", "Crystal-clear water, island light and a peaceful horizon invite you to begin your coastal escape.", "ISLAND HORIZONS"],
+      ["Crossing the lagoon together", "Shared boat journeys reveal the living rhythm of Sainte Marie and the beauty of travelling close to the sea.", "COASTAL JOURNEY"],
+      ["Walk where coast and culture meet", "Follow simple paths, meet local life and discover the island beyond the postcard.", "CULTURE & COAST"],
+      ["Beauty in every simple moment", "Along the shore, every stop becomes a quiet discovery shaped by nature, people and the ocean breeze.", "CULTURE & COAST"],
+      ["Observe, listen and feel the place", "Meaningful travel begins with attention: mangroves, local stories and the gentle pace of island life.", "LIVING NATURE"],
+      ["Gardens, palms and island atmosphere", "Tropical scenery, warm encounters and peaceful surroundings turn Sainte Marie into a memory that stays with you.", "ISLAND SERENITY"],
     ],
   },
   fr: {
     previous: "Photo précédente", next: "Photo suivante",
     pause: "Mettre en pause", play: "Reprendre le diaporama",
     scenes: [
-      ["Là où le ciel rejoint la mer", "Couchers de soleil dorés, bateaux de pêche et instants inoubliables.", "ÉVASION INSULAIRE"],
-      ["Au rythme de l'océan", "Laissez le quotidien derrière vous et savourez la magie des côtes malgaches.", "MAGIE DU LITTORAL"],
-      ["Votre prochaine aventure en bord de mer", "Un horizon lumineux et une vie côtière authentique à découvrir.", "MER & DÉCOUVERTE"],
-      ["La beauté des instants simples", "Traditions locales, rencontres chaleureuses et vie au bord de l'eau.", "CULTURE & LITTORAL"],
-      ["Ralentissez. Profitez de l'instant.", "Les plus beaux souvenirs commencent parfois par un paysage paisible.", "NATURE & SÉRÉNITÉ"],
-      ["Chaque vague raconte une histoire", "Ressentez la liberté de la côte et repartez avec des souvenirs précieux.", "MOMENTS INOUBLIABLES"],
+      ["Les horizons bleus de Sainte-Marie", "Une eau limpide, la lumière de l’île et un horizon paisible vous invitent à commencer votre escapade côtière.", "HORIZONS INSULAIRES"],
+      ["Traverser le lagon ensemble", "Les trajets en bateau révèlent le rythme vivant de Sainte-Marie et la beauté d’un voyage au plus près de la mer.", "VOYAGE CÔTIER"],
+      ["Marchez là où la côte rencontre la culture", "Suivez des chemins simples, rencontrez la vie locale et découvrez l’île au-delà de la carte postale.", "CULTURE & LITTORAL"],
+      ["La beauté dans chaque instant simple", "Le long du rivage, chaque arrêt devient une découverte paisible façonnée par la nature, les habitants et l’air marin.", "CULTURE & LITTORAL"],
+      ["Observer, écouter et ressentir le lieu", "Un voyage authentique commence par l’attention : mangroves, récits locaux et douceur de la vie insulaire.", "NATURE VIVANTE"],
+      ["Jardins, palmiers et ambiance insulaire", "Paysages tropicaux, rencontres chaleureuses et atmosphère paisible font de Sainte-Marie un souvenir durable.", "SÉRÉNITÉ INSULAIRE"],
     ],
   },
   mg: {
     previous: "Sary teo aloha", next: "Sary manaraka",
     pause: "Ajanona aloha", play: "Tohizana ny sary",
     scenes: [
-      ["Toerana ifanenan'ny lanitra sy ny ranomasina", "Masoandro mody mamirapiratra, lakana ary fotoana tsy hay hadinoina.", "FITSAHARAM-PANAHY"],
-      ["Araho ny gadon'ny ranomasina", "Avelao ny fahazarana isan'andro, ankafizo ny hakanton'ny morontsiraka.", "HAKANTON'NY MORONTSIRAKA"],
-      ["Eto no manomboka ny dianao", "Lanitra manga sy fiainan'ny mponina amoron-dranomasina no miandry anao.", "RANOMASINA & FITSIDIHANA"],
-      ["Ny hakanton'ny fiainana tsotra", "Fantaro ny kolontsaina sy ny fiainana eny amoron-drano.", "KOLONTSAINA & NATIORA"],
-      ["Mijanòna kely, ankafizo ny fotoana", "Indraindray dia ny fahanginana sy ny tontolo no mamela fahatsiarovana mamy.", "FIADANANA & HAKANTONY"],
-      ["Samy manana tantara ny onja", "Ankafizo ny morontsiraka ary ento mody ny fahatsiarovana tsara indrindra.", "FOTOANA TSY HAY HADINOINA"],
+      ["Ny faravodilanitra manga ao Sainte-Marie", "Rano mangamanga madio, hazavan’ny nosy ary faravodilanitra milamina no manasa anao hanomboka ny fitsidihanao.", "HAKANTON'NY NOSY"],
+      ["Miampita lakandrano miaraka", "Ny dia an-tsambo no mampiseho ny gadon’ny fiainana ao Sainte-Marie sy ny hakanton’ny fitsangatsanganana akaikin’ny ranomasina.", "DIA AMORON-DRANOMASINA"],
+      ["Mandehana eo anelanelan’ny morontsiraka sy ny kolontsaina", "Araho ireo lalana tsotra, mihaona amin’ny mponina ary fantaro ny nosy mihoatra noho ny sary mahazatra.", "KOLONTSAINA & MORONTSIRAKA"],
+      ["Ny hakantony ao anatin’ny fotoana tsotra rehetra", "Eo amoron-dranomasina, ny fijanonana tsirairay dia lasa fahitana milamina, miaraka amin’ny natiora, ny olona ary ny rivotra an-dranomasina.", "KOLONTSAINA & MORONTSIRAKA"],
+      ["Jereo, henoy ary tsapao ny toerana", "Ny dia tena misy heviny dia manomboka amin’ny fijerena akaiky: ala honko, tantara eo an-toerana ary fiainana milamina ao amin’ny nosy.", "NATIORA VELONA"],
+      ["Zaridaina, rofia ary hakanton’ny nosy", "Tontolo tropikaly, fihaonana mahafinaritra ary filaminana no mahatonga an’i Sainte-Marie ho fahatsiarovana maharitra.", "FIADANANA AO AMIN'NY NOSY"],
     ],
   },
 };
