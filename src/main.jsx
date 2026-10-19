@@ -40,6 +40,7 @@ import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import { expandedLocaleContent } from "./expandedLocaleContent.js";
 import { localizedBlogSections } from "./localizedBlogSections.js";
 import { photographyCardLocales } from "./photographyCardLocales.js";
+import { siteMetaLocales } from "./siteMetaLocales.js";
 import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
@@ -1447,6 +1448,10 @@ function App() {
     localStorage.setItem("heryLang", lang);
     document.documentElement.lang =
       lang === "zh" ? "zh-CN" : lang === "ja" ? "ja" : lang;
+    // Keep the browser title and description aligned with the selected language.
+    const meta = siteMetaLocales[lang] || siteMetaLocales.en;
+    document.title = meta.title;
+    document.querySelector('meta[name="description"]')?.setAttribute("content", meta.description);
 
     document.documentElement.classList.toggle(
       "dark-mode",
