@@ -908,7 +908,7 @@ const seoTourPages = [
     "slug": "madagascar-tours",
     "title": "Madagascar Tours",
     "desc": "Private guiding and custom nature experiences across Madagascar.",
-    "image": "/images/hero.jpg"
+    "image": "/images/tours/madagascar-tours.webp"
   },
   {
     "slug": "local-tour-guide-madagascar",
