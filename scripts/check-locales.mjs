@@ -7,6 +7,10 @@ import { destinationGalleryLocales } from "../src/destinationGalleryLocales.js";
 import { photographyOtherLocales } from "../src/photographyOtherLocales.js";
 import { conservationOtherLocales } from "../src/conservationOtherLocales.js";
 import { conservationSliderCopy } from "../src/conservationSliderLocales.js";
+import { photographyCardLocales } from "../src/photographyCardLocales.js";
+import { siteMetaLocales } from "../src/siteMetaLocales.js";
+import { hiddenMomentsOtherScenes } from "../src/hiddenMomentsOtherScenes.js";
+import { wildlifeOtherLocales } from "../src/wildlifeOtherLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
 const sectionCounts = [8, 4, 4, 10];
@@ -65,4 +69,19 @@ for (const lang of otherLanguages) {
   }
 }
 assert.match(main, /aria-expanded=\{menu\}/, "Mobile menu must report open/closed state");
-console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions.");
+for (const lang of locales) {
+  assert.ok(siteMetaLocales[lang]?.title?.trim().length > 12, `Missing browser title: ${lang}`);
+  assert.ok(siteMetaLocales[lang]?.description?.trim().length > 40, `Missing SEO description: ${lang}`);
+  if (lang !== "en") {
+    assert.equal(photographyCardLocales[lang]?.length, 4, `Photography cards not translated: ${lang}`);
+    assert.ok(photographyCardLocales[lang].every(card => card.length === 4 && card.every(field => field?.trim())));
+  }
+}
+for (const lang of ["ru", "ja", "de", "it", "es", "zh"]) {
+  assert.equal(hiddenMomentsOtherScenes[lang]?.length, 7, `Hidden Moments incomplete: ${lang}`);
+  assert.equal(wildlifeOtherLocales[lang]?.slides?.length, 10, `Wildlife gallery incomplete: ${lang}`);
+  assert.ok(wildlifeOtherLocales[lang]?.note?.length > 30, `Wildlife image provenance missing: ${lang}`);
+}
+assert.ok(main.includes('photographyCardLocales[lang]'), "Photography cards not wired to language");
+assert.ok(main.includes('siteMetaLocales[lang]'), "Browser title not wired to language");
+console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations.");
