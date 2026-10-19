@@ -37,6 +37,7 @@ import {
 
 import "./style.css";
 import { activateExtraTranslations } from "./siteTranslationExtras.js";
+import { expandedLocaleContent } from "./expandedLocaleContent.js";
 import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
@@ -1639,6 +1640,7 @@ function App() {
 
         <Blog
           t={t}
+          lang={lang}
           isMG={isMG}
           isFR={isFR}
         />
@@ -1650,6 +1652,7 @@ function App() {
 
         <FAQ
           t={t}
+          lang={lang}
           isMG={isMG}
           isFR={isFR}
         />
@@ -2901,10 +2904,36 @@ function Services({ t, go, isMG, isFR }) {
    BLOG
 ========================================================= */
 
-function Blog({ t, isMG, isFR }) {
-  const [selectedPost, setSelectedPost] = useState(null);
+function Blog({ t, lang, isMG, isFR }) {
+  const [selectedPostId, setSelectedPostId] = useState(null);
   const readerRef = useRef(null);
   const [autoReading, setAutoReading] = useState(false);
+
+  // Always derive the opened article from the selected language.
+  // Switching languages while the reader is open refreshes its heading and intro.
+  const localizedPosts = useMemo(() => {
+    const translated = expandedLocaleContent[lang]?.articles;
+    return posts.map((post, i) => {
+      if (isMG) return {
+        ...post,
+        title: mgArticleTitles[i][0],
+        category: mgArticleTitles[i][1],
+        intro: mgArticleIntros[i],
+        sections: post.sections.map((section, j) => ({
+          ...section,
+          title: mgArticleSections[i]?.[j]?.[0] || section.title,
+          text: mgArticleSections[i]?.[j]?.[1] || section.text,
+        })),
+      };
+      if (!translated?.[i]) return post;
+      const [title, category, intro] = translated[i];
+      return { ...post, title, category, intro };
+    });
+  }, [lang, isMG]);
+  const selectedPost = useMemo(
+    () => localizedPosts.find(post => post.id === selectedPostId) || null,
+    [localizedPosts, selectedPostId]
+  );
 
   // Photography: scroll the entire article (hero, image stories and descriptions)
   // instead of only the inner text pane. The image carousel remains on its own
@@ -2961,22 +2990,12 @@ function Blog({ t, isMG, isFR }) {
     };
   }, [selectedPost, autoReading]);
 
-  const localizedPosts = isMG ? posts.map((post, i) => ({
-    ...post,
-    title: mgArticleTitles[i][0],
-    category: mgArticleTitles[i][1],
-    intro: mgArticleIntros[i],
-    sections: post.sections.map((section, j) => ({
-      ...section, title: mgArticleSections[i]?.[j]?.[0] || section.title, text: mgArticleSections[i]?.[j]?.[1] || section.text,
-    })),
-  })) : posts;
-
   /* =======================================================
      OPEN ARTICLE
   ======================================================= */
 
   const openArticle = (post) => {
-    setSelectedPost(post);
+    setSelectedPostId(post.id);
     setAutoReading(["wildlife-kirindy","conservation-terrain","photographier-baobabs"].includes(post.id));
     document.body.style.overflow = "hidden";
   };
@@ -2986,7 +3005,7 @@ function Blog({ t, isMG, isFR }) {
   ======================================================= */
 
   const closeArticle = () => {
-    setSelectedPost(null);
+    setSelectedPostId(null);
     setAutoReading(false);
     document.body.style.overflow = "";
   };
@@ -3474,11 +3493,11 @@ function Offer({ t, go }) {
    FAQ
 ========================================================= */
 
-function FAQ({ t, isMG, isFR }) {
+function FAQ({ t, lang, isMG, isFR }) {
   const [open, setOpen] =
     useState(0);
 
-  const visibleFaqs = isMG ? mgUI.faq : isFR ? frExtras.faq : faqs;
+  const visibleFaqs = expandedLocaleContent[lang]?.faq || (isMG ? mgUI.faq : isFR ? frExtras.faq : faqs);
 
   return (
     <section
