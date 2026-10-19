@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { translateSiteRecord } from "./siteTranslationExtras.js";
 
 const PHOTOS = [
   { id: 1, src: "/images/rn7-wildlife/wildlife1.avif", position: "center center" },
@@ -189,7 +190,7 @@ const CSS = `
 `;
 
 export default function RN7Gallery({ lang = "en", onSceneChange }) {
-  const locale = COPY[lang] || COPY.en;
+  const locale = COPY[lang] || translateSiteRecord(COPY.en, lang);
   const [images, setImages] = useState(PHOTOS);
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
