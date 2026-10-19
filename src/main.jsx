@@ -1415,7 +1415,7 @@ function App() {
   );
 
   const [lang, setLang] = useState(
-    localStorage.getItem("heryLang") || "en"
+    ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"].includes(localStorage.getItem("heryLang")) ? localStorage.getItem("heryLang") : "en"
   );
 
   const [menu, setMenu] = useState(false);
@@ -1702,6 +1702,17 @@ function Header({
   setMenu,
   go,
 }) {
+  const navControls = {
+    en: ["Language", "Toggle theme", "Menu", "Close menu"],
+    fr: ["Langue", "Changer de thème", "Menu", "Fermer le menu"],
+    mg: ["Fiteny", "Hanova endrika", "Menu", "Hikatona ny menu"],
+    ru: ["Язык", "Сменить тему", "Меню", "Закрыть меню"],
+    ja: ["言語", "テーマを変更", "メニュー", "メニューを閉じる"],
+    de: ["Sprache", "Design wechseln", "Menü", "Menü schließen"],
+    it: ["Lingua", "Cambia tema", "Menu", "Chiudi menu"],
+    es: ["Idioma", "Cambiar tema", "Menú", "Cerrar menú"],
+    zh: ["语言", "切换主题", "菜单", "关闭菜单"],
+  }[lang] || ["Language", "Toggle theme", "Menu", "Close menu"];
   const ids = [
     "home",
     "about",
@@ -1723,7 +1734,7 @@ function Header({
         <button
           className="brand brand-with-logo"
           onClick={() => go("home")}
-          aria-label="HERY Madagascar Local Guide — Home"
+          aria-label={`HERY — ${t.nav?.[0] || "Home"}`}
         >
           <span className="brand-emblem">
             <img src="/images/hery-emblem.svg" alt="" width="56" height="56" decoding="async" />
@@ -1739,6 +1750,8 @@ function Header({
         </button>
 
         <nav
+          id="hery-primary-navigation"
+          aria-label={navControls[2]}
           className={
             menu
               ? "nav open"
@@ -1764,7 +1777,8 @@ function Header({
             onChange={(event) =>
               setLang(event.target.value)
             }
-            aria-label="Language"
+            aria-label={navControls[0]}
+            title={navControls[0]}
           >
             <option value="en">EN</option>
             <option value="fr">FR</option>
@@ -1782,7 +1796,7 @@ function Header({
             onClick={() =>
               setDark(!dark)
             }
-            aria-label="Changer le thème"
+            aria-label={navControls[1]}
           >
             {dark ? (
               <Sun size={18} />
@@ -1796,7 +1810,9 @@ function Header({
             onClick={() =>
               setMenu(!menu)
             }
-            aria-label="Menu"
+            aria-label={menu ? navControls[3] : navControls[2]}
+            aria-expanded={menu}
+            aria-controls="hery-primary-navigation"
           >
             {menu ? (
               <X />
@@ -1811,7 +1827,7 @@ function Header({
               go("contact")
             }
           >
-            Contact
+            {t.nav?.[11] || "Contact"}
 
             <ArrowRight size={15} />
           </button>
