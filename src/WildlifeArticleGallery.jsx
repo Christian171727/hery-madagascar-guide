@@ -1,4 +1,5 @@
 import React from "react";
+import { wildlifeOtherLocales } from "./wildlifeOtherLocales.js";
 
 const PICTURES = Array.from({ length: 10 }, (_, i) => "/images/wildlife/wildlife" + (i + 1) + ".jpeg");
 const CAPTIONS = {
@@ -74,12 +75,12 @@ const STYLES = [
 ].join("\n");
 
 export default function WildlifeArticleGallery({ lang = "en", sections = [] }) {
-  const t = CAPTIONS[lang] || CAPTIONS.en;
+  const t = CAPTIONS[lang] || wildlifeOtherLocales[lang] || CAPTIONS.en;
   return (
     <div className="wildlife-story" aria-label={t.label}>
       <style>{STYLES}</style>
       <span className="wildlife-story-kicker">{t.label}</span>
-      <h3>{lang === "fr" ? "Dix regards sur la faune de Madagascar" : lang === "mg" ? "Sary folo momba ny biby eto Madagasikara" : "Ten encounters with Madagascar's wildlife"}</h3>
+      <h3>{t.title || (lang === "fr" ? "Dix regards sur la faune de Madagascar" : lang === "mg" ? "Sary folo momba ny biby eto Madagasikara" : "Ten encounters with Madagascar's wildlife")}</h3>
       <p className="wildlife-story-note">{t.note}</p>
       {PICTURES.map((photo, index) => (
         <React.Fragment key={photo}>
@@ -105,11 +106,7 @@ export default function WildlifeArticleGallery({ lang = "en", sections = [] }) {
         </React.Fragment>
       ))}
       <p className="wildlife-story-end">
-        {lang === "mg"
-          ? "Aza manelingelina ny biby rehefa mitsidika ala sy maka sary. Ny fanajana ny natiora no fahatsiarovana tsara indrindra."
-          : lang === "fr"
-            ? "Pour observer la faune, laissez de l'espace aux animaux et respectez leur habitat. La plus belle expérience est une rencontre naturelle."
-            : "Give animals space, respect their habitat and let each encounter happen naturally. The best wildlife memory is one that leaves nature undisturbed."}
+        {t.end || (lang === "mg" ? "Aza manelingelina ny biby rehefa mitsidika ala sy maka sary. Ny fanajana ny natiora no fahatsiarovana tsara indrindra." : lang === "fr" ? "Pour observer la faune, laissez de l'espace aux animaux et respectez leur habitat. La plus belle expérience est une rencontre naturelle." : "Give animals space, respect their habitat and let each encounter happen naturally. The best wildlife memory is one that leaves nature undisturbed.")}
       </p>
     </div>
   );
