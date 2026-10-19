@@ -38,6 +38,7 @@ import {
 import "./style.css";
 import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import { expandedLocaleContent } from "./expandedLocaleContent.js";
+import { localizedBlogSections } from "./localizedBlogSections.js";
 import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
@@ -2913,21 +2914,25 @@ function Blog({ t, lang, isMG, isFR }) {
   // Switching languages while the reader is open refreshes its heading and intro.
   const localizedPosts = useMemo(() => {
     const translated = expandedLocaleContent[lang]?.articles;
+    const sectionTranslations = localizedBlogSections[lang];
     return posts.map((post, i) => {
-      if (isMG) return {
+      if (lang === "en") return post;
+      const metadata = isMG
+        ? [mgArticleTitles[i][0], mgArticleTitles[i][1], mgArticleIntros[i]]
+        : (translated?.[i] || [post.title, post.category, post.intro]);
+      const sections = post.sections.map((section, j) => {
+        const translation = sectionTranslations?.[i]?.[j];
+        return translation
+          ? { ...section, title: translation[0], text: translation[1] }
+          : section;
+      });
+      return {
         ...post,
-        title: mgArticleTitles[i][0],
-        category: mgArticleTitles[i][1],
-        intro: mgArticleIntros[i],
-        sections: post.sections.map((section, j) => ({
-          ...section,
-          title: mgArticleSections[i]?.[j]?.[0] || section.title,
-          text: mgArticleSections[i]?.[j]?.[1] || section.text,
-        })),
+        title: metadata[0],
+        category: metadata[1],
+        intro: metadata[2],
+        sections,
       };
-      if (!translated?.[i]) return post;
-      const [title, category, intro] = translated[i];
-      return { ...post, title, category, intro };
     });
   }, [lang, isMG]);
   const selectedPost = useMemo(
@@ -2963,7 +2968,7 @@ function Blog({ t, lang, isMG, isFR }) {
       window.clearTimeout(startDelay);
       window.cancelAnimationFrame(frame);
     };
-  }, [selectedPost, autoReading]);
+  }, [selectedPost?.id, autoReading]);
 
   useEffect(() => {
     if (!selectedPost || !(["wildlife-kirindy","conservation-terrain"].includes(selectedPost.id)) || !autoReading) return;
@@ -2988,7 +2993,7 @@ function Blog({ t, lang, isMG, isFR }) {
       window.clearTimeout(delay);
       window.cancelAnimationFrame(frame);
     };
-  }, [selectedPost, autoReading]);
+  }, [selectedPost?.id, autoReading]);
 
   /* =======================================================
      OPEN ARTICLE
