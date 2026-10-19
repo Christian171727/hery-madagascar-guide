@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { gallerySceneFor } from "./destinationGalleryLocales.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
 // Original photographs supplied for this update. Old Andasibe carousel assets are not used.
@@ -140,7 +141,14 @@ export default function AndasibeGallery({lang="en",onSceneChange}) {
   const [current,setCurrent] = useState(0);
   const [paused,setPaused] = useState(false);
   const active = images[Math.min(current,images.length-1)] || PHOTOS[0];
-  const [kicker,title,description] = (SCENES[(active.id||1)-1] || SCENES[0])[lang] || (SCENES[(active.id||1)-1] || SCENES[0]).en;
+  const sceneIndex = (active.id || 1) - 1;
+  const sourceScene = SCENES[sceneIndex] || SCENES[0];
+  const [kicker, title, description] = lang === "en" || lang === "fr" || lang === "mg"
+    ? (sourceScene[lang] || sourceScene.en)
+    : (() => {
+        const [titleText, descText, label] = gallerySceneFor("andasibe", lang, sceneIndex, [sourceScene.en[1], sourceScene.en[2], sourceScene.en[0]]);
+        return [label, titleText, descText];
+      })();
 
   useEffect(() => {
     onSceneChange?.({id:active.id,kicker,title,description});
