@@ -919,8 +919,8 @@ const seoTourPages = [
   {
     "slug": "morondava-tours",
     "title": "Morondava Tours",
-    "desc": "Explore Morondava and Menabe, baobabs, wildlife and local culture.",
-    "image": "/images/Morondava.jpg"
+    "desc": "Discover unforgettable Morondava sunsets, majestic baobabs and the magic of western Madagascar.",
+    "image": "/images/tours/morondava-sunset.webp"
   },
   {
     "slug": "avenue-of-baobabs-tour",
