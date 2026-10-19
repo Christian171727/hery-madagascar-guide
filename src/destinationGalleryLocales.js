@@ -224,7 +224,141 @@ const localizations = {
         "隐秘森林生命"
       ]
     ]
-  }
+  },
+  "northern": {
+  "ru": [
+    [
+      "Маленький мастер маскировки",
+      "Присмотритесь к коре дерева: крошечная рептилия почти сливается с природным окружением.",
+      "НЕЗАМЕТНО НА ВИДУ"
+    ],
+    [
+      "Всплеск зелени в лесу",
+      "Ярко-зелёный обитатель отдыхает на стебле бамбука — удивительный подарок природы.",
+      "ЦВЕТА ЛЕСА"
+    ],
+    [
+      "Искусство медленного движения",
+      "Хамелеон балансирует на тонкой ветке и показывает необычайные детали своей кожи.",
+      "ВСТРЕЧА С ХАМЕЛЕОНОМ"
+    ],
+    [
+      "Тайная жизнь на деревьях",
+      "Яркая древесная рептилия напоминает, что маленькие открытия оставляют большие воспоминания.",
+      "ПРИРОДА РЯДОМ"
+    ]
+  ],
+  "ja": [
+    [
+      "小さな擬態の名人",
+      "木の皮をよく見てください。小さな爬虫類が周囲の自然に溶け込んでいます。",
+      "身近に隠れる命"
+    ],
+    [
+      "森の鮮やかな緑",
+      "竹の茎に休む鮮やかな緑の生き物は、自然からの小さな贈り物です。",
+      "森の色彩"
+    ],
+    [
+      "ゆっくり動く芸術",
+      "細い枝でバランスを取るカメレオン。その肌の繊細な質感に注目しましょう。",
+      "カメレオンとの出会い"
+    ],
+    [
+      "木々の上の秘密の暮らし",
+      "木に暮らす色鮮やかな爬虫類は、小さな発見の価値を教えてくれます。",
+      "自然を間近に"
+    ]
+  ],
+  "de": [
+    [
+      "Ein kleiner Meister der Tarnung",
+      "Schauen Sie auf die Baumrinde: Das winzige Reptil verschmilzt fast vollständig mit seiner Umgebung.",
+      "GUT VERSTECKT"
+    ],
+    [
+      "Ein grüner Farbtupfer im Wald",
+      "Ein leuchtend grüner Kletterer ruht an einem Bambusstängel – eine kleine Überraschung der Natur.",
+      "FARBEN DES WALDES"
+    ],
+    [
+      "Die Kunst, langsam zu sein",
+      "Ein Chamäleon balanciert auf einem dünnen Zweig und zeigt die feine Struktur seiner Haut.",
+      "CHAMÄLEONBEGEGNUNG"
+    ],
+    [
+      "Geheimes Leben in den Bäumen",
+      "Ein farbenfrohes Reptil zeigt, warum kleine Entdeckungen zu großen Erinnerungen werden.",
+      "NATUR AUS DER NÄHE"
+    ]
+  ],
+  "it": [
+    [
+      "Un piccolo maestro del mimetismo",
+      "Osserva bene la corteccia: un minuscolo rettile si confonde quasi completamente con l'ambiente.",
+      "NASCOSTO IN PIENA VISTA"
+    ],
+    [
+      "Un tocco di verde nella foresta",
+      "Un piccolo arrampicatore verde riposa su uno stelo di bambù, una sorpresa della natura.",
+      "COLORI DELLA FORESTA"
+    ],
+    [
+      "L'arte di muoversi lentamente",
+      "Un camaleonte si bilancia su un ramo sottile, mostrando i dettagli della sua pelle.",
+      "INCONTRO CON IL CAMALEONTE"
+    ],
+    [
+      "Una vita segreta tra gli alberi",
+      "Un rettile colorato tra gli alberi dimostra quanto siano preziose le piccole scoperte.",
+      "NATURA DA VICINO"
+    ]
+  ],
+  "es": [
+    [
+      "Un pequeño maestro del camuflaje",
+      "Mira la corteza del árbol: un diminuto reptil casi desaparece entre los colores naturales.",
+      "OCULTO A SIMPLE VISTA"
+    ],
+    [
+      "Un toque de verde en el bosque",
+      "Un pequeño trepador verde descansa sobre un tallo de bambú, una sorpresa de la naturaleza.",
+      "COLORES DEL BOSQUE"
+    ],
+    [
+      "El arte de moverse despacio",
+      "Un camaleón mantiene el equilibrio en una rama fina y muestra los detalles de su piel.",
+      "ENCUENTRO CON EL CAMALEÓN"
+    ],
+    [
+      "Vida secreta entre los árboles",
+      "Un reptil colorido muestra que los pequeños descubrimientos crean grandes recuerdos.",
+      "NATURALEZA DE CERCA"
+    ]
+  ],
+  "zh": [
+    [
+      "小小的伪装大师",
+      "仔细观察树皮，这只小爬行动物几乎与周围环境融为一体。",
+      "就在眼前的隐秘生命"
+    ],
+    [
+      "森林里的一抹绿色",
+      "鲜绿色的小攀爬者停在竹茎上，是大自然美丽的小惊喜。",
+      "森林色彩"
+    ],
+    [
+      "缓慢移动的艺术",
+      "变色龙在纤细树枝上保持平衡，展现皮肤的独特纹理。",
+      "邂逅变色龙"
+    ],
+    [
+      "树上的隐秘生活",
+      "色彩鲜艳的树栖爬行动物提醒我们，小发现也能留下难忘的回忆。",
+      "近距离观察自然"
+    ]
+  ]
+}
 };
 
 export function gallerySceneFor(gallery, lang, index, fallback) {
