@@ -914,7 +914,7 @@ const seoTourPages = [
     "slug": "local-tour-guide-madagascar",
     "title": "Local Tour Guide Madagascar",
     "desc": "Get to know HERY and plan your adventure with local insight.",
-    "image": "/images/HERY.jpg"
+    "image": "/images/tours/local-tour-guide-madagascar.webp"
   },
   {
     "slug": "morondava-tours",
