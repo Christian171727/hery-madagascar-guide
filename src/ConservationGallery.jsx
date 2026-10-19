@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, Leaf, Pause, Play } from "lucide-react";
+import { conservationSliderCopy } from "./conservationSliderLocales.js";
 
 /**
  * Conservation photo gallery for HERY Madagascar Local Guide.
@@ -138,8 +139,8 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
     ? photos
     : [{ id: "forest", src: fallback, index: 0 }];
   const item = available[Math.min(current, available.length - 1)] || available[0];
-  const ui = UI[lang] || UI.en;
-  const captions = lang === "fr" ? FR : lang === "mg" ? MG : EN;
+  const ui = UI[lang] || conservationSliderCopy.ui[lang] || UI.en;
+  const captions = lang === "fr" ? FR : lang === "mg" ? MG : conservationSliderCopy.captions[lang] || EN;
   const caption = photos.length > 0
     ? captions[item.index]
     : [ui.fallbackTitle, ui.fallbackText];
@@ -179,7 +180,7 @@ export default function ConservationGallery({ lang = "en", fallback = "/images/f
       ref={galleryRef}
       role="region"
       aria-roledescription="carousel"
-      aria-label="HERY Madagascar conservation photo gallery"
+      aria-label={ui.category}
     >
       <div className="conservation-gallery-stage">
         {previousIndex !== null && available[previousIndex] && available[previousIndex].src !== item.src && (
