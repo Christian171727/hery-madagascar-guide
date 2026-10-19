@@ -358,6 +358,170 @@ const localizations = {
       "近距离观察自然"
     ]
   ]
+},
+  "tsingy": {
+  "ru": [
+    [
+      "Жизнь среди скал",
+      "Присмотритесь: даже среди острых известняковых скал скрываются удивительные детали природы.",
+      "ИСКУССТВО ИССЛЕДОВАНИЯ"
+    ],
+    [
+      "Мастера природной маскировки",
+      "В лесу даже едва заметное движение может открыть удивительный мир диких животных.",
+      "СКРЫТЫЕ ЧУДЕСА"
+    ],
+    [
+      "Встреча, которую запомнишь",
+      "Замедлите шаг, поднимите взгляд и почувствуйте магию наблюдения за животными среди деревьев.",
+      "ОТКРЫТИЕ ДИКОЙ ПРИРОДЫ"
+    ],
+    [
+      "Любопытство в кронах",
+      "Каждый внимательный взгляд напоминает: лес полон жизни и ещё не рассказанных историй.",
+      "ВСТРЕЧИ В ЛЕСУ"
+    ],
+    [
+      "У каждой ветви своя история",
+      "Слушайте, смотрите и удивляйтесь тонкой красоте природы Мадагаскара.",
+      "ДЕТАЛИ ПРИРОДЫ"
+    ]
+  ],
+  "ja": [
+    [
+      "岩の間に隠れた命",
+      "険しい石灰岩の風景にも、目を凝らせば驚くような自然の細部があります。",
+      "探検の楽しさ"
+    ],
+    [
+      "自然の擬態の名人",
+      "森の小さな動きが、思いがけない野生動物の世界を教えてくれます。",
+      "隠れた驚き"
+    ],
+    [
+      "心に残る出会い",
+      "歩みを緩め、木々を見上げて、野生動物を観察する感動を味わいましょう。",
+      "野生動物の発見"
+    ],
+    [
+      "木の上の好奇心",
+      "一つひとつの視線が、森には数えきれない命と物語があることを伝えます。",
+      "森での出会い"
+    ],
+    [
+      "枝の一本一本が物語る",
+      "耳を澄ませ、よく見て、マダガスカルの自然が持つ繊細な美しさを発見しましょう。",
+      "自然の細部"
+    ]
+  ],
+  "de": [
+    [
+      "Verborgenes Leben zwischen den Felsen",
+      "Schauen Sie genauer hin: Selbst im zerklüfteten Kalksteingebiet warten außergewöhnliche Naturdetails.",
+      "DIE KUNST DES ENTDECKENS"
+    ],
+    [
+      "Meister der natürlichen Tarnung",
+      "Schon kleine Bewegungen können die faszinierende Tierwelt des Waldes offenbaren.",
+      "VERBORGENE WUNDER"
+    ],
+    [
+      "Eine unvergessliche Begegnung",
+      "Gehen Sie langsam und beobachten Sie die Tiere zwischen den Bäumen mit offenen Augen.",
+      "WILDTIERE ENTDECKEN"
+    ],
+    [
+      "Neugier im Blätterdach",
+      "Jeder aufmerksame Blick erinnert daran, dass der Wald voller Leben und Geschichten ist.",
+      "BEGEGNUNGEN IM WALD"
+    ],
+    [
+      "Jeder Ast erzählt eine Geschichte",
+      "Hören und schauen Sie genau hin: Madagaskars Natur ist voller feiner Schönheit.",
+      "NATURDETAILS"
+    ]
+  ],
+  "it": [
+    [
+      "Vita nascosta tra le rocce",
+      "Guarda da vicino: anche tra le rocce calcaree si nascondono dettagli straordinari della natura.",
+      "L'ARTE DI ESPLORARE"
+    ],
+    [
+      "Maestri del mimetismo",
+      "Nel bosco anche un piccolo movimento può svelare un mondo sorprendente di fauna.",
+      "MERAVIGLIE NASCOSTE"
+    ],
+    [
+      "Un incontro da ricordare",
+      "Rallenta il passo, alza gli occhi e osserva gli animali tra gli alberi.",
+      "SCOPERTA DELLA FAUNA"
+    ],
+    [
+      "Curiosità tra i rami",
+      "Ogni sguardo attento ricorda che la foresta è piena di vita e di storie.",
+      "INCONTRI NELLA FORESTA"
+    ],
+    [
+      "Ogni ramo racconta una storia",
+      "Ascolta, osserva e lasciati sorprendere dai dettagli della natura del Madagascar.",
+      "DETTAGLI DELLA NATURA"
+    ]
+  ],
+  "es": [
+    [
+      "Vida oculta entre las rocas",
+      "Mira de cerca: incluso entre las rocas calizas se esconden detalles extraordinarios.",
+      "EL ARTE DE EXPLORAR"
+    ],
+    [
+      "Maestros del camuflaje",
+      "En el bosque, un pequeño movimiento puede revelar un mundo sorprendente de fauna.",
+      "MARAVILLAS OCULTAS"
+    ],
+    [
+      "Un encuentro para recordar",
+      "Camina despacio, alza la vista y disfruta de observar animales entre los árboles.",
+      "DESCUBRIMIENTO DE FAUNA"
+    ],
+    [
+      "Curiosidad en las copas",
+      "Cada mirada atenta recuerda que el bosque está lleno de vida y de historias.",
+      "ENCUENTROS EN EL BOSQUE"
+    ],
+    [
+      "Cada rama cuenta una historia",
+      "Escucha, observa y descubre la delicada belleza de la naturaleza de Madagascar.",
+      "DETALLES NATURALES"
+    ]
+  ],
+  "zh": [
+    [
+      "岩石间隐藏的生命",
+      "仔细观察，即使在崎岖的石灰岩地貌中，也藏着自然的奇妙细节。",
+      "探索的艺术"
+    ],
+    [
+      "自然中的伪装大师",
+      "森林里最细微的动静，也可能揭示令人惊喜的野生动物世界。",
+      "隐秘奇观"
+    ],
+    [
+      "值得铭记的相遇",
+      "放慢脚步，抬头观察树间的动物，感受探索野外的魅力。",
+      "野生动物发现"
+    ],
+    [
+      "树冠间的好奇目光",
+      "每一次凝视都提醒我们，森林充满生命与尚未讲述的故事。",
+      "森林邂逅"
+    ],
+    [
+      "每根树枝都有故事",
+      "静静聆听、仔细观察，发现马达加斯加自然细腻的美。",
+      "自然细节"
+    ]
+  ]
 }
 };
 
