@@ -665,7 +665,7 @@ translations["Resume auto-scroll"] = {"fr":"Reprendre le défilement","mg":"Tohi
 translations["HERY · Madagascar Local Guide"] = {"fr":"HERY · Guide local à Madagascar","mg":"HERY · Mpitari-dalana eto Madagasikara","ru":"HERY · местный гид по Мадагаскару","ja":"HERY · マダガスカル現地ガイド","de":"HERY · Lokaler Guide in Madagaskar","it":"HERY · Guida locale del Madagascar","es":"HERY · Guía local de Madagascar","zh":"HERY · 马达加斯加当地向导"};
 translations["View all destinations"] = {"fr":"Voir toutes les destinations","mg":"Hijery ny toerana rehetra","ru":"Все направления","ja":"すべての目的地","de":"Alle Reiseziele","it":"Tutte le destinazioni","es":"Todos los destinos","zh":"查看全部目的地"};
 
-const elementsToIgnore = new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA","INPUT","CODE","PRE","SVG"]);
+const elementsToIgnore = new Set(["SCRIPT","STYLE","NOSCRIPT","CODE","PRE","SVG"]);
 const cache = new WeakMap();
 const attributeCache = new WeakMap();
 
@@ -674,15 +674,29 @@ function lookup(text, lang) {
   return translations[text]?.[lang] || text;
 }
 
+// Use the same curated translations in React source-level gallery data,
+// instead of depending solely on mutations of the rendered DOM.
+export function translateSitePhrase(value, lang) {
+  return typeof value === "string" ? lookup(value,lang) : value;
+}
+export function translateSiteRecord(value, lang) {
+  if (lang === "en" || value == null) return value;
+  if (typeof value === "string") return lookup(value,lang);
+  if (Array.isArray(value)) return value.map(item => translateSiteRecord(item,lang));
+  if (typeof value === "object") {
+    return Object.fromEntries(Object.entries(value).map(([key,item]) => [key,translateSiteRecord(item,lang)]));
+  }
+  return value;
+}
+
 function applyTextNode(node, lang) {
   const parent = node.parentElement;
-  if (!parent || elementsToIgnore.has(parent.tagName) || parent.closest('[contenteditable="true"], [data-no-translate="true"], .chat-message.user, .hery-chat-user')) return;
+  if (!parent || elementsToIgnore.has(parent.tagName) ||
+      parent.closest('[contenteditable="true"], [data-no-translate="true"], .hery-chat-body p.u, .chat-message.user, .hery-chat-user')) return;
   const value = node.nodeValue || "";
   if (!value.trim()) return;
   let previous = cache.get(node);
-  if (!previous || previous.rendered !== value) {
-    previous = {original:value,rendered:value};
-  }
+  if (!previous || previous.rendered !== value) previous = {original:value,rendered:value};
   const key = previous.original.trim();
   const replacement = lookup(key,lang);
   const result = replacement === key ? previous.original : previous.original.replace(key,replacement);
@@ -695,10 +709,10 @@ function applyAttributes(element, lang) {
   for (const attr of ["placeholder","aria-label","title"]) {
     if (!element.hasAttribute(attr)) continue;
     const current = element.getAttribute(attr) || "";
-    let old = attributeCache.get(element) || {};
+    const old = attributeCache.get(element) || {};
     let state = old[attr];
     if (!state || state.rendered !== current) state = {original:current,rendered:current};
-    const result=lookup(state.original,lang);
+    const result = lookup(state.original,lang);
     if (result !== current) element.setAttribute(attr,result);
     old[attr] = {original:state.original,rendered:result};
     attributeCache.set(element,old);
@@ -706,31 +720,56 @@ function applyAttributes(element, lang) {
 }
 
 function localizeTree(root, lang) {
-  if (!root || !root.ownerDocument) return;
+  if (!root) return;
+  if (root.nodeType === 3) { applyTextNode(root,lang); return; }
+  if (root.nodeType !== 1) return;
   const doc = root.ownerDocument;
-  const walker = doc.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  if (!doc || root.closest?.('[data-no-translate="true"]')) return;
+  const walker = doc.createTreeWalker(root,NodeFilter.SHOW_TEXT);
   let node;
   while ((node = walker.nextNode())) applyTextNode(node,lang);
-  if (root.nodeType === 1) applyAttributes(root,lang);
-  for (const el of root.querySelectorAll?.("[placeholder],[aria-label],[title]") || []) applyAttributes(el,lang);
+  applyAttributes(root,lang);
+  for (const el of root.querySelectorAll("[placeholder],[aria-label],[title]")) applyAttributes(el,lang);
 }
 
-// Supplements the nine authored core locales and keeps carousel content in sync.
+// Observe only changed text and inserted elements, not the entire page
+// on every React carousel frame; a language switch still scans the page once.
 export function activateExtraTranslations(lang) {
-  let pending = false;
+  const queued = new Set([document.body]);
+  let frame = 0;
+  let disposed = false;
   const run = () => {
-    pending = false;
-    localizeTree(document.body,lang);
+    frame = 0;
+    if (disposed) return;
+    const nodes = Array.from(queued);
+    queued.clear();
+    for (const node of nodes) localizeTree(node,lang);
   };
-  const schedule = () => {
-    if (pending) return;
-    pending = true;
-    window.requestAnimationFrame(run);
+  const schedule = node => {
+    if (disposed || !node) return;
+    queued.add(node);
+    if (!frame) frame = window.requestAnimationFrame(run);
   };
-  schedule();
-  const observer = new MutationObserver(schedule);
-  observer.observe(document.body,{subtree:true,characterData:true,childList:true,attributes:true,attributeFilter:["placeholder","aria-label","title"]});
-  return () => observer.disconnect();
+  const observer = new MutationObserver(records => {
+    for (const record of records) {
+      if (record.type === "childList") {
+        for (const node of record.addedNodes) schedule(node);
+      } else {
+        schedule(record.target);
+      }
+    }
+  });
+  observer.observe(document.body,{
+    subtree:true,childList:true,characterData:true,attributes:true,
+    attributeFilter:["placeholder","aria-label","title"]
+  });
+  schedule(document.body);
+  return () => {
+    disposed = true;
+    observer.disconnect();
+    queued.clear();
+    if (frame) window.cancelAnimationFrame(frame);
+  };
 }
 
 export const extraTranslationCount = 178;
