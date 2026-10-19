@@ -4,6 +4,9 @@ import { expandedLocaleContent } from "../src/expandedLocaleContent.js";
 import { localizedBlogSections } from "../src/localizedBlogSections.js";
 import { extraTranslationCount } from "../src/siteTranslationExtras.js";
 import { destinationGalleryLocales } from "../src/destinationGalleryLocales.js";
+import { photographyOtherLocales } from "../src/photographyOtherLocales.js";
+import { conservationOtherLocales } from "../src/conservationOtherLocales.js";
+import { conservationSliderCopy } from "../src/conservationSliderLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
 const sectionCounts = [8, 4, 4, 10];
@@ -43,4 +46,23 @@ assert.ok(extraTranslationCount >= 171, "The site-wide translation glossary is u
 assert.ok(main.includes('activateExtraTranslations(lang)'), "Site-wide translation observer missing");
 assert.ok(main.includes('expandedLocaleContent[lang]?.faq'), "Translated FAQ not connected");
 assert.ok(main.includes('localizedBlogSections[lang]'), "Translated article bodies not connected");
-console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections.");
+const style = readFileSync(new URL("../src/style.css", import.meta.url), "utf8");
+assert.ok(style.includes("RESPONSIVE + MULTILINGUAL LAYOUT"), "Responsive styles missing");
+for (const size of [1220, 950, 768, 600, 390]) {
+  assert.ok(style.includes(`max-width: ${size}px`), `Missing responsive breakpoint ${size}`);
+}
+const otherLanguages = ["ru", "ja", "de", "it", "es", "zh"];
+for (const lang of otherLanguages) {
+  const photography = photographyOtherLocales[lang];
+  assert.equal(photography?.scenes?.length, 2, `Photography not localized: ${lang}`);
+  assert.equal(conservationOtherLocales[lang]?.scenes?.length, 10, `Conservation blog not localized: ${lang}`);
+  assert.equal(conservationSliderCopy.captions[lang]?.length, 13, `Conservation slider not localized: ${lang}`);
+  for (const scene of photography.scenes) {
+    assert.ok(scene.title?.trim() && scene.description?.trim() && scene.alt?.trim());
+  }
+  for (const scene of conservationOtherLocales[lang].scenes) {
+    assert.ok(scene.length === 3 && scene.every(part => part.trim().length > 2));
+  }
+}
+assert.match(main, /aria-expanded=\{menu\}/, "Mobile menu must report open/closed state");
+console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions.");
