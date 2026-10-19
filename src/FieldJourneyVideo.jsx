@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { ArrowRight, Play, Film, Compass, MapPin } from "lucide-react";
 import "./FieldJourneyVideo.css";
+import { translateSiteRecord } from "./siteTranslationExtras.js";
 
 const VIDEO = "/videos/hery-field-memories.mp4";
 const POSTER = "/images/hery-field-memories-poster.webp";
@@ -57,7 +58,7 @@ const CONTENT = {
 };
 
 export default function FieldJourneyVideo({ lang = "en", onContact }) {
-  const t = CONTENT[lang] || CONTENT.en;
+  const t = CONTENT[lang] || translateSiteRecord(CONTENT.en, lang);
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
 
