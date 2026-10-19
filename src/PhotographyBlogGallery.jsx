@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Clock, Pause, Play } from "lucide-react";
+import { photographyOtherLocales } from "./photographyOtherLocales.js";
 
 // The two field photographs supplied for the Photography blog story.
 // Optimized AVIFs are in public/images/photography/; the original JPEGs
@@ -224,9 +225,9 @@ function usePhotoSlides() {
   return { images, index: current, paused, setPaused, move, onError };
 }
 
-export function PhotographyFeaturedPreview({ post, readLabel, isMG = false, isFR = false }) {
-  const lang = isMG ? "mg" : isFR ? "fr" : "en";
-  const t = copy[lang];
+export function PhotographyFeaturedPreview({ post, readLabel, isMG = false, isFR = false, lang: selectedLang }) {
+  const lang = selectedLang || (isMG ? "mg" : isFR ? "fr" : "en");
+  const t = copy[lang] || photographyOtherLocales[lang] || copy.en;
   const { images, index, onError } = usePhotoSlides();
   const caption = t.scenes[Math.min(index, t.scenes.length - 1)];
   return <>
@@ -255,9 +256,9 @@ export function PhotographyFeaturedPreview({ post, readLabel, isMG = false, isFR
   </>;
 }
 
-export function PhotographyArticleHero({ post, isMG = false, isFR = false }) {
-  const lang = isMG ? "mg" : isFR ? "fr" : "en";
-  const t = copy[lang];
+export function PhotographyArticleHero({ post, isMG = false, isFR = false, lang: selectedLang }) {
+  const lang = selectedLang || (isMG ? "mg" : isFR ? "fr" : "en");
+  const t = copy[lang] || photographyOtherLocales[lang] || copy.en;
   const { images, index, paused, setPaused, move, onError } = usePhotoSlides();
   const caption = t.scenes[Math.min(index, t.scenes.length - 1)];
   return <div className="article-hero photography-article-hero" role="region" aria-roledescription="carousel" aria-label={post.title}>
@@ -293,7 +294,7 @@ export function PhotographyArticleHero({ post, isMG = false, isFR = false }) {
 }
 
 export function PhotographyArticleScenes({ lang = "en" }) {
-  const t = copy[lang] || copy.en;
+  const t = copy[lang] || photographyOtherLocales[lang] || copy.en;
   return <section className="photography-story" aria-label={t.notes}>
     <style>{styles}</style>
     <h3>{t.notes}</h3>
