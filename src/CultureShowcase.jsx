@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { translateSiteRecord, translateSitePhrase } from "./siteTranslationExtras.js";
 
 const SLIDES = [
   {
@@ -118,8 +119,10 @@ const CSS = `
 export default function CultureShowcase({ lang = "en" }) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const locale = lang === "mg" ? "mg" : lang === "fr" ? "fr" : "en";
-  const slide = SLIDES[index][locale];
+  const locale = ["en", "fr", "mg"].includes(lang) ? lang : "en";
+  const slide = ["en", "fr", "mg"].includes(lang)
+    ? SLIDES[index][locale]
+    : translateSiteRecord(SLIDES[index].en, lang);
 
   useEffect(() => {
     if (paused || SLIDES.length < 2) return;
@@ -137,7 +140,7 @@ export default function CultureShowcase({ lang = "en" }) {
   return (
     <div className="culture-rotator">
       <style>{CSS}</style>
-      <div className="culture-visual" aria-label="Madagascar culture photo slideshow">
+      <div className="culture-visual" aria-label={translateSitePhrase("CULTURE", lang)}>
         {SLIDES.map((item, i) => (
           <img
             key={item.image}
@@ -152,20 +155,20 @@ export default function CultureShowcase({ lang = "en" }) {
       </div>
 
       <div className="culture-panel">
-        <div className="culture-copy" key={`${locale}-${index}`}>
+        <div className="culture-copy" key={`${lang}-${index}`}>
           <span className="culture-kicker">{slide.kicker}</span>
           <h2 className="culture-title">{slide.title}</h2>
         </div>
 
-        <p className="culture-body" key={`body-${locale}-${index}`}>{slide.body}</p>
+        <p className="culture-body" key={`body-${lang}-${index}`}>{slide.body}</p>
 
-        <blockquote className="culture-quote" key={`quote-${locale}-${index}`}>
+        <blockquote className="culture-quote" key={`quote-${lang}-${index}`}>
           “{slide.quote}”
         </blockquote>
 
         <div className="culture-nav">
           <div className="culture-counter">{String(index + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}</div>
-          <div className="culture-dots" aria-label="Culture slides">
+          <div className="culture-dots" aria-label={translateSitePhrase("CULTURE", lang)}>
             {SLIDES.map((_, i) => (
               <button
                 key={i}
@@ -177,9 +180,9 @@ export default function CultureShowcase({ lang = "en" }) {
             ))}
           </div>
           <div className="culture-actions">
-            <button type="button" className="culture-btn" onClick={() => go(-1)} aria-label="Previous slide">←</button>
-            <button type="button" className="culture-btn" onClick={() => setPaused((p) => !p)} aria-label={paused ? "Play slideshow" : "Pause slideshow"}>{paused ? "▶" : "❚❚"}</button>
-            <button type="button" className="culture-btn" onClick={() => go(1)} aria-label="Next slide">→</button>
+            <button type="button" className="culture-btn" onClick={() => go(-1)} aria-label={translateSitePhrase("Previous slide", lang)}>←</button>
+            <button type="button" className="culture-btn" onClick={() => setPaused((p) => !p)} aria-label={translateSitePhrase(paused ? "Resume slideshow" : "Pause slideshow", lang)}>{paused ? "▶" : "❚❚"}</button>
+            <button type="button" className="culture-btn" onClick={() => go(1)} aria-label={translateSitePhrase("Next slide", lang)}>→</button>
           </div>
         </div>
 
