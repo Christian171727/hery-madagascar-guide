@@ -39,6 +39,7 @@ import "./style.css";
 import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import { expandedLocaleContent } from "./expandedLocaleContent.js";
 import { localizedBlogSections } from "./localizedBlogSections.js";
+import { photographyCardLocales } from "./photographyCardLocales.js";
 import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
@@ -1611,6 +1612,7 @@ function App() {
 
         <PhotoSection
           t={t}
+          lang={lang}
           go={go}
           isMG={isMG}
           isFR={isFR}
@@ -2431,7 +2433,7 @@ function Destination({
    PHOTOGRAPHY
 ========================================================= */
 
-function PhotoSection({ t, isMG, isFR }) {
+function PhotoSection({ t, lang, isMG, isFR }) {
   const photos = [
     {
       image: imgs.wildlife,
@@ -2465,21 +2467,22 @@ function PhotoSection({ t, isMG, isFR }) {
     },
   ];
 
-  const displayPhotos = isMG
+  // Captions follow each photograph in all nine selected languages.
+  const localizedCards = photographyCardLocales[lang];
+  const displayPhotos = localizedCards
     ? photos.map((photo, index) => ({
         ...photo,
-        title: mgUI.photos[index][0],
-        label: mgUI.photos[index][1],
-        location: mgUI.photos[index][2],
-        description: mgUI.photos[index][3],
+        title: localizedCards[index][0],
+        label: localizedCards[index][1],
+        location: localizedCards[index][2],
+        description: localizedCards[index][3],
       }))
-    : isFR
-      ? photos.map((photo, index) => index === 1 ? ({
-          ...photo,
-          location: "Aube brumeuse · Ouest de Madagascar",
-          description: "Découvrez la magie des baobabs aux premières lueurs du jour : une brume délicate, un ciel rosé et des silhouettes majestueuses créent un paysage inoubliable."
-        }) : photo)
-      : photos;
+    : photos;
+  const photographyEyebrow = {
+    en: "PHOTOGRAPHY", fr: "PHOTOGRAPHIE", mg: "FAKÀNA SARY",
+    ru: "ФОТОГРАФИЯ", ja: "写真", de: "FOTOGRAFIE",
+    it: "FOTOGRAFIA", es: "FOTOGRAFÍA", zh: "摄影",
+  }[lang] || "PHOTOGRAPHY";
 
   const [selected, setSelected] = useState(null);
 
@@ -2529,7 +2532,7 @@ function PhotoSection({ t, isMG, isFR }) {
       <section id="photography" className="section gallery-section">
         <div className="section-head reveal">
           <div>
-            <span className="eyebrow">{isMG ? "FAKÀNA SARY" : "PHOTOGRAPHY"}</span>
+            <span className="eyebrow">{photographyEyebrow}</span>
 
             <h2>
               {t.photoTitle || "Photography in the field"}
