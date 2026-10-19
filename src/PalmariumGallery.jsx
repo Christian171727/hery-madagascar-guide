@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { gallerySceneFor } from "./destinationGalleryLocales.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
 // Seven owner-provided photographs. The words beneath the card follow the active photo.
@@ -82,7 +83,8 @@ export default function PalmariumGallery({ lang = "en", onSceneChange }) {
   const [paused, setPaused] = useState(false);
   const current = Math.min(index, images.length - 1);
   const photo = images[current];
-  const scene = locale.scenes[(photo?.id || 1) - 1] || locale.scenes[0];
+  const sceneIndex = (photo?.id || 1) - 1;
+  const scene = gallerySceneFor("palmarium", lang, sceneIndex, locale.scenes[sceneIndex] || locale.scenes[0]);
 
   useEffect(() => {
     onSceneChange?.({ id: photo?.id || 1, kicker: scene[2], title: scene[0], description: scene[1] });
