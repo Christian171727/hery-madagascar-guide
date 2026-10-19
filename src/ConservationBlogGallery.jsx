@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Clock, ArrowRight } from "lucide-react";
+import { conservationOtherLocales } from "./conservationOtherLocales.js";
 
 // Keep the original blog image as the first slide and as the article hero.
 export const conservationPhotos = Array.from(
@@ -86,7 +87,7 @@ const galleryCSS = `
 `;
 
 export function ConservationArticleGallery({ lang = "en", sections = [] }) {
-  const t = copy[lang] || copy.en;
+  const t = copy[lang] || conservationOtherLocales[lang] || copy.en;
   return (
     <div className="conservation-story" aria-label={t.label}>
       <style>{galleryCSS}</style>
@@ -118,10 +119,11 @@ export function ConservationArticleGallery({ lang = "en", sections = [] }) {
   );
 }
 
-export function ConservationFeaturedPreview({ post, readLabel, isMG = false, isFR = false }) {
+export function ConservationFeaturedPreview({ post, readLabel, isMG = false, isFR = false, lang: selectedLang }) {
   const [index, setIndex] = useState(0);
-  const lang = isMG ? "mg" : isFR ? "fr" : "en";
-  const [title, description, kicker] = index === 0 ? copy[lang].cover : copy[lang].scenes[index - 1];
+  const lang = selectedLang || (isMG ? "mg" : isFR ? "fr" : "en");
+  const locale = copy[lang] || conservationOtherLocales[lang] || copy.en;
+  const [title, description, kicker] = index === 0 ? locale.cover : locale.scenes[index - 1];
 
   useEffect(() => {
     const timer = window.setTimeout(() => setIndex(i => (i + 1) % coverPhotos.length), 4000);
