@@ -1300,7 +1300,7 @@ const mgUI = {
   ],
   photos: [
     ["Bibidia eto Madagasikara", "BIBIDIA", "Bibidia · Madagasikara", "Fantaro ireo bibidia tsy fahita firy amin’ny fitsidihana manaja ny fonenany."],
-    ["Baobaba eto Madagasikara", "BAOBABA", "Hazavan’ny hariva · Andrefana", "Ankafizo ny hakanton’ireo baobaba sy ny hazavana volamena amin’ny hariva."],
+    ["Baobaba eto Madagasikara", "BAOBABA", "Mangiran-dratsy feno zavona · Andrefan’i Madagasikara", "Ankafizo ny hakanton’ireo baobaba rehefa vao mangiran-dratsy: zavona malefaka sy lanitra mavokely ary aloky ny hazo tranainy mamorona tontolo mahavariana."],
     ["Alan’i Madagasikara", "ALA", "Tanalahy · Madagasikara", "Jereo akaiky ilay tanalahy maitso mipetraka eny amin'ny rantsankazo, iray amin'ireo zava-mahagaga sy lokon'ny zavaboary eto Madagasikara."],
     ["Morontsirak’i Madagasikara", "MORONTSIRAKA", "Fiainana an-nosy · Madagasikara", "Fantaro ny tora-pasika, ranomasina manga ary ny fiainan’ny mponina amorontsiraka."],
   ],
@@ -1607,6 +1607,7 @@ function App() {
           t={t}
           go={go}
           isMG={isMG}
+          isFR={isFR}
         />
 
         <AstroSection t={t} isMG={isMG} isFR={isFR} />
@@ -2406,7 +2407,7 @@ function Destination({
    PHOTOGRAPHY
 ========================================================= */
 
-function PhotoSection({ t, isMG }) {
+function PhotoSection({ t, isMG, isFR }) {
   const photos = [
     {
       image: imgs.wildlife,
@@ -2417,12 +2418,11 @@ function PhotoSection({ t, isMG }) {
       description: "Wildlife encounters and responsible observation in Madagascar.",
     },
     {
-      image: imgs.baobab,
+      image: "/images/photography/baobabs-misty-dawn.webp",
       title: "Baobabs Madagascar",
       label: "BAOBABS",
-      location: "Golden hour · Western Madagascar",
-      description: "Experience the iconic baobab landscapes of Madagascar, especially during golden hour when warm light reveals the extraordinary shapes and silhouettes of these ancient trees.",
-      description: "Iconic landscapes, golden light and the Avenue of Baobabs.",
+      location: "Misty dawn · Western Madagascar",
+      description: "Discover the quiet magic of Madagascar's baobabs at first light: soft morning mist, pale rose skies and ancient silhouettes create an unforgettable scene before the day begins.",
     },
     {
       image: "/images/photography/madagascar-forest-chameleon.webp",
@@ -2449,7 +2449,13 @@ function PhotoSection({ t, isMG }) {
         location: mgUI.photos[index][2],
         description: mgUI.photos[index][3],
       }))
-    : photos;
+    : isFR
+      ? photos.map((photo, index) => index === 1 ? ({
+          ...photo,
+          location: "Aube brumeuse · Ouest de Madagascar",
+          description: "Découvrez la magie des baobabs aux premières lueurs du jour : une brume délicate, un ciel rosé et des silhouettes majestueuses créent un paysage inoubliable."
+        }) : photo)
+      : photos;
 
   const [selected, setSelected] = useState(null);
 
