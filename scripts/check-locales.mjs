@@ -25,7 +25,7 @@ for (const lang of locales) {
       assert.equal(articles[i]?.length, sectionCounts[i], `Wrong number of sections: ${lang} article ${i}`);
       for (const [title, body] of articles[i]) {
         assert.ok(title?.trim().length >= 4, `Missing section title: ${lang}`);
-        assert.ok(body?.trim().length >= 30, `Missing section body: ${lang}`);
+        assert.ok(body?.trim().length >= (lang === "zh" || lang === "ja" ? 12 : 30), `Missing section body: ${lang}`);
       }
     }
   }
