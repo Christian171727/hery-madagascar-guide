@@ -3132,9 +3132,9 @@ function Blog({ t, lang, isMG, isFR }) {
                 {post.id === "wildlife-kirindy" ? (
                   <WildlifeFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
                 ) : post.id === "conservation-terrain" ? (
-                  <ConservationFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
+                  <ConservationFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} lang={lang} />
                 ) : post.id === "photographier-baobabs" ? (
-                  <PhotographyFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} />
+                  <PhotographyFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} lang={lang} />
                 ) : (
                   <>
                 {/* IMAGE */}
@@ -3297,7 +3297,7 @@ function Blog({ t, lang, isMG, isFR }) {
               ================================================= */}
 
               {selectedPost.id === "photographier-baobabs" ? (
-                <PhotographyArticleHero post={selectedPost} isMG={isMG} isFR={isFR} />
+                <PhotographyArticleHero post={selectedPost} isMG={isMG} isFR={isFR} lang={lang} />
               ) : (
               <div className="article-hero">
 
@@ -3356,13 +3356,13 @@ function Blog({ t, lang, isMG, isFR }) {
 
 
                 {selectedPost.id === "wildlife-kirindy" && (
-                  <WildlifeArticleGallery lang={isMG ? "mg" : "en"} sections={selectedPost.sections || []} />
+                  <WildlifeArticleGallery lang={lang} sections={selectedPost.sections || []} />
                 )}
                 {selectedPost.id === "conservation-terrain" && (
-                  <ConservationArticleGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} sections={selectedPost.sections || []} />
+                  <ConservationArticleGallery lang={lang} sections={selectedPost.sections || []} />
                 )}
                 {selectedPost.id === "photographier-baobabs" && (
-                  <PhotographyArticleScenes lang={isMG ? "mg" : isFR ? "fr" : "en"} />
+                  <PhotographyArticleScenes lang={lang} />
                 )}
 
                 {/* SECTIONS */}
