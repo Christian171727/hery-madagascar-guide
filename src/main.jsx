@@ -3864,7 +3864,7 @@ function Contact({ t, lang, isMG, isFR }) {
                 name: event.target.value,
               })
             }
-            placeholder={isMG ? mgUI.contact.name : isFR ? frExtras.contact.name : "Your name"}
+            placeholder={t.name}
           />
         </label>
 
@@ -3881,7 +3881,7 @@ function Contact({ t, lang, isMG, isFR }) {
                 email: event.target.value,
               })
             }
-            placeholder={isMG ? mgUI.contact.email : isFR ? frExtras.contact.email : "you@example.com"}
+            placeholder={t.email}
           />
         </label>
 
@@ -3899,7 +3899,7 @@ function Contact({ t, lang, isMG, isFR }) {
                   event.target.value,
               })
             }
-            placeholder={isMG ? mgUI.contact.message : isFR ? frExtras.contact.message : "Tell us about your trip or project..."}
+            placeholder={t.message}
           />
         </label>
 
