@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Pause, Play } from "lucide-react";
+import { translateSiteRecord } from "./siteTranslationExtras.js";
 
 // Six owner-provided Sainte Marie photographs, compressed for faster loading.
 const PHOTOS = Array.from({ length: 6 }, (_, i) => ({
@@ -72,7 +73,7 @@ const CSS = `
 `;
 
 export default function SainteMarieGallery({ lang = "en", onSceneChange }) {
-  const locale = COPY[lang] || COPY.en;
+  const locale = COPY[lang] || translateSiteRecord(COPY.en, lang);
   const [images, setImages] = useState(PHOTOS);
   const [current, setCurrent] = useState(0);
   const [paused, setPaused] = useState(false);
