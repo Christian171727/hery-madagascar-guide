@@ -90,7 +90,7 @@ const EMAILJS_PUBLIC_KEY =
 const imgs = {
   // Images locales fournies dans public/images
   hero: "/images/hero.jpg",
-  profile: "/images/HERY.jpg",
+  profile: "/images/about-wildlife-lemurs.webp",
 
   // Destinations — une image différente pour chaque destination
   morondava: "/images/Morondava.jpg",
@@ -2051,7 +2051,10 @@ function About({ t, go, isMG, isFR }) {
       <div className="about-photo reveal">
         <img
           src={imgs.profile}
-          alt="HERY local guide"
+          alt="Ring-tailed lemurs resting together against a Madagascar landscape"
+          loading="lazy"
+          decoding="async"
+          style={{ objectPosition: "66% center" }}
         />
 
         <div className="profile-badge">
