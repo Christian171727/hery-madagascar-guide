@@ -85,27 +85,6 @@ const SLIDES = [
       quote: "Ny dia mendrika dia manomboka amin'ny fanajana ny olona sy ny toerana.",
     },
   },
-  {
-    image: "/images/culture/culture5.jpeg",
-    en: {
-      kicker: "FIELD EXPERIENCE",
-      title: "Learn from Madagascar, not only about it.",
-      body: "Educational exchanges, local voices and meaningful visits help travelers understand the island more deeply.",
-      quote: "Go beyond sightseeing — connect, learn and travel with purpose.",
-    },
-    fr: {
-      kicker: "EXPÉRIENCE DE TERRAIN",
-      title: "Apprenez avec Madagascar, pas seulement sur Madagascar.",
-      body: "Échanges éducatifs, voix locales et visites utiles permettent de comprendre l'île avec plus de profondeur.",
-      quote: "Allez au-delà du simple regard — reliez, apprenez et voyagez avec sens.",
-    },
-    mg: {
-      kicker: "FAMPIANARANA ENY AN-TOERANA",
-      title: "Mianara miaraka amin'i Madagasikara, fa tsy momba azy fotsiny.",
-      body: "Ny fifanakalozana, ny feon'ny mponina ary ny fitsidihana misy heviny no mampahafantatra bebe kokoa ny Nosy.",
-      quote: "Mihoatra ny fijerena fotsiny — mifandraisa, mianara ary mandehana amin'ny tanjona.",
-    },
-  },
 ];
 
 const CSS = `
