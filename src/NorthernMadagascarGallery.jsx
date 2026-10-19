@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { gallerySceneFor } from "./destinationGalleryLocales.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
 // Four real photographs supplied in north.zip, depicting chameleons and
@@ -78,7 +79,8 @@ export default function NorthernMadagascarGallery({ lang = "en", onSceneChange }
   const [paused, setPaused] = useState(false);
   const activeIndex = Math.min(index, images.length - 1);
   const photo = images[activeIndex];
-  const scene = t.scenes[(photo?.id || 1) - 1] || t.scenes[0];
+  const sceneIndex = (photo?.id || 1) - 1;
+  const scene = gallerySceneFor("northern", lang, sceneIndex, t.scenes[sceneIndex] || t.scenes[0]);
 
   useEffect(() => {
     onSceneChange?.({ id: photo?.id || 1, title: scene[0], description: scene[1], kicker: scene[2] });
