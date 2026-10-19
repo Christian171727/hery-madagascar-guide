@@ -626,6 +626,30 @@ translations["Even a brief pause can reveal a rare-looking moment: fine feathers
 translations["NATURE'S LITTLE WONDERS"] = {"ru":"МАЛЕНЬКИЕ ЧУДЕСА ПРИРОДЫ","ja":"自然の小さな驚き","de":"KLEINE NATURWUNDER","it":"PICCOLE MERAVIGLIE DELLA NATURA","es":"PEQUEÑAS MARAVILLAS","zh":"自然的小奇迹"};
 translations["WILDLIFE ALONG RN7"] = {"ru":"ДИКАЯ ПРИРОДА МАРШРУТА RN7","ja":"RN7沿いの野生動物","de":"WILDTIERE ENTLANG DER RN7","it":"FAUNA LUNGO LA RN7","es":"FAUNA A LO LARGO DE RN7","zh":"RN7 沿线野生动物"};
 
+translations["A SIGNATURE HERY EXPERIENCE · MORONDAVA / MENABE"] = {"ru":"ОСОБОЕ ПУТЕШЕСТВИЕ С HERY · МОРОНДАВА / МЕНАБЕ","ja":"HERY特別体験 · モロンダバ／メナベ","de":"EIN BESONDERES HERY-ERLEBNIS · MORONDAVA / MENABE","it":"ESPERIENZA SPECIALE HERY · MORONDAVA / MENABE","es":"EXPERIENCIA ESPECIAL HERY · MORONDAVA / MENABE","zh":"HERY 特色体验 · 穆龙达瓦 / 梅纳贝"};
+translations["Hidden moments."] = {"ru":"Скрытые мгновения.","ja":"小さな特別の瞬間。","de":"Verborgene Momente.","it":"Momenti nascosti.","es":"Momentos ocultos.","zh":"隐秘时刻。"};
+translations["Memories that stay forever."] = {"ru":"Воспоминания навсегда.","ja":"いつまでも残る思い出。","de":"Erinnerungen für immer.","it":"Ricordi per sempre.","es":"Recuerdos para siempre.","zh":"永存的回忆。"};
+translations["Some of the most beautiful journeys are not about how far you go. They are about the people you meet, the places you feel and the little moments you never want to end."] = {"ru":"Красота путешествия не всегда в расстоянии. Важнее люди, с которыми вы встречаетесь, места, которые трогают сердце, и мгновения, которые хочется сохранить навсегда.","ja":"旅の美しさは距離では決まりません。出会う人、心に残る場所、終わってほしくない小さな瞬間こそ宝物です。","de":"Die schönsten Reisen handeln nicht von Kilometern, sondern von Begegnungen, berührenden Orten und Momenten, die man nie vergessen möchte.","it":"I viaggi più belli non si misurano in chilometri, ma negli incontri, nei luoghi che emozionano e nei piccoli istanti da ricordare.","es":"Los viajes más hermosos no se miden en kilómetros, sino en las personas, lugares y pequeños momentos que deseas conservar para siempre.","zh":"最美好的旅程不在于走了多远，而在于遇见的人、打动心灵的地方和不愿结束的珍贵瞬间。"};
+translations["A little more than a photograph"] = {"ru":"Больше, чем фотография","ja":"一枚の写真を超えて","de":"Mehr als nur ein Foto","it":"Molto più di una fotografia","es":"Algo más que una fotografía","zh":"不只是一张照片"};
+translations["Authentic landscapes, thoughtful pauses and your very own Madagascar story."] = {"ru":"Настоящие пейзажи, мгновения покоя и ваша собственная история Мадагаскара.","ja":"本物の風景、心に残る休息、そしてあなただけの旅の物語。","de":"Echte Landschaften, besondere Pausen und Ihre eigene Madagaskar-Geschichte.","it":"Paesaggi autentici, pause speciali e la tua storia del Madagascar.","es":"Paisajes auténticos, pausas inolvidables y tu propia historia de Madagascar.","zh":"真实风景、用心的停留，以及属于你的马达加斯加故事。"};
+translations["Private, personal atmosphere"] = {"ru":"Индивидуальная атмосфера","ja":"プライベートな時間","de":"Private, persönliche Atmosphäre","it":"Atmosfera privata e personale","es":"Ambiente privado y personal","zh":"私人专属氛围"};
+translations["Baobab golden-hour photography"] = {"ru":"Фотосъёмка баобабов в золотой час","ja":"黄金色の光で撮るバオバブ","de":"Baobab-Fotografie zur goldenen Stunde","it":"Fotografia dei baobab nell'ora dorata","es":"Fotografía de baobabs en la hora dorada","zh":"黄金时刻猴面包树摄影"};
+translations["Slow travel & meaningful connections"] = {"ru":"Неторопливые путешествия и настоящие встречи","ja":"ゆったり旅して心をつなぐ","de":"Entschleunigtes Reisen und echte Begegnungen","it":"Viaggio lento e incontri autentici","es":"Viajes sin prisa y conexiones reales","zh":"慢旅行与真诚相遇"};
+translations["Plan my special moment"] = {"ru":"Спланировать особый момент","ja":"特別な体験を相談する","de":"Mein besonderes Erlebnis planen","it":"Organizza il mio momento speciale","es":"Planificar mi momento especial","zh":"策划我的专属时刻"};
+translations["Discover the photos"] = {"ru":"Посмотреть фотографии","ja":"写真を見る","de":"Fotos entdecken","it":"Scopri le fotografie","es":"Descubrir las fotografías","zh":"欣赏照片"};
+translations["REAL MOMENTS · MENABE"] = {"ru":"НАСТОЯЩИЕ МГНОВЕНИЯ · МЕНАБЕ","ja":"本物の瞬間 · メナベ","de":"ECHTE MOMENTE · MENABE","it":"MOMENTI AUTENTICI · MENABE","es":"MOMENTOS REALES · MENABE","zh":"真实瞬间 · 梅纳贝"};
+translations["FROM THE FIELD · REAL MADAGASCAR"] = {"ru":"С МЕСТА СОБЫТИЙ · НАСТОЯЩИЙ МАДАГАСКАР","ja":"現地から · 本物のマダガスカル","de":"VOR ORT · DAS ECHTE MADAGASKAR","it":"DAL CAMPO · IL VERO MADAGASCAR","es":"DESDE EL TERRENO · MADAGASCAR REAL","zh":"实地记录 · 真实的马达加斯加"};
+translations["Beyond the road, the adventure begins."] = {"ru":"За пределами дороги начинается приключение.","ja":"道の先から冒険が始まる。","de":"Abseits der Straße beginnt das Abenteuer.","it":"Oltre la strada comincia l'avventura.","es":"Más allá del camino comienza la aventura.","zh":"道路之外，冒险才刚开始。"};
+translations["FIELD VIDEO"] = {"ru":"ВИДЕО ИЗ ПУТЕШЕСТВИЯ","ja":"現地の動画","de":"VIDEO VON UNTERWEGS","it":"VIDEO DAL CAMPO","es":"VÍDEO DEL TERRENO","zh":"实地视频"};
+translations["A river crossing on the journey"] = {"ru":"Переправа через реку","ja":"旅の途中の川渡り","de":"Flussüberquerung auf der Reise","it":"Attraversamento del fiume","es":"Cruce de río durante el viaje","zh":"旅途中的河流穿越"};
+translations["13-second travel moment"] = {"ru":"13 секунд путешествия","ja":"13秒の旅の一場面","de":"13 Sekunden Reiseerlebnis","it":"13 secondi di viaggio","es":"13 segundos de viaje","zh":"13 秒旅行片段"};
+translations["Real footage · Vertical format · Tap play to watch"] = {"ru":"Реальные кадры · Вертикальное видео · Нажмите «Воспроизвести»","ja":"実際の映像 · 縦型 · 再生してご覧ください","de":"Echte Aufnahme · Hochformat · Zum Abspielen tippen","it":"Riprese reali · Formato verticale · Premi Play","es":"Imágenes reales · Formato vertical · Pulsa reproducir","zh":"真实拍摄 · 竖屏视频 · 点击播放"};
+translations["Play the travel video"] = {"ru":"Посмотреть видео о путешествии","ja":"旅行動画を再生","de":"Reisevideo abspielen","it":"Riproduci il video di viaggio","es":"Reproducir el vídeo del viaje","zh":"播放旅行视频"};
+translations["Plan my Madagascar journey"] = {"ru":"Спланировать поездку на Мадагаскар","ja":"マダガスカル旅行を相談","de":"Meine Madagaskar-Reise planen","it":"Organizza il mio viaggio in Madagascar","es":"Planificar mi viaje a Madagascar","zh":"策划我的马达加斯加之旅"};
+translations["Real local moments"] = {"ru":"Настоящие местные моменты","ja":"現地のリアルな瞬間","de":"Echte Momente vor Ort","it":"Momenti locali autentici","es":"Momentos locales auténticos","zh":"真实当地时刻"};
+translations["Roads & river crossings"] = {"ru":"Дороги и речные переправы","ja":"道路と川渡り","de":"Wege & Flussüberquerungen","it":"Strade e attraversamenti fluviali","es":"Caminos y cruces de ríos","zh":"道路与河流穿越"};
+translations["Travel with HERY"] = {"ru":"Путешествуйте с HERY","ja":"HERYと旅する","de":"Mit HERY reisen","it":"Viaggia con HERY","es":"Viaja con HERY","zh":"与 HERY 一同旅行"};
+
 const elementsToIgnore = new Set(["SCRIPT","STYLE","NOSCRIPT","TEXTAREA","INPUT","CODE","PRE","SVG"]);
 const cache = new WeakMap();
 const attributeCache = new WeakMap();
@@ -694,4 +718,4 @@ export function activateExtraTranslations(lang) {
   return () => observer.disconnect();
 }
 
-export const extraTranslationCount = 142;
+export const extraTranslationCount = 165;
