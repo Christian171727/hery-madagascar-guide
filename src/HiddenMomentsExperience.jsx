@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft, ArrowRight, Camera, Heart, Pause, Play, Sun, Compass } from "lucide-react";
 import "./HiddenMomentsExperience.css";
+import { translateSiteRecord } from "./siteTranslationExtras.js";
+import { hiddenMomentsOtherScenes } from "./hiddenMomentsOtherScenes.js";
 
 const DELAY = 4000;
 const IMAGES = Array.from({ length: 7 }, (_, index) =>
@@ -92,7 +94,7 @@ const STORIES = {
 };
 
 export default function HiddenMomentsExperience({ lang = "en", onContact }) {
-  const t = STORIES[lang] || STORIES.en;
+  const t = STORIES[lang] || { ...translateSiteRecord(STORIES.en, lang), scenes: hiddenMomentsOtherScenes[lang] || STORIES.en.scenes };
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
