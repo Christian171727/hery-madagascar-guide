@@ -665,6 +665,18 @@ translations["Resume auto-scroll"] = {"fr":"Reprendre le défilement","mg":"Tohi
 translations["HERY · Madagascar Local Guide"] = {"fr":"HERY · Guide local à Madagascar","mg":"HERY · Mpitari-dalana eto Madagasikara","ru":"HERY · местный гид по Мадагаскару","ja":"HERY · マダガスカル現地ガイド","de":"HERY · Lokaler Guide in Madagaskar","it":"HERY · Guida locale del Madagascar","es":"HERY · Guía local de Madagascar","zh":"HERY · 马达加斯加当地向导"};
 translations["View all destinations"] = {"fr":"Voir toutes les destinations","mg":"Hijery ny toerana rehetra","ru":"Все направления","ja":"すべての目的地","de":"Alle Reiseziele","it":"Tutte le destinazioni","es":"Todos los destinos","zh":"查看全部目的地"};
 
+translations["Meet Madagascar's ring-tailed lemurs"] = {"ru":"Встреча с кольцехвостыми лемурами","ja":"マダガスカルのワオキツネザルに出会う","de":"Madagaskars Kattas entdecken","it":"Incontra i lemuri dalla coda ad anelli","es":"Conoce a los lémures de cola anillada","zh":"邂逅马达加斯加的环尾狐猴"};
+translations["A family of iconic makis greets the curious traveller. Their striped tails and expressive faces make each encounter special."] = {"ru":"Семейство узнаваемых маки встречает путешественников. Полосатые хвосты и живые взгляды делают эту встречу особенной.","ja":"特徴的な縞模様の尾と豊かな表情を持つワオキツネザルの家族に出会いましょう。","de":"Eine Katta-Familie begrüßt neugierige Reisende. Gestreifte Schwänze und lebhafte Blicke machen die Begegnung besonders.","it":"Una famiglia di lemuri accoglie i visitatori. Le code a strisce e gli sguardi espressivi rendono l'incontro speciale.","es":"Una familia de lémures saluda al viajero. Sus colas rayadas y miradas expresivas hacen especial el encuentro.","zh":"环尾狐猴家族迎接好奇的旅人，条纹尾巴与灵动表情让相遇格外难忘。"};
+translations["LEMUR ENCOUNTERS"] = {"ru":"ВСТРЕЧИ С ЛЕМУРАМИ","ja":"キツネザルとの出会い","de":"LEMURENBEGEGNUNGEN","it":"INCONTRI CON I LEMURI","es":"ENCUENTROS CON LÉMURES","zh":"邂逅狐猴"};
+translations["LIVING TRADITIONS"] = {"ru":"ЖИВЫЕ ТРАДИЦИИ","ja":"受け継がれる伝統","de":"LEBENDIGE TRADITIONEN","it":"TRADIZIONI VIVE","es":"TRADICIONES VIVAS","zh":"鲜活传统"};
+translations["LOCAL CONNECTION"] = {"ru":"МЕСТНЫЕ СВЯЗИ","ja":"地域のつながり","de":"LOKALE VERBINDUNGEN","it":"LEGAMI LOCALI","es":"VÍNCULOS LOCALES","zh":"当地联系"};
+translations["COMMUNITY LIFE"] = {"ru":"ЖИЗНЬ СООБЩЕСТВА","ja":"地域の暮らし","de":"GEMEINSCHAFTSLEBEN","it":"VITA DELLA COMUNITÀ","es":"VIDA COMUNITARIA","zh":"社区生活"};
+translations["FOREST JOURNAL"] = {"ru":"ЛЕСНЫЕ ЗАМЕТКИ","ja":"森の記録","de":"WALDTAGEBUCH","it":"DIARIO DELLA FORESTA","es":"DIARIO DEL BOSQUE","zh":"森林日志"};
+translations["Play slideshow"] = {"ru":"Продолжить показ","ja":"スライドを再開","de":"Diashow starten","it":"Avvia presentazione","es":"Reproducir presentación","zh":"播放幻灯片"};
+translations["Madagascar culture photo slideshow"] = {"ru":"Фотогалерея культуры Мадагаскара","ja":"マダガスカル文化の写真スライド","de":"Bildergalerie zur Kultur Madagaskars","it":"Galleria fotografica della cultura malgascia","es":"Galería cultural de Madagascar","zh":"马达加斯加文化图片展示"};
+translations["Culture slides"] = {"ru":"Слайды о культуре","ja":"文化のスライド","de":"Kultur-Bilder","it":"Foto sulla cultura","es":"Imágenes de cultura","zh":"文化照片"};
+translations["HERY Madagascar conservation photo gallery"] = {"ru":"Фотогалерея охраны природы","ja":"自然保護の写真ギャラリー","de":"Naturschutz-Fotogalerie","it":"Galleria di conservazione","es":"Galería de conservación","zh":"自然保护摄影集"};
+
 const elementsToIgnore = new Set(["SCRIPT","STYLE","NOSCRIPT","CODE","PRE","SVG"]);
 const cache = new WeakMap();
 const attributeCache = new WeakMap();
@@ -772,4 +784,4 @@ export function activateExtraTranslations(lang) {
   };
 }
 
-export const extraTranslationCount = 178;
+export const extraTranslationCount = 189;
