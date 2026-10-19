@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { expandedLocaleContent } from "../src/expandedLocaleContent.js";
 import { localizedBlogSections } from "../src/localizedBlogSections.js";
 import { extraTranslationCount } from "../src/siteTranslationExtras.js";
+import { destinationGalleryLocales } from "../src/destinationGalleryLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
 const sectionCounts = [8, 4, 4, 10];
@@ -28,6 +29,14 @@ for (const lang of locales) {
         assert.ok(body?.trim().length >= (lang === "zh" || lang === "ja" ? 12 : 30), `Missing section body: ${lang}`);
       }
     }
+  }
+}
+for (const [gallery, expected] of Object.entries({palmarium:7,northern:4,tsingy:5,andasibe:18})) {
+  const group = destinationGalleryLocales[gallery];
+  for (const lang of ["ru","ja","de","it","es","zh"]) {
+    const scenes = group?.[lang];
+    assert.equal(scenes?.length, expected, `Missing ${gallery} images in ${lang}`);
+    assert.ok(scenes.every(scene => scene.length === 3 && scene.every(v => typeof v === "string" && v.trim().length >= 3)), `Invalid caption for ${gallery} / ${lang}`);
   }
 }
 assert.ok(extraTranslationCount >= 171, "The site-wide translation glossary is unexpectedly short");
