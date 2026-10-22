@@ -1384,25 +1384,34 @@ const mgArticleSections = [
 function useReveal() {
   useEffect(() => {
     const elements = document.querySelectorAll(".reveal");
-
-    if (!elements.length) return;
-
+    const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+    // Content must remain readable on mobile browsers without observer support.
+    if (!("IntersectionObserver" in window) || reducedMotion) {
+      elements.forEach(element => element.classList.add("visible"));
+      return;
+    }
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-      }
+      entries => entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          entry.target.classList.remove("reveal-ready");
+          observer.unobserve(entry.target);
+        }
+      }),
+      { threshold: 0.01, rootMargin: "0px 0px 120px 0px" }
     );
-
-    elements.forEach((element) => observer.observe(element));
-
-    return () => observer.disconnect();
+    elements.forEach(element => {
+      if (element.classList.contains("visible")) return;
+      element.classList.add("reveal-ready");
+      observer.observe(element);
+    });
+    return () => {
+      observer.disconnect();
+      document.querySelectorAll(".reveal-ready").forEach(element => {
+        element.classList.remove("reveal-ready");
+        element.classList.add("visible");
+      });
+    };
   }, []);
 }
 
@@ -1720,6 +1729,15 @@ function Header({
     es: ["Idioma", "Cambiar tema", "Menú", "Cerrar menú"],
     zh: ["语言", "切换主题", "菜单", "关闭菜单"],
   }[lang] || ["Language", "Toggle theme", "Menu", "Close menu"];
+  useEffect(() => {
+    if (!menu) return;
+    const onEscape = event => {
+      if (event.key === "Escape") setMenu(false);
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => window.removeEventListener("keydown", onEscape);
+  }, [menu, setMenu]);
+
   const ids = [
     "home",
     "about",
@@ -1778,7 +1796,10 @@ function Header({
         </nav>
 
         <div className="nav-actions">
+          <div className="language-picker">
+            <Globe2 size={17} aria-hidden="true" className="language-picker-icon" />
           <select
+            id="hery-language-select"
             className="language-select"
             value={lang}
             onChange={(event) =>
@@ -1797,8 +1818,10 @@ function Header({
             <option value="es">ES</option>
             <option value="zh">中文</option>
           </select>
+          </div>
 
           <button
+            type="button"
             className="icon-btn"
             onClick={() =>
               setDark(!dark)
@@ -1813,6 +1836,7 @@ function Header({
           </button>
 
           <button
+            type="button"
             className="icon-btn menu-btn"
             onClick={() =>
               setMenu(!menu)
