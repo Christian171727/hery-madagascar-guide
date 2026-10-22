@@ -7938,3 +7938,258 @@ html[lang="ja"] :where(h1,h2,h3,p) {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+
+/* =========================================================
+   HEADER VISIBILITY + MOBILE/TABLET CONTENT FIX
+   2026-10-22
+   Mobile 320px+ / tablet portrait-landscape / small laptops.
+   Keep existing palette and four-second image slideshows.
+========================================================= */
+
+/* Never leave content invisible when an observer is unavailable,
+   an item is inserted after mount, or a device reduces motion. */
+.reveal {
+  opacity: 1;
+  transform: none;
+}
+.reveal.reveal-ready:not(.visible) {
+  opacity: 0;
+  transform: translateY(20px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal.reveal-ready:not(.visible) {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* A clipped application wrapper hid fixed/absolute header descendants
+   on some mobile browsers. Clip sideways only, never vertically. */
+.app {
+  overflow-x: clip;
+  overflow-y: visible;
+}
+.header {
+  overflow: visible;
+  isolation: isolate;
+}
+.header .nav-inner {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.header .brand-with-logo {
+  flex-shrink: 1;
+  min-width: 0;
+}
+.header .nav-actions {
+  flex-shrink: 0;
+  min-width: max-content;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+/* Make the selected language recognisable on all screen sizes. */
+.header .language-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+  min-width: 82px;
+  height: 42px;
+  padding: 0 5px 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-solid);
+  color: var(--ink);
+  box-shadow: 0 2px 9px rgba(11,24,19,.07);
+}
+.header .language-picker-icon {
+  flex: 0 0 17px;
+  color: var(--forest-700);
+}
+.header .nav-actions .language-picker .language-select {
+  display: block !important;
+  position: relative;
+  z-index: 1202;
+  flex: 1 1 52px;
+  width: 55px !important;
+  min-width: 50px !important;
+  max-width: 55px;
+  height: 40px;
+  padding: 0 3px;
+  appearance: auto;
+  -webkit-appearance: menulist;
+  border: 0;
+  box-shadow: none;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 800;
+  opacity: 1 !important;
+  visibility: visible !important;
+  cursor: pointer;
+}
+.header .language-picker:focus-within {
+  outline: 2px solid var(--gold-500);
+  outline-offset: 2px;
+}
+html[data-theme="dark"] .header .language-picker {
+  background: var(--surface-solid);
+  border-color: rgba(255,255,255,.25);
+}
+html[data-theme="dark"] .header .language-picker-icon {
+  color: var(--gold-300);
+}
+
+/* All twelve sections stay reachable via the hamburger from tablets
+   down to phones, instead of a wide nav extending off-screen. */
+@media (max-width: 1220px) {
+  .header .nav-inner {
+    width: calc(100% - 28px);
+    gap: 10px;
+  }
+  .header .nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 14px;
+    right: 14px;
+    z-index: 1203;
+    width: auto;
+    flex: none;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    max-height: calc(100dvh - 90px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: var(--surface-solid);
+    box-shadow: var(--shadow-lg);
+    white-space: normal;
+  }
+  .header .nav.open {
+    display: flex;
+  }
+  .header .nav button {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 14px;
+    text-align: left;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1.5;
+    border-radius: 10px;
+  }
+  .header .nav button::after { display: none; }
+  .header .nav-contact { display: none; }
+  .header .menu-btn {
+    display: grid !important;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    opacity: 1;
+    visibility: visible;
+  }
+  .header .nav-actions { gap: 7px; }
+}
+@media (max-width: 700px) {
+  .header {
+    height: 68px;
+  }
+  .header .nav-inner {
+    width: calc(100% - 22px);
+    gap: 6px;
+  }
+  .header .brand-with-logo {
+    gap: 4px;
+  }
+  .header .brand-emblem {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+  .header .brand-with-logo strong {
+    font-size: 19px;
+    line-height: 1;
+    letter-spacing: .04em;
+  }
+  .header .brand-with-logo small {
+    display: none;
+  }
+  .header .nav-actions { gap: 5px; }
+  .header .language-picker {
+    min-width: 75px;
+    height: 40px;
+    padding-left: 6px;
+    gap: 2px;
+  }
+  .header .nav-actions .language-picker .language-select {
+    height: 38px;
+    min-width: 49px !important;
+    width: 52px !important;
+    font-size: 12px;
+  }
+  .header .nav-actions .icon-btn, .header .menu-btn {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+  }
+  .header .nav {
+    left: 10px;
+    right: 10px;
+    top: calc(100% + 4px);
+    padding: 9px;
+    border-radius: 16px;
+    max-height: calc(100dvh - 78px);
+  }
+  .header .nav button {
+    font-size: 14px;
+    min-height: 46px;
+  }
+  .section-head, .hero-content, .destination-card,
+  .service-card, .post, .dest-body {
+    min-width: 0;
+    max-width: 100%;
+  }
+  .section-head h2, .hero-content h1, .dest-body h3 {
+    overflow-wrap: anywhere;
+  }
+}
+@media (max-width: 360px) {
+  .header .nav-inner { width: calc(100% - 16px); gap: 3px; }
+  .header .brand-emblem {
+    width: 32px;
+    height: 32px;
+    flex-basis: 32px;
+  }
+  .header .brand-with-logo strong { font-size: 16px; }
+  .header .language-picker { min-width: 69px; padding-left: 5px; }
+  .header .language-picker-icon { width: 14px; height: 14px; flex-basis: 14px; }
+  .header .nav-actions .language-picker .language-select {
+    width: 48px !important;
+    min-width: 46px !important;
+    max-width: 48px;
+    font-size: 11px;
+  }
+  .header .nav-actions .icon-btn, .header .menu-btn {
+    width: 37px;
+    height: 37px;
+    flex-basis: 37px;
+  }
+}
+/* Ensure menu reaches keyboard/touch users even in short landscape viewports. */
+@media (max-height: 520px) and (max-width: 1220px) {
+  .header .nav { max-height: calc(100dvh - 80px); }
+}
