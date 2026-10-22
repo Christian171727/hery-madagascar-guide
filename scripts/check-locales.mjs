@@ -84,4 +84,17 @@ for (const lang of ["ru", "ja", "de", "it", "es", "zh"]) {
 }
 assert.ok(main.includes('photographyCardLocales[lang]'), "Photography cards not wired to language");
 assert.ok(main.includes('siteMetaLocales[lang]'), "Browser title not wired to language");
+// Regression guards: the mobile/tablet header must expose both language and menu,
+ // and unobserved animated content must never stay invisible.
+assert.ok(main.includes('className="language-picker"'), "Language picker wrapper missing");
+assert.ok(main.includes('id="hery-language-select"'), "Language select missing");
+assert.ok(main.includes('id="hery-primary-navigation"'), "Primary mobile navigation missing");
+assert.ok(main.includes('className="icon-btn menu-btn"'), "Mobile menu button missing");
+assert.ok(main.includes('classList.add("reveal-ready")'), "Progressive reveal observer missing");
+assert.ok(style.includes(".reveal.reveal-ready:not(.visible)"), "Visible-by-default reveal protection missing");
+assert.ok(style.includes(".header .nav.open"), "Mobile opened menu CSS missing");
+assert.ok(style.includes("overflow-y: visible;"), "Mobile vertical overflow must not hide navigation");
+for (const breakpoint of [1220, 700, 360]) {
+  assert.ok(style.includes(`max-width: ${breakpoint}px`), `Missing mobile navigation breakpoint ${breakpoint}`);
+}
 console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations.");
