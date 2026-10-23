@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync, statSync } from "node:fs";
+import { andasibeNewPhotoScenes } from "../src/andasibeNewPhotoScenes.js";
 import { expandedLocaleContent } from "../src/expandedLocaleContent.js";
 import { localizedBlogSections } from "../src/localizedBlogSections.js";
 import { extraTranslationCount } from "../src/siteTranslationExtras.js";
@@ -97,4 +98,25 @@ assert.ok(style.includes("overflow-y: visible;"), "Mobile vertical overflow must
 for (const breakpoint of [1220, 700, 360]) {
   assert.ok(style.includes(`max-width: ${breakpoint}px`), `Missing mobile navigation breakpoint ${breakpoint}`);
 }
-console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations.");
+// Andasibe gallery: original scene 11 must be excluded, eight supplied
+// WebP images inserted, and every active caption translated.
+const andasibeSource = readFileSync(new URL("../src/AndasibeGallery.jsx", import.meta.url), "utf8");
+assert.ok(andasibeSource.includes("ORIGINAL_PHOTOS.slice(0, 10)"), "Andasibe first ten photos missing");
+assert.ok(andasibeSource.includes("ORIGINAL_PHOTOS.slice(11)"), "Old image eleven must be removed");
+assert.ok(andasibeSource.includes("ZIP_PHOTOS"), "Owner photo ZIP not connected to the carousel");
+assert.ok(andasibeSource.includes("andasibeNewPhotoScenes"), "New photo captions not connected");
+for (const lang of locales) {
+  const captions = andasibeNewPhotoScenes[lang];
+  assert.equal(captions?.length, 8, `Andasibe ZIP captions incomplete for ${lang}`);
+  assert.ok(captions.every(row => row.length === 3 && row.every(value => value.trim().length >= 4)), `Invalid Andasibe caption in ${lang}`);
+}
+for (let i = 1; i <= 8; i++) {
+  const num = String(i).padStart(2, "0");
+  const path = new URL(`../public/images/andasibe-added/andasibe-extra-${num}.webp`, import.meta.url);
+  assert.ok(existsSync(path), `Missing ZIP image ${i}`);
+  assert.ok(statSync(path).size > 18000, `ZIP image too small: ${i}`);
+  const bytes = readFileSync(path);
+  assert.equal(bytes.toString("ascii", 0, 4), "RIFF", `Invalid WebP file ${i}`);
+  assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `Invalid WebP file ${i}`);
+}
+console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations and all Andasibe photo assets.");

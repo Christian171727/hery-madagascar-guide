@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { gallerySceneFor } from "./destinationGalleryLocales.js";
+import { andasibeNewPhotoScenes } from "./andasibeNewPhotoScenes.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
 // Original photographs supplied for this update. Old Andasibe carousel assets are not used.
-const PHOTOS = Array.from({ length: 18 }, (_, index) => ({
-  id: index + 1,
+const ORIGINAL_PHOTOS = Array.from({ length: 18 }, (_, index) => ({
   src: `/images/andasibe-new/andasibe-${String(index + 1).padStart(2, "0")}.avif`,
 }));
+// Remove old scene 11 (PALMARIUM sign) and insert all eight owner-uploaded
+// photos from andasibe(2).zip in their original ZIP order.
+const ZIP_PHOTOS = Array.from({ length: 8 }, (_, index) => ({
+  src: `/images/andasibe-added/andasibe-extra-${String(index + 1).padStart(2, "0")}.webp`,
+}));
+const PHOTOS = [
+  ...ORIGINAL_PHOTOS.slice(0, 10),
+  ...ZIP_PHOTOS,
+  ...ORIGINAL_PHOTOS.slice(11),
+].map((photo, index) => ({ ...photo, id: index + 1 }));
 const FALLBACK = "/images/Andasibe.jpg";
 const DELAY = 4000;
 
@@ -142,13 +152,20 @@ export default function AndasibeGallery({lang="en",onSceneChange}) {
   const [paused,setPaused] = useState(false);
   const active = images[Math.min(current,images.length-1)] || PHOTOS[0];
   const sceneIndex = (active.id || 1) - 1;
-  const sourceScene = SCENES[sceneIndex] || SCENES[0];
-  const [kicker, title, description] = lang === "en" || lang === "fr" || lang === "mg"
-    ? (sourceScene[lang] || sourceScene.en)
-    : (() => {
-        const [titleText, descText, label] = gallerySceneFor("andasibe", lang, sceneIndex, [sourceScene.en[1], sourceScene.en[2], sourceScene.en[0]]);
-        return [label, titleText, descText];
-      })();
+  const isZipPhoto = sceneIndex >= 10 && sceneIndex < 18;
+  const originalIndex = sceneIndex >= 18 ? sceneIndex - 7 : sceneIndex;
+  const sourceScene = SCENES[originalIndex] || SCENES[0];
+  const [kicker, title, description] = isZipPhoto
+    ? (andasibeNewPhotoScenes[lang]?.[sceneIndex - 10] || andasibeNewPhotoScenes.en[sceneIndex - 10])
+    : (["en", "fr", "mg"].includes(lang)
+        ? (sourceScene[lang] || sourceScene.en)
+        : (() => {
+            const [titleText, descText, label] = gallerySceneFor(
+              "andasibe", lang, originalIndex,
+              [sourceScene.en[1], sourceScene.en[2], sourceScene.en[0]]
+            );
+            return [label, titleText, descText];
+          })());
 
   useEffect(() => {
     onSceneChange?.({id:active.id,kicker,title,description});
@@ -178,7 +195,7 @@ export default function AndasibeGallery({lang="en",onSceneChange}) {
   const key=`${active.id}-${lang}`;
 
   return (
-    <div className="andasibe-gallery" role="region" aria-roledescription="carousel" aria-label="Andasibe and Madagascar forest wildlife slideshow">
+    <div className="andasibe-gallery" role="region" aria-roledescription="carousel" aria-label={{en:"Andasibe and Madagascar forest wildlife slideshow",fr:"Photos des forêts et de la faune malgache",mg:"Sarin’ny ala sy biby eto Madagasikara",ru:"Фотогалерея лесов и животных Мадагаскара",ja:"マダガスカルの森と野生動物の写真",de:"Fotogalerie der Wälder und Tiere Madagaskars",it:"Galleria delle foreste e della fauna del Madagascar",es:"Galería de bosques y fauna de Madagascar",zh:"马达加斯加森林与野生动物图片"}[lang] || "Andasibe forest slideshow"}>
       <style>{CSS}</style>
       {images.map((item,i)=>(
         <img key={item.src} src={item.src} alt={i===current?title:""}
