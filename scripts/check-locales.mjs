@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { andasibeNewPhotoScenes } from "../src/andasibeNewPhotoScenes.js";
+import { cityTourLocales } from "../src/cityTourLocales.js";
 import { expandedLocaleContent } from "../src/expandedLocaleContent.js";
 import { localizedBlogSections } from "../src/localizedBlogSections.js";
 import { extraTranslationCount } from "../src/siteTranslationExtras.js";
@@ -176,3 +177,25 @@ for (let number = 1; number <= 7; number++) {
   assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `Palmarium image ${id} is not WebP`);
 }
 console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations and all Andasibe photo assets.");
+
+
+const cityGallery = readFileSync(new URL("../src/CityToursGallery.jsx", import.meta.url), "utf8");
+assert.ok(main.includes('"City Tours in Madagascar"'), "City Tours destination missing");
+assert.ok(main.includes("<CityToursGallery lang={lang} onSceneChange={setCityScene}"), "City Tours carousel not wired");
+assert.ok(main.includes("cityText.description"), "City Tours translated photo story not connected");
+assert.ok(cityGallery.includes("length: 4"), "Four City Tours slides expected");
+for (const lang of locales) {
+  const item = cityTourLocales[lang];
+  assert.ok(item?.title?.trim().length >= 6, `City Tours destination not translated for ${lang}`);
+  assert.equal(item?.scenes?.length, 4, `City Tours scenes not translated for ${lang}`);
+  assert.ok(item.scenes.every(scene => scene.length === 3 && scene.every(v => typeof v === "string" && v.trim().length >= 3)), `City Tours scene text invalid for ${lang}`);
+}
+for (let i = 1; i <= 4; i++) {
+  const filename = "city-" + String(i).padStart(2,"0") + ".webp";
+  const file = new URL("../public/images/city-tours/" + filename, import.meta.url);
+  assert.ok(existsSync(file), "Missing City Tours photograph: " + filename);
+  assert.ok(statSync(file).size > 10000, "City Tours asset unexpectedly small: " + filename);
+  const bytes = readFileSync(file);
+  assert.equal(bytes.toString("ascii", 0, 4), "RIFF", "Invalid WebP City Tours asset");
+  assert.equal(bytes.toString("ascii", 8, 12), "WEBP", "Invalid WebP City Tours asset");
+}

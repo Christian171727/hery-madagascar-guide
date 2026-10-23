@@ -58,6 +58,8 @@ import HiddenMomentsExperience from "./HiddenMomentsExperience.jsx";
 import FieldJourneyVideo from "./FieldJourneyVideo.jsx";
 import NorthernMadagascarGallery from "./NorthernMadagascarGallery.jsx";
 import ManamboloGallery from "./ManamboloGallery.jsx";
+import CityToursGallery from "./CityToursGallery.jsx";
+import { cityTourLocales } from "./cityTourLocales.js";
 import CultureShowcase from "./CultureShowcase.jsx";
 import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
 import WildlifeFeaturedPreview from "./WildlifeFeaturedPreview.jsx";
@@ -904,6 +906,12 @@ const destinations = [
     "Discover the chameleons, forests and hidden wildlife of northern Madagascar",
     "/images/northern-madagascar/north-1.avif",
     "13",
+  ],
+  [
+    "City Tours in Madagascar",
+    "Discover city heritage, local life, historic architecture and atmospheric evening streets",
+    "/images/city-tours/city-01.webp",
+    "14",
   ],
 ];
 
@@ -2295,6 +2303,9 @@ function Destination({
   const [andasibeScene, setAndasibeScene] = useState(null);
   const [palmariumScene, setPalmariumScene] = useState(null);
   const [northScene, setNorthScene] = useState(null);
+  const [cityScene, setCityScene] = useState(null);
+  const cityLocale = cityTourLocales[lang] || cityTourLocales.en;
+  const cityText = cityScene?.lang === lang ? cityScene : {id:1,kicker:cityLocale.scenes[0][0],title:cityLocale.scenes[0][1],description:cityLocale.scenes[0][2]};
   const baobabText = baobabScene?.lang === lang ? baobabScene : getBaobabStory(lang, 0);
   return (
     <motion.article
@@ -2321,6 +2332,8 @@ function Destination({
       <div className="dest-img">
         {d[0] === "Morondava & Menabe" ? (
           <MenabeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setMenabeScene} />
+        ) : d[0] === "City Tours in Madagascar" ? (
+          <CityToursGallery lang={lang} onSceneChange={setCityScene} />
         ) : d[0] === "Avenue of Baobabs" ? (
           <BaobabGallery lang={lang} onSceneChange={setBaobabScene} />
         ) : d[0] === "Sainte Marie" ? (
@@ -2369,10 +2382,16 @@ function Destination({
         </span>
 
         <h3>
-          {d[0]}
+          {d[0] === "City Tours in Madagascar" ? cityLocale.title : d[0]}
         </h3>
 
-        {d[0] === "Avenue of Baobabs" ? (
+        {d[0] === "City Tours in Madagascar" ? (
+          <div className="city-tours-story" key={"city-" + cityText.id + "-" + lang} aria-live="off">
+            <small>{cityText.kicker}</small>
+            <strong>{cityText.title}</strong>
+            <p>{cityText.description}</p>
+          </div>
+        ) : d[0] === "Avenue of Baobabs" ? (
           <div className="baobab-story" key={"baobabs-" + (baobabScene?.id || 1) + "-" + lang} aria-live="off">
             <small>{baobabText.kicker}</small>
             <strong>{baobabText.title}</strong>
