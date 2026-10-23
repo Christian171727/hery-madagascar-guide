@@ -1,19 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { gallerySceneFor } from "./destinationGalleryLocales.js";
 import { tsingyNewPhotoLocales } from "./tsingyNewPhotoLocales.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
-// Four new Tsingy limestone photos appear first; the five existing photos remain.
-const PHOTOS = [
-  ...Array.from({ length: 4 }, (_, index) => ({
-    id: index + 1,
-    src: `/images/tsingy-gallery/tsingy-new-${String(index + 1).padStart(2, "0")}.webp`,
-  })),
-  ...Array.from({ length: 5 }, (_, index) => ({
-    id: index + 5,
-    src: `/images/tsingy-gallery/tsingy${index + 1}.avif`,
-  })),
-];
+// Only the four Tsingy limestone photographs supplied by the owner.
+ // The five unrelated wildlife photographs (previously 05–09) are excluded.
+const PHOTOS = Array.from({ length: 4 }, (_, index) => ({
+  id: index + 1,
+  src: `/images/tsingy-gallery/tsingy-new-${String(index + 1).padStart(2, "0")}.webp`,
+}));
 const FALLBACK = "/images/Bemaraha.jpeg";
 const INTERVAL = 4000;
 const CONTENT = {
@@ -97,10 +91,8 @@ export default function TsingyGallery({ lang = "en", onSceneChange }) {
   const photo = images[current];
   const sceneIndex = (photo?.id || 1) - 1;
   const newLocale = tsingyNewPhotoLocales[lang] || tsingyNewPhotoLocales.en;
-  const scene = sceneIndex < 4
-    ? newLocale.scenes[sceneIndex]
-    : gallerySceneFor("tsingy", lang, sceneIndex - 4, t.scenes[sceneIndex - 4] || t.scenes[0]);
-  const tag = sceneIndex < 4 ? newLocale.tag : t.tag;
+  const scene = newLocale.scenes[sceneIndex] || newLocale.scenes[0];
+  const tag = newLocale.tag;
 
   useEffect(() => {
     onSceneChange?.({ id: photo?.id || 1, kicker: scene[2], title: scene[0], description: scene[1] });
