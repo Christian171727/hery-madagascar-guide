@@ -37,6 +37,7 @@ import {
 
 import "./style.css";
 import GoogleReviewsSection from "./GoogleReviewsSection.jsx";
+import LocalReviewForm from "./LocalReviewForm.jsx";
 import { googleReviewsLocales } from "./googleReviewsLocales.js";
 import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import { expandedLocaleContent } from "./expandedLocaleContent.js";
@@ -1690,6 +1691,8 @@ function App() {
         <References isMG={isMG} isFR={isFR} />
 
         <GoogleReviewsSection lang={lang} />
+
+        <LocalReviewForm lang={lang} />
 
         <Contact
           t={t}

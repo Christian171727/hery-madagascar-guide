@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<title>HERY — Administration des avis clients</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f4ef;color:#193c2c;font-family:system-ui,sans-serif}
+main{max-width:910px;margin:4vh auto;padding:22px}h1{font-family:Georgia,serif;font-size:clamp(28px,4vw,42px)}
+.card,form{background:#fff;padding:24px;border:1px solid #dae6da;border-radius:18px;margin:16px 0;box-shadow:0 5px 22px #12352216}
+button{font:inherit;padding:12px 18px;background:#1c4632;color:#fff;border:0;border-radius:10px;cursor:pointer;margin:7px 9px 7px 0}
+button:disabled{opacity:.5}.danger{background:#9c3737}input{font:inherit;padding:12px;border-radius:10px;border:1px solid #aaa;width:min(390px,100%);margin:10px 0}
+blockquote{white-space:pre-wrap;overflow-wrap:anywhere;border-left:4px solid #d4ab5c;padding-left:14px;margin:15px 0;color:#243a30}a{color:#1c4632}
+section{margin-top:30px}.muted{color:#5a6e60;font-size:13px}#status{min-height:23px}
+</style>
+</head>
+<body><main><a href="/#local-reviews">← Retour au site HERY</a>
+<h1>Gestion des avis clients</h1><p>Les avis ne sont publiés sur le site qu'après votre approbation. Ils sont indépendants des avis Google.</p>
+<form id="login"><label for="token">Code administrateur</label><div><input id="token" type="password" autocomplete="off" required placeholder="Code confidentiel"></div><button type="submit">Se connecter</button></form>
+<p id="status" role="status"></p>
+<div id="dashboard" hidden><section><h2>En attente <span id="pending-count"></span></h2><div id="pending"></div></section>
+<section><h2>Publiés <span id="approved-count"></span></h2><div id="approved"></div></section></div>
+</main>
+<script>
+const login=document.getElementById('login'),code=document.getElementById('token'),status=document.getElementById('status'),dashboard=document.getElementById('dashboard');
+let secret='';
+async function api(method,body){
+ const response=await fetch('/api/reviews-admin',{method,headers:{Authorization:'Bearer '+secret,...(body?{'Content-Type':'application/json'}:{})},body:body?JSON.stringify(body):undefined,cache:'no-store'});
+ if(!response.ok)throw Error(response.status===401?'Code administrateur incorrect.':'Impossible de traiter les avis.');
+ return response.json();
+}
+function card(review,published){
+ const root=document.createElement('article');root.className='card';
+ const name=document.createElement('strong');name.textContent=review.name+' · '+'★'.repeat(review.stars)+'☆'.repeat(5-review.stars);
+ const date=document.createElement('p');date.className='muted';date.textContent=new Date(review.createdAt).toLocaleString('fr-FR');
+ const body=document.createElement('blockquote');body.textContent=review.comment;
+ root.append(name,date,body);
+ const actions=published?[['Supprimer','remove',true]]:[['Approuver','approve',false],['Refuser','reject',true]];
+ for(const [label,action,danger] of actions){
+   const button=document.createElement('button');button.type='button';button.textContent=label;
+   if(danger)button.className='danger';
+   button.onclick=async()=>{
+     if(danger&&!confirm('Confirmer cette action ?'))return;
+     button.disabled=true;
+     try{await api('POST',{id:review.id,action});await refresh()}catch(err){status.textContent=err.message;button.disabled=false}
+   };
+   root.append(button);
+ }
+ return root;
+}
+async function refresh(){
+ const data=await api('GET');dashboard.hidden=false;login.hidden=true;status.textContent='';
+ for(const group of ['pending','approved']){
+   const root=document.getElementById(group);root.replaceChildren();
+   document.getElementById(group+'-count').textContent='('+data[group].length+')';
+   for(const review of data[group])root.append(card(review,group==='approved'));
+   if(!data[group].length){const empty=document.createElement('p');empty.textContent='Aucun avis.';root.append(empty)}
+ }
+}
+login.onsubmit=async e=>{
+ e.preventDefault();secret=code.value.trim();code.value='';status.textContent='Chargement…';
+ try{await refresh()}catch(err){status.textContent=err.message;secret=''}
+};
+</script>
+</body></html>

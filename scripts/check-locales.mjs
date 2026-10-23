@@ -215,3 +215,13 @@ for (let i = 1; i <= 4; i++) {
 
 assert.ok(main.includes("<GoogleReviewsSection lang={lang} />"), "Missing translated Google reviews section");
 assert.ok(main.includes('href="/#reviews"'), "Missing reviews link in footer");
+
+const localReviewForm = readFileSync(new URL("../src/LocalReviewForm.jsx", import.meta.url), "utf8");
+const localReviewCSS = readFileSync(new URL("../src/localReviewForm.css", import.meta.url), "utf8");
+const reviewsApi = readFileSync(new URL("../api/reviews.js", import.meta.url), "utf8");
+const adminApi = readFileSync(new URL("../api/reviews-admin.js", import.meta.url), "utf8");
+assert.ok(main.includes('<LocalReviewForm lang={lang} />'), "On-site review form missing");
+assert.ok(localReviewForm.includes('id="local-reviews"') && localReviewForm.includes("en:") && localReviewForm.includes("fr:") && localReviewForm.includes("mg:") && localReviewForm.includes("ru:") && localReviewForm.includes("ja:") && localReviewForm.includes("de:") && localReviewForm.includes("it:") && localReviewForm.includes("es:") && localReviewForm.includes("zh:"), "On-site review translations missing");
+assert.ok(localReviewForm.includes('"/api/reviews"') && localReviewForm.includes('aria-live="polite"'), "Review form request or feedback missing");
+assert.ok(localReviewCSS.includes("max-width:760px"), "Review form mobile layout missing");
+assert.ok(reviewsApi.includes('"pending"') && adminApi.includes('"approve"'), "Moderation flow missing");
