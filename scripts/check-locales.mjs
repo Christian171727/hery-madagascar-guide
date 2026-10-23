@@ -16,7 +16,8 @@ import { wildlifeOtherLocales } from "../src/wildlifeOtherLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
 const tsingySource = readFileSync(new URL("../src/TsingyGallery.jsx", import.meta.url), "utf8");
-assert.ok(tsingySource.includes("length: 4") && tsingySource.includes("length: 5"), "Tsingy slideshow should contain 4 new and 5 existing photos");
+assert.ok(tsingySource.includes("length: 4") && !tsingySource.includes("length: 5"), "Tsingy slideshow must contain only four owner-provided limestone photos (01-04)");
+assert.ok(!tsingySource.includes("tsingy${index + 1}.avif"), "Previously displayed wildlife photos 05-09 must remain excluded");
 for (const code of locales) {
   assert.equal(tsingyNewPhotoLocales[code]?.scenes?.length, 4, `New Tsingy scenes missing: ${code}`);
   assert.ok(tsingyNewPhotoLocales[code].scenes.every(row => row.length === 3 && row.every(x => x.trim().length > 2)));
