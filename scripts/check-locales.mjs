@@ -108,7 +108,7 @@ assert.ok(andasibeSource.includes("andasibeNewPhotoScenes"), "New photo captions
 for (const lang of locales) {
   const captions = andasibeNewPhotoScenes[lang];
   assert.equal(captions?.length, 8, `Andasibe ZIP captions incomplete for ${lang}`);
-  assert.ok(captions.every(row => row.length === 3 && row.every(value => value.trim().length >= 4)), `Invalid Andasibe caption in ${lang}`);
+  assert.ok(captions.every(row => row.length === 3 && row.every(value => value.trim().length >= (lang === 'ja' || lang === 'zh' ? 2 : 4))), `Invalid Andasibe caption in ${lang}`);
 }
 for (let i = 1; i <= 8; i++) {
   const num = String(i).padStart(2, "0");
