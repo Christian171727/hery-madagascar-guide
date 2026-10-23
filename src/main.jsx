@@ -941,7 +941,7 @@ const seoTourPages = [
     "slug": "avenue-of-baobabs-tour",
     "title": "Avenue of the Baobabs",
     "desc": "Discover the iconic baobab landscapes near Morondava.",
-    "image": "/images/baobabs-2026/baobab-01.webp"
+    "image": "/images/tours/avenue-baobabs-reflection-2026.webp"
   },
   {
     "slug": "kirindy-forest-tour",
