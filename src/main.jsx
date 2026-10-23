@@ -40,6 +40,7 @@ import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import { expandedLocaleContent } from "./expandedLocaleContent.js";
 import { localizedBlogSections } from "./localizedBlogSections.js";
 import { photographyCardLocales } from "./photographyCardLocales.js";
+import { wildlifePhotoFiles, wildlifePhotoLocales } from "./wildlifePhotoLocales.js";
 import { siteMetaLocales } from "./siteMetaLocales.js";
 import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
@@ -2474,6 +2475,16 @@ function Destination({
 ========================================================= */
 
 function PhotoSection({ t, lang, isMG, isFR }) {
+  const [wildlifeIndex, setWildlifeIndex] = useState(0);
+  const [wildlifePaused, setWildlifePaused] = useState(false);
+  const wildlifeLocale = wildlifePhotoLocales[lang] || wildlifePhotoLocales.en;
+  const wildlifeScene = wildlifeLocale.scenes[wildlifeIndex] || wildlifeLocale.scenes[0];
+  const moveWildlife = step => setWildlifeIndex(i => (i + step + wildlifePhotoFiles.length) % wildlifePhotoFiles.length);
+  useEffect(() => {
+    if (wildlifePaused) return;
+    const timer = window.setTimeout(() => moveWildlife(1), 4000);
+    return () => window.clearTimeout(timer);
+  }, [wildlifeIndex, wildlifePaused]);
   const photos = [
     {
       image: imgs.wildlife,
@@ -2509,15 +2520,19 @@ function PhotoSection({ t, lang, isMG, isFR }) {
 
   // Captions follow each photograph in all nine selected languages.
   const localizedCards = photographyCardLocales[lang];
-  const displayPhotos = localizedCards
-    ? photos.map((photo, index) => ({
-        ...photo,
-        title: localizedCards[index][0],
-        label: localizedCards[index][1],
-        location: localizedCards[index][2],
-        description: localizedCards[index][3],
-      }))
-    : photos;
+  const displayPhotos = photos.map((photo, index) => {
+    const localized = localizedCards ? {
+      ...photo,
+      title: localizedCards[index][0],
+      label: localizedCards[index][1],
+      location: localizedCards[index][2],
+      description: localizedCards[index][3],
+    } : photo;
+    return index === 0
+      ? { ...localized, image: wildlifePhotoFiles[wildlifeIndex],
+          location: wildlifeScene[0], description: wildlifeScene[1] }
+      : localized;
+  });
   const photographyEyebrow = {
     en: "PHOTOGRAPHY", fr: "PHOTOGRAPHIE", mg: "FAKÀNA SARY",
     ru: "ФОТОГРАФИЯ", ja: "写真", de: "FOTOGRAFIE",
@@ -2527,22 +2542,26 @@ function PhotoSection({ t, lang, isMG, isFR }) {
   const [selected, setSelected] = useState(null);
 
   const openPhoto = (index) => {
+    if (index === 0) setWildlifePaused(true);
     setSelected(index);
     document.body.style.overflow = "hidden";
   };
 
   const closePhoto = () => {
     setSelected(null);
+    setWildlifePaused(false);
     document.body.style.overflow = "";
   };
 
   const nextPhoto = () => {
+    if (selected === 0) { moveWildlife(1); return; }
     setSelected((current) =>
       current === null ? 0 : (current + 1) % photos.length
     );
   };
 
   const previousPhoto = () => {
+    if (selected === 0) { moveWildlife(-1); return; }
     setSelected((current) =>
       current === null
         ? 0
@@ -2618,8 +2637,8 @@ function PhotoSection({ t, lang, isMG, isFR }) {
                 }
               }}
             >
-              <div className={index === 2 ? "premium-photo-image premium-photo-image--forest" : "premium-photo-image"}>
-                {index === 2 && (
+              <div className={index === 2 ? "premium-photo-image premium-photo-image--forest" : index === 0 ? "premium-photo-image premium-photo-image--wildlife" : "premium-photo-image"}>
+                {(index === 2 || index === 0) && (
                   <div
                     className="premium-photo-backdrop"
                     style={{ backgroundImage: `url(${photo.image})` }}
@@ -2628,11 +2647,20 @@ function PhotoSection({ t, lang, isMG, isFR }) {
                 )}
                 <img
                   src={photo.image}
-                  alt={index === 2 ? "Green chameleon on a branch in Madagascar's forest" : photo.title}
+                  alt={index === 0 ? wildlifeScene[0] : index === 2 ? "Green chameleon on a branch in Madagascar's forest" : photo.title}
                   loading="lazy"
+                  key={photo.image}
                 />
 
                 <div className="premium-photo-gradient" />
+                {index === 0 && (
+                  <div className="wildlife-photo-controls" onClick={event => event.stopPropagation()}>
+                    <span className="wildlife-photo-count">{String(wildlifeIndex + 1).padStart(2, "0")} / {String(wildlifePhotoFiles.length).padStart(2, "0")}</span>
+                    <button type="button" aria-label={wildlifeLocale.buttons[0]} onClick={() => moveWildlife(-1)}>‹</button>
+                    <button type="button" aria-label={wildlifePaused ? wildlifeLocale.buttons[3] : wildlifeLocale.buttons[2]} aria-pressed={wildlifePaused} onClick={() => setWildlifePaused(v => !v)}>{wildlifePaused ? "▶" : "Ⅱ"}</button>
+                    <button type="button" aria-label={wildlifeLocale.buttons[1]} onClick={() => moveWildlife(1)}>›</button>
+                  </div>
+                )}
 
                 <div className="premium-photo-number">
                   {String(index + 1).padStart(2, "0")}
@@ -2648,6 +2676,7 @@ function PhotoSection({ t, lang, isMG, isFR }) {
                   </span>
 
                   <h3>{photo.title}</h3>
+                  {index === 0 && <strong className="wildlife-photo-story-title">{wildlifeScene[0]}</strong>}
 
                   <span className="premium-photo-description">
                     {photo.description}
@@ -2696,7 +2725,7 @@ function PhotoSection({ t, lang, isMG, isFR }) {
             <div className="photo-lightbox-image-wrap">
               <img
                 src={displayPhotos[selected].image}
-                alt={selected === 2 ? "Green chameleon on a branch in Madagascar's forest" : displayPhotos[selected].title}
+                alt={selected === 0 ? wildlifeScene[0] : selected === 2 ? "Green chameleon on a branch in Madagascar's forest" : displayPhotos[selected].title}
                 className="photo-lightbox-image"
               />
             </div>
@@ -2708,8 +2737,8 @@ function PhotoSection({ t, lang, isMG, isFR }) {
                 </span>
 
                 <span className="photo-lightbox-count">
-                  {String(selected + 1).padStart(2, "0")} /{" "}
-                  {String(photos.length).padStart(2, "0")}
+                  {selected === 0 ? String(wildlifeIndex + 1).padStart(2, "0") : String(selected + 1).padStart(2, "0")} /{" "}
+                  {String(selected === 0 ? wildlifePhotoFiles.length : photos.length).padStart(2, "0")}
                 </span>
               </div>
 
@@ -2731,18 +2760,18 @@ function PhotoSection({ t, lang, isMG, isFR }) {
                 type="button"
                 className="photo-lightbox-nav"
                 onClick={previousPhoto}
-                aria-label="Previous photo"
+                aria-label={selected === 0 ? wildlifeLocale.buttons[0] : "Previous photo"}
               >
-                ← <span>{isMG ? "Teo aloha" : "Previous"}</span>
+                ← <span>{selected === 0 ? wildlifeLocale.buttons[0] : isMG ? "Teo aloha" : "Previous"}</span>
               </button>
 
               <button
                 type="button"
                 className="photo-lightbox-nav"
                 onClick={nextPhoto}
-                aria-label="Next photo"
+                aria-label={selected === 0 ? wildlifeLocale.buttons[1] : "Next photo"}
               >
-                <span>{isMG ? "Manaraka" : "Next"}</span> →
+                <span>{selected === 0 ? wildlifeLocale.buttons[1] : isMG ? "Manaraka" : "Next"}</span> →
               </button>
             </div>
           </div>

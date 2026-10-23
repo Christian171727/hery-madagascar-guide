@@ -13,6 +13,7 @@ import { photographyCardLocales } from "../src/photographyCardLocales.js";
 import { siteMetaLocales } from "../src/siteMetaLocales.js";
 import { hiddenMomentsOtherScenes } from "../src/hiddenMomentsOtherScenes.js";
 import { wildlifeOtherLocales } from "../src/wildlifeOtherLocales.js";
+import { wildlifePhotoLocales, wildlifePhotoFiles } from "../src/wildlifePhotoLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
 const tsingySource = readFileSync(new URL("../src/TsingyGallery.jsx", import.meta.url), "utf8");
@@ -127,5 +128,26 @@ for (let i = 1; i <= 8; i++) {
   const bytes = readFileSync(path);
   assert.equal(bytes.toString("ascii", 0, 4), "RIFF", `Invalid WebP file ${i}`);
   assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `Invalid WebP file ${i}`);
+}
+
+assert.equal(wildlifePhotoFiles.length, 9, "Wildlife photography must use all nine supplied photographs");
+for (const lang of locales) {
+  const locale = wildlifePhotoLocales[lang];
+  assert.equal(locale?.scenes?.length, 9, `Wildlife Photography scene count incorrect: ${lang}`);
+  assert.equal(locale?.buttons?.length, 4, `Wildlife Photography control labels missing: ${lang}`);
+  for (const row of locale.scenes) {
+    assert.equal(row.length, 2, `Wildlife Photography captions must have title and description: ${lang}`);
+    assert.ok(row.every(part => typeof part === "string" && part.trim().length >= 4),
+      `Empty Wildlife Photography caption: ${lang}`);
+  }
+}
+assert.ok(main.includes("wildlifePhotoFiles[wildlifeIndex]"), "Wildlife carousel image not wired");
+assert.ok(main.includes("wildlifeScene[1]"), "Wildlife image descriptions not displayed");
+for (const [index, src] of wildlifePhotoFiles.entries()) {
+  const path = new URL(`../public${src}`, import.meta.url);
+  assert.ok(existsSync(path), `Wildlife Photography image missing: ${index + 1}`);
+  const image = readFileSync(path);
+  assert.ok(image.length > 1000, `Wildlife Photography image too small: ${index + 1}`);
+  assert.equal(image.toString("ascii", 4, 8), "ftyp", `Invalid AVIF image: ${index + 1}`);
 }
 console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations and all Andasibe photo assets.");
