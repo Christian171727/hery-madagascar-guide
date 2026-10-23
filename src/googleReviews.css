@@ -1,0 +1,30 @@
+/* Google reviews – HERY theme-aware, responsive section, no fake ratings. */
+.google-reviews-section{padding-top:clamp(55px,7vw,100px);padding-bottom:clamp(55px,7vw,100px)}
+.google-reviews-shell{width:min(1150px,100%);margin:0 auto}
+.google-reviews-heading{max-width:770px;margin:0 auto 32px;text-align:center}
+.google-reviews-kicker{display:inline-flex;align-items:center;gap:9px;justify-content:center;color:var(--gold-600);font-size:11px;font-weight:850;letter-spacing:.15em;text-transform:uppercase}
+.google-reviews-heading h2{font-family:"Cormorant Garamond",serif;color:var(--ink);font-size:clamp(38px,5vw,65px);line-height:1.02;letter-spacing:-.035em;margin:15px 0}
+.google-reviews-heading>p{color:var(--text);font-size:clamp(14px,1.25vw,17px);line-height:1.85;max-width:680px;margin:0 auto}
+.google-reviews-layout{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:22px;align-items:stretch}
+.google-reviews-callout{position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:flex-start;min-width:0;overflow:hidden;background:linear-gradient(140deg,#17382b,#0e221b);border:1px solid rgba(228,207,147,.28);border-radius:26px;padding:clamp(24px,3.5vw,43px);color:#fef9ea;box-shadow:0 18px 45px rgba(16,37,28,.15)}
+.google-reviews-callout:after{content:"";position:absolute;right:-110px;top:-120px;width:300px;height:300px;background:radial-gradient(circle,rgba(210,171,93,.18),transparent 68%);z-index:-1;pointer-events:none}
+.google-reviews-platform{display:inline-flex;align-items:center;gap:8px;color:#f0d69b;font-size:10px;letter-spacing:.12em;font-weight:800}
+.google-reviews-quote{display:grid;place-items:center;width:66px;height:66px;border:1px solid rgba(255,255,255,.19);background:rgba(255,255,255,.06);border-radius:20px;margin:25px 0 7px;color:#e7c781}
+.google-reviews-callout h3{color:#fff6e6;font-family:"Cormorant Garamond",serif;font-size:clamp(30px,3vw,42px);font-weight:700;line-height:1.06;margin:12px 0}
+.google-reviews-callout>p{color:#e1e7de;line-height:1.8;font-size:14px;margin:3px 0 26px}
+.google-reviews-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-align:center;min-height:48px;margin-top:auto;background:linear-gradient(105deg,#f5dfb0,#d5a550);color:#153025;border-radius:999px;padding:14px 22px;font-size:13px;font-weight:850;transition:transform .2s ease,filter .2s ease}
+.google-reviews-button:hover{transform:translateY(-2px);filter:brightness(1.07)}
+.google-reviews-help{margin-top:14px;color:#d9e3da;font-size:11px;line-height:1.55}
+.google-reviews-steps{background:var(--surface-solid);color:var(--text);border-radius:26px;padding:clamp(24px,3.5vw,43px);border:1px solid var(--line);box-shadow:var(--shadow-xs)}
+.google-reviews-steps h3{font-family:"Cormorant Garamond",serif;color:var(--ink);font-size:clamp(27px,3vw,37px);line-height:1.14;margin:0 0 25px}
+.google-reviews-steps ol{padding:0;margin:0;list-style:none;display:grid;gap:23px}
+.google-reviews-steps li{display:flex;align-items:flex-start;gap:16px}
+.google-reviews-step-number{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;border-radius:14px;color:var(--gold-600);background:var(--cream-200);border:1px solid var(--line);font-size:12px;font-weight:850}
+.google-reviews-step-copy{display:grid;gap:5px;min-width:0;line-height:1.6}
+.google-reviews-step-copy strong{color:var(--ink);font-size:15px}
+.google-reviews-step-copy>span{color:var(--text);font-size:13px}
+.google-reviews-note{display:flex;gap:9px;align-items:flex-start;margin:20px 3px 0;color:var(--muted);font-size:12px;line-height:1.7}
+.google-reviews-note svg{flex:0 0 17px;margin-top:2px}
+@media(max-width:850px){.google-reviews-layout{grid-template-columns:1fr}.google-reviews-heading{margin-bottom:25px}.google-reviews-callout,.google-reviews-steps{padding:28px}}
+@media(max-width:480px){.google-reviews-callout,.google-reviews-steps{border-radius:21px;padding:22px}.google-reviews-button{width:100%;padding:13px 10px}.google-reviews-platform{font-size:9px}.google-reviews-step-number{width:36px;height:36px;flex-basis:36px}.google-reviews-heading h2{font-size:39px}}
+@media(prefers-reduced-motion:reduce){.google-reviews-button{transition:none}.google-reviews-button:hover{transform:none}}

@@ -18,6 +18,19 @@ import { wildlifePhotoLocales, wildlifePhotoFiles } from "../src/wildlifePhotoLo
 import { palmariumAddedPhotoLocales } from "../src/palmariumAddedPhotoLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
+import { googleReviewsLocales } from "../src/googleReviewsLocales.js";
+const reviewsComponent = readFileSync(new URL("../src/GoogleReviewsSection.jsx", import.meta.url), "utf8");
+const reviewsStyles = readFileSync(new URL("../src/googleReviews.css", import.meta.url), "utf8");
+assert.ok(reviewsComponent.includes('id="reviews"') && reviewsComponent.includes('href={HERY_GOOGLE_MAPS_URL}'), "Google review section should link to Maps");
+assert.ok(!reviewsComponent.includes("aggregateRating"), "Never invent Google star ratings");
+assert.ok(reviewsStyles.includes("@media(max-width:850px)") && reviewsStyles.includes("@media(max-width:480px)"), "Reviews mobile responsive design missing");
+for (const langCode of locales) {
+  const txt = googleReviewsLocales[langCode];
+  assert.ok(txt?.title && txt?.intro && txt?.action && txt?.footer && txt?.note, "Missing review translation: " + langCode);
+  assert.equal(txt?.steps?.length, 3, "Review steps missing: " + langCode);
+  assert.ok(txt.steps.every(step => step.length === 2 && step.every(v => typeof v === "string" && v.trim().length >= 2)), "Incomplete review step: " + langCode);
+}
+
 const tsingySource = readFileSync(new URL("../src/TsingyGallery.jsx", import.meta.url), "utf8");
 assert.ok(tsingySource.includes("length: 4") && !tsingySource.includes("length: 5"), "Tsingy slideshow must contain only four owner-provided limestone photos (01-04)");
 assert.ok(!tsingySource.includes("tsingy${index + 1}.avif"), "Previously displayed wildlife photos 05-09 must remain excluded");
@@ -199,3 +212,6 @@ for (let i = 1; i <= 4; i++) {
   assert.equal(bytes.toString("ascii", 0, 4), "RIFF", "Invalid WebP City Tours asset");
   assert.equal(bytes.toString("ascii", 8, 12), "WEBP", "Invalid WebP City Tours asset");
 }
+
+assert.ok(main.includes("<GoogleReviewsSection lang={lang} />"), "Missing translated Google reviews section");
+assert.ok(main.includes('href="/#reviews"'), "Missing reviews link in footer");

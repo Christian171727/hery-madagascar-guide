@@ -36,6 +36,8 @@ import {
 } from "lucide-react";
 
 import "./style.css";
+import GoogleReviewsSection from "./GoogleReviewsSection.jsx";
+import { googleReviewsLocales } from "./googleReviewsLocales.js";
 import { activateExtraTranslations } from "./siteTranslationExtras.js";
 import { expandedLocaleContent } from "./expandedLocaleContent.js";
 import { localizedBlogSections } from "./localizedBlogSections.js";
@@ -1687,6 +1689,8 @@ function App() {
 
         <References isMG={isMG} isFR={isFR} />
 
+        <GoogleReviewsSection lang={lang} />
+
         <Contact
           t={t}
           lang={lang}
@@ -1702,6 +1706,7 @@ function App() {
         go={go}
         isMG={isMG}
         isFR={isFR}
+        lang={lang}
       />
 
       <Chat
@@ -4049,7 +4054,7 @@ function Contact({ t, lang, isMG, isFR }) {
    FOOTER
 ========================================================= */
 
-function Footer({ t, go, isMG, isFR }) {
+function Footer({ t, go, isMG, isFR, lang = "en" }) {
   return (
     <footer>
       <div className="footer-main">
@@ -4121,6 +4126,7 @@ function Footer({ t, go, isMG, isFR }) {
           >
             {isMG ? "Mpiara-miombon'antoka" : isFR ? "Partenaires" : "Partners"}
           </button>
+          <a href="/#reviews">{(googleReviewsLocales[lang] || googleReviewsLocales.en).footer}</a>
         </div>
 
         <div>
