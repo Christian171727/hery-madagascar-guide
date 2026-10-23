@@ -45,6 +45,7 @@ import PartnersStrip from "./PartnersStrip.jsx";
 import { getHeryChatReply, getHeryVisitorName } from "./heryChat.js";
 import ConservationGallery from "./ConservationGallery.jsx";
 import BaobabGallery from "./BaobabGallery.jsx";
+import { getBaobabStory } from "./baobabStoryLocales.js";
 import SainteMarieGallery from "./SainteMarieGallery.jsx";
 import RN7Gallery from "./RN7Gallery.jsx";
 import TsingyGallery from "./TsingyGallery.jsx";
@@ -839,7 +840,7 @@ const destinations = [
   ],
   [
     "Avenue of Baobabs",
-    "Iconic landscapes and unforgettable golden hours",
+    "Legendary baobab sunsets, inspiring local encounters and starry-night wonders",
     imgs.baobabs,
     "03",
   ],
@@ -1580,6 +1581,7 @@ function App() {
                   i={index}
                   t={t}
                   go={go}
+                  lang={lang}
                   isMG={isMG}
                   isFR={isFR}
                 />
@@ -2280,9 +2282,11 @@ function Destination({
   i,
   t,
   go,
+  lang = "en",
   isMG,
   isFR,
 }) {
+  const [baobabScene, setBaobabScene] = useState(null);
   const [sainteMarieScene, setSainteMarieScene] = useState(null);
   const [rn7Scene, setRn7Scene] = useState(null);
   const [tsingyScene, setTsingyScene] = useState(null);
@@ -2290,6 +2294,7 @@ function Destination({
   const [andasibeScene, setAndasibeScene] = useState(null);
   const [palmariumScene, setPalmariumScene] = useState(null);
   const [northScene, setNorthScene] = useState(null);
+  const baobabText = baobabScene?.lang === lang ? baobabScene : getBaobabStory(lang, 0);
   return (
     <motion.article
       className="destination-card reveal"
@@ -2316,7 +2321,7 @@ function Destination({
         {d[0] === "Morondava & Menabe" ? (
           <MenabeGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setMenabeScene} />
         ) : d[0] === "Avenue of Baobabs" ? (
-          <BaobabGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} compact />
+          <BaobabGallery lang={lang} onSceneChange={setBaobabScene} />
         ) : d[0] === "Sainte Marie" ? (
           <SainteMarieGallery lang={isMG ? "mg" : isFR ? "fr" : "en"} onSceneChange={setSainteMarieScene} />
         ) : d[0] === "RN7" ? (
@@ -2366,7 +2371,13 @@ function Destination({
           {d[0]}
         </h3>
 
-        {d[0] === "Northern Madagascar" ? (
+        {d[0] === "Avenue of Baobabs" ? (
+          <div className="baobab-story" key={"baobabs-" + (baobabScene?.id || 1) + "-" + lang} aria-live="off">
+            <small>{baobabText.kicker}</small>
+            <strong>{baobabText.title}</strong>
+            <p>{baobabText.description}</p>
+          </div>
+        ) : d[0] === "Northern Madagascar" ? (
           <div className="north-story"
             key={"north-" + (northScene?.id || 1) + "-" + (isMG ? "mg" : isFR ? "fr" : "en")}
             aria-live="off">
