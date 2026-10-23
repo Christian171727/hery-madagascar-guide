@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { gallerySceneFor } from "./destinationGalleryLocales.js";
+import { palmariumAddedPhotoLocales } from "./palmariumAddedPhotoLocales.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
-// Seven owner-provided photographs. The words beneath the card follow the active photo.
-const PHOTOS = Array.from({ length: 7 }, (_, index) => ({
+// Preserve seven existing photographs and append the seven new photos in the owner's ZIP.
+const ORIGINAL_PHOTOS = Array.from({ length: 7 }, (_, index) => ({
   id: index + 1,
   src: `/images/palmarium-new/palmarium-${String(index + 1).padStart(2, "0")}.avif`,
 }));
+const ADDED_PHOTOS = Array.from({ length: 7 }, (_, index) => ({
+  id: index + 8,
+  src: `/images/palmarium-added/palmarium-added-${String(index + 1).padStart(2, "0")}.webp`,
+}));
+const PHOTOS = [...ORIGINAL_PHOTOS, ...ADDED_PHOTOS];
 const FALLBACK = "/images/Palmarium.jpg";
 const DELAY_MS = 4000;
 
@@ -78,13 +84,16 @@ const CSS = `
 
 export default function PalmariumGallery({ lang = "en", onSceneChange }) {
   const locale = STORIES[lang] || STORIES.en;
+  const newLocale = palmariumAddedPhotoLocales[lang] || palmariumAddedPhotoLocales.en;
   const [images, setImages] = useState(PHOTOS);
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const current = Math.min(index, images.length - 1);
   const photo = images[current];
   const sceneIndex = (photo?.id || 1) - 1;
-  const scene = gallerySceneFor("palmarium", lang, sceneIndex, locale.scenes[sceneIndex] || locale.scenes[0]);
+  const scene = sceneIndex < ORIGINAL_PHOTOS.length
+    ? gallerySceneFor("palmarium", lang, sceneIndex, locale.scenes[sceneIndex] || locale.scenes[0])
+    : (newLocale.scenes[sceneIndex - ORIGINAL_PHOTOS.length] || newLocale.scenes[0]);
 
   useEffect(() => {
     onSceneChange?.({ id: photo?.id || 1, kicker: scene[2], title: scene[0], description: scene[1] });
@@ -113,7 +122,7 @@ export default function PalmariumGallery({ lang = "en", onSceneChange }) {
 
   const move = offset => setIndex(i => (i + offset + images.length) % images.length);
   return (
-    <div className="palmarium-gallery" role="region" aria-roledescription="carousel" aria-label={locale.alt}>
+    <div className="palmarium-gallery" role="region" aria-roledescription="carousel" aria-label={newLocale.alt}>
       <style>{CSS}</style>
       {images.map((item, i) => (
         <img key={item.src} src={item.src}
@@ -123,15 +132,15 @@ export default function PalmariumGallery({ lang = "en", onSceneChange }) {
           onError={() => handleError(item.src)} />
       ))}
       <div className="palmarium-shade" aria-hidden="true" />
-      <span className="palmarium-top-tag"><Leaf size={12} /> PALMARIUM · WILDLIFE</span>
+      <span className="palmarium-top-tag"><Leaf size={12} /> {newLocale.tag}</span>
       {images.length > 1 && (
         <>
           <div className="palmarium-toolbar">
             <span className="palmarium-count">{String(current + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}</span>
             <div className="palmarium-actions">
-              <button type="button" onClick={() => move(-1)} aria-label={locale.previous}><ArrowLeft size={16} /></button>
-              <button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? locale.play : locale.pause}>{paused ? <Play size={15} /> : <Pause size={15} />}</button>
-              <button type="button" onClick={() => move(1)} aria-label={locale.next}><ArrowRight size={16} /></button>
+              <button type="button" onClick={() => move(-1)} aria-label={newLocale.previous}><ArrowLeft size={16} /></button>
+              <button type="button" onClick={() => setPaused(value => !value)} aria-label={paused ? newLocale.play : newLocale.pause}>{paused ? <Play size={15} /> : <Pause size={15} />}</button>
+              <button type="button" onClick={() => move(1)} aria-label={newLocale.next}><ArrowRight size={16} /></button>
             </div>
           </div>
           {!paused && <div className="palmarium-progress" aria-hidden="true"><span key={photo?.src || "fallback"} /></div>}

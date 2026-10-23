@@ -14,6 +14,7 @@ import { siteMetaLocales } from "../src/siteMetaLocales.js";
 import { hiddenMomentsOtherScenes } from "../src/hiddenMomentsOtherScenes.js";
 import { wildlifeOtherLocales } from "../src/wildlifeOtherLocales.js";
 import { wildlifePhotoLocales, wildlifePhotoFiles } from "../src/wildlifePhotoLocales.js";
+import { palmariumAddedPhotoLocales } from "../src/palmariumAddedPhotoLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
 const tsingySource = readFileSync(new URL("../src/TsingyGallery.jsx", import.meta.url), "utf8");
@@ -149,5 +150,27 @@ for (const [index, src] of wildlifePhotoFiles.entries()) {
   const image = readFileSync(path);
   assert.ok(image.length > 1000, `Wildlife Photography image too small: ${index + 1}`);
   assert.equal(image.toString("ascii", 4, 8), "ftyp", `Invalid AVIF image: ${index + 1}`);
+}
+// Palmarium: keep the seven previous slides and append seven new real photographs.
+const palmariumGallerySource = readFileSync(new URL("../src/PalmariumGallery.jsx", import.meta.url), "utf8");
+assert.ok(palmariumGallerySource.includes("const PHOTOS = [...ORIGINAL_PHOTOS, ...ADDED_PHOTOS]"), "Palmarium carousel must show both old and new photos");
+assert.ok(palmariumGallerySource.includes("sceneIndex - ORIGINAL_PHOTOS.length"), "Palmarium new slide captions must follow the right photograph");
+for (const lang of locales) {
+  const bundle = palmariumAddedPhotoLocales[lang];
+  assert.equal(bundle?.scenes?.length, 7, `Palmarium ZIP captions missing for ${lang}`);
+  assert.ok(bundle.tag?.length > 5 && bundle.previous && bundle.next && bundle.pause && bundle.play, `Palmarium controls not translated for ${lang}`);
+  for (const row of bundle.scenes) {
+    assert.equal(row.length, 3, `Palmarium subtitle missing in ${lang}`);
+    assert.ok(row.every(value => value?.trim().length >= 2), `Blank Palmarium caption in ${lang}`);
+  }
+}
+for (let number = 1; number <= 7; number++) {
+  const id = String(number).padStart(2, "0");
+  const file = new URL(`../public/images/palmarium-added/palmarium-added-${id}.webp`, import.meta.url);
+  assert.ok(existsSync(file), `Palmarium missing supplied image ${id}`);
+  const bytes = readFileSync(file);
+  assert.ok(bytes.length > 20000, `Palmarium image ${id} is unexpectedly small`);
+  assert.equal(bytes.toString("ascii", 0, 4), "RIFF", `Palmarium image ${id} has invalid WebP header`);
+  assert.equal(bytes.toString("ascii", 8, 12), "WEBP", `Palmarium image ${id} is not WebP`);
 }
 console.log("HERY locale checks passed: nine selectors, translated FAQs, blog entries and article sections, responsive breakpoints and photo captions, browser metadata and live gallery translations and all Andasibe photo assets.");
