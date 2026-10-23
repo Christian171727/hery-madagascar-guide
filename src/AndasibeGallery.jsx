@@ -3,20 +3,17 @@ import { gallerySceneFor } from "./destinationGalleryLocales.js";
 import { andasibeNewPhotoScenes } from "./andasibeNewPhotoScenes.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
-// Original photographs supplied for this update. Old Andasibe carousel assets are not used.
-const ORIGINAL_PHOTOS = Array.from({ length: 18 }, (_, index) => ({
-  src: `/images/andasibe-new/andasibe-${String(index + 1).padStart(2, "0")}.avif`,
-}));
-// Remove old scene 11 (PALMARIUM sign) and insert all eight owner-uploaded
-// photos from andasibe(2).zip in their original ZIP order.
+// Remove the first ten former Andasibe slides as requested.
+// The old PALMARIUM entrance (#11) was already removed. Keep the eight
+// owner-uploaded ZIP photographs, followed by the remaining old #12–#18.
 const ZIP_PHOTOS = Array.from({ length: 8 }, (_, index) => ({
   src: `/images/andasibe-added/andasibe-extra-${String(index + 1).padStart(2, "0")}.webp`,
 }));
-const PHOTOS = [
-  ...ORIGINAL_PHOTOS.slice(0, 10),
-  ...ZIP_PHOTOS,
-  ...ORIGINAL_PHOTOS.slice(11),
-].map((photo, index) => ({ ...photo, id: index + 1 }));
+const REMAINING_PHOTOS = Array.from({ length: 7 }, (_, index) => ({
+  src: `/images/andasibe-new/andasibe-${String(index + 12).padStart(2, "0")}.avif`,
+}));
+const PHOTOS = [...ZIP_PHOTOS, ...REMAINING_PHOTOS]
+  .map((photo, index) => ({ ...photo, id: index + 1 }));
 const FALLBACK = "/images/Andasibe.jpg";
 const DELAY = 4000;
 
@@ -152,11 +149,11 @@ export default function AndasibeGallery({lang="en",onSceneChange}) {
   const [paused,setPaused] = useState(false);
   const active = images[Math.min(current,images.length-1)] || PHOTOS[0];
   const sceneIndex = (active.id || 1) - 1;
-  const isZipPhoto = sceneIndex >= 10 && sceneIndex < 18;
-  const originalIndex = sceneIndex >= 18 ? sceneIndex - 7 : sceneIndex;
+  const isZipPhoto = sceneIndex < ZIP_PHOTOS.length;
+  const originalIndex = sceneIndex - ZIP_PHOTOS.length + 11;
   const sourceScene = SCENES[originalIndex] || SCENES[0];
   const [kicker, title, description] = isZipPhoto
-    ? (andasibeNewPhotoScenes[lang]?.[sceneIndex - 10] || andasibeNewPhotoScenes.en[sceneIndex - 10])
+    ? (andasibeNewPhotoScenes[lang]?.[sceneIndex] || andasibeNewPhotoScenes.en[sceneIndex])
     : (["en", "fr", "mg"].includes(lang)
         ? (sourceScene[lang] || sourceScene.en)
         : (() => {

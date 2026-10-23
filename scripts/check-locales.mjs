@@ -109,12 +109,14 @@ assert.ok(style.includes("overflow-y: visible;"), "Mobile vertical overflow must
 for (const breakpoint of [1220, 700, 360]) {
   assert.ok(style.includes(`max-width: ${breakpoint}px`), `Missing mobile navigation breakpoint ${breakpoint}`);
 }
-// Andasibe gallery: original scene 11 must be excluded, eight supplied
-// WebP images inserted, and every active caption translated.
+// Andasibe gallery: the ten former first photos plus the former #11
+// PALMARIUM photo are excluded. 8 ZIP images + old #12-#18 = 15 slides.
 const andasibeSource = readFileSync(new URL("../src/AndasibeGallery.jsx", import.meta.url), "utf8");
-assert.ok(andasibeSource.includes("ORIGINAL_PHOTOS.slice(0, 10)"), "Andasibe first ten photos missing");
-assert.ok(andasibeSource.includes("ORIGINAL_PHOTOS.slice(11)"), "Old image eleven must be removed");
-assert.ok(andasibeSource.includes("ZIP_PHOTOS"), "Owner photo ZIP not connected to the carousel");
+assert.ok(!andasibeSource.includes("ORIGINAL_PHOTOS.slice(0, 10)"), "Old Andasibe photos 01-10 must be removed");
+assert.ok(andasibeSource.includes("const PHOTOS = [...ZIP_PHOTOS, ...REMAINING_PHOTOS]"), "Only ZIP and retained photos should appear");
+assert.ok(andasibeSource.includes("length: 7") && andasibeSource.includes("index + 12"), "Retain original Andasibe photos 12-18 only");
+assert.ok(andasibeSource.includes("sceneIndex < ZIP_PHOTOS.length"), "First eight photos must use new translations");
+assert.ok(andasibeSource.includes("sceneIndex - ZIP_PHOTOS.length + 11"), "Retained photos must use matching original translations");
 assert.ok(andasibeSource.includes("andasibeNewPhotoScenes"), "New photo captions not connected");
 for (const lang of locales) {
   const captions = andasibeNewPhotoScenes[lang];
