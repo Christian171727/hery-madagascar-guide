@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { gallerySceneFor } from "./destinationGalleryLocales.js";
+import { tsingyNewPhotoLocales } from "./tsingyNewPhotoLocales.js";
 import { ArrowLeft, ArrowRight, Pause, Play, Leaf } from "lucide-react";
 
-// Five original wildlife photographs provided for the Tsingy destination.
-const PHOTOS = Array.from({ length: 5 }, (_, index) => ({
-  id: index + 1,
-  src: `/images/tsingy-gallery/tsingy${index + 1}.avif`,
-}));
+// Four new Tsingy limestone photos appear first; the five existing photos remain.
+const PHOTOS = [
+  ...Array.from({ length: 4 }, (_, index) => ({
+    id: index + 1,
+    src: `/images/tsingy-gallery/tsingy-new-${String(index + 1).padStart(2, "0")}.webp`,
+  })),
+  ...Array.from({ length: 5 }, (_, index) => ({
+    id: index + 5,
+    src: `/images/tsingy-gallery/tsingy${index + 1}.avif`,
+  })),
+];
 const FALLBACK = "/images/Bemaraha.jpeg";
 const INTERVAL = 4000;
 const CONTENT = {
@@ -89,7 +96,11 @@ export default function TsingyGallery({ lang = "en", onSceneChange }) {
   const current = Math.min(index, images.length - 1);
   const photo = images[current];
   const sceneIndex = (photo?.id || 1) - 1;
-  const scene = gallerySceneFor("tsingy", lang, sceneIndex, t.scenes[sceneIndex] || t.scenes[0]);
+  const newLocale = tsingyNewPhotoLocales[lang] || tsingyNewPhotoLocales.en;
+  const scene = sceneIndex < 4
+    ? newLocale.scenes[sceneIndex]
+    : gallerySceneFor("tsingy", lang, sceneIndex - 4, t.scenes[sceneIndex - 4] || t.scenes[0]);
+  const tag = sceneIndex < 4 ? newLocale.tag : t.tag;
 
   useEffect(() => {
     onSceneChange?.({ id: photo?.id || 1, kicker: scene[2], title: scene[0], description: scene[1] });
@@ -118,7 +129,7 @@ export default function TsingyGallery({ lang = "en", onSceneChange }) {
 
   const move = direction => setIndex(i => (i + direction + images.length) % images.length);
   return (
-    <div className="tsingy-gallery" role="region" aria-roledescription="carousel" aria-label={t.alt}>
+    <div className="tsingy-gallery" role="region" aria-roledescription="carousel" aria-label={newLocale.label}>
       <style>{CSS}</style>
       {images.map((item, i) => (
         <img key={item.src} src={item.src}
@@ -127,7 +138,7 @@ export default function TsingyGallery({ lang = "en", onSceneChange }) {
           loading={i < 2 ? "eager" : "lazy"} decoding="async" onError={() => handleError(item.src)} />
       ))}
       <div className="tsingy-shade" aria-hidden="true" />
-      <span className="tsingy-photo-tag"><Leaf size={12}/>{t.tag}</span>
+      <span className="tsingy-photo-tag"><Leaf size={12}/>{tag}</span>
       {images.length > 1 && <>
         <div className="tsingy-toolbar">
           <span className="tsingy-count">{String(current + 1).padStart(2,"0")} / {String(images.length).padStart(2,"0")}</span>

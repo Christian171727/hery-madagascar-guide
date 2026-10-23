@@ -5,6 +5,7 @@ import { expandedLocaleContent } from "../src/expandedLocaleContent.js";
 import { localizedBlogSections } from "../src/localizedBlogSections.js";
 import { extraTranslationCount } from "../src/siteTranslationExtras.js";
 import { destinationGalleryLocales } from "../src/destinationGalleryLocales.js";
+import { tsingyNewPhotoLocales } from "../src/tsingyNewPhotoLocales.js";
 import { photographyOtherLocales } from "../src/photographyOtherLocales.js";
 import { conservationOtherLocales } from "../src/conservationOtherLocales.js";
 import { conservationSliderCopy } from "../src/conservationSliderLocales.js";
@@ -14,6 +15,13 @@ import { hiddenMomentsOtherScenes } from "../src/hiddenMomentsOtherScenes.js";
 import { wildlifeOtherLocales } from "../src/wildlifeOtherLocales.js";
 
 const locales = ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"];
+const tsingySource = readFileSync(new URL("../src/TsingyGallery.jsx", import.meta.url), "utf8");
+assert.ok(tsingySource.includes("length: 4") && tsingySource.includes("length: 5"), "Tsingy slideshow should contain 4 new and 5 existing photos");
+for (const code of locales) {
+  assert.equal(tsingyNewPhotoLocales[code]?.scenes?.length, 4, `New Tsingy scenes missing: ${code}`);
+  assert.ok(tsingyNewPhotoLocales[code].scenes.every(row => row.length === 3 && row.every(x => x.trim().length > 2)));
+}
+
 const sectionCounts = [8, 4, 4, 10];
 const main = readFileSync(new URL("../src/main.jsx", import.meta.url), "utf8");
 
