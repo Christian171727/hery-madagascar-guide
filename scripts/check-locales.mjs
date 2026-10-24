@@ -23,6 +23,11 @@ const reviewsComponent = readFileSync(new URL("../src/GoogleReviewsSection.jsx",
 const reviewsStyles = readFileSync(new URL("../src/googleReviews.css", import.meta.url), "utf8");
 assert.ok(reviewsComponent.includes('id="reviews"') && reviewsComponent.includes('href={HERY_GOOGLE_MAPS_URL}'), "Google review section should link to Maps");
 assert.ok(!reviewsComponent.includes("aggregateRating"), "Never invent Google star ratings");
+assert.ok(reviewsComponent.includes('className="google-reviews-quote" href={HERY_GOOGLE_MAPS_URL}'), "Google logo must open the same Maps destination as the review button");
+assert.equal((reviewsComponent.match(/\/images\/google-g-color\.svg/g) || []).length, 2, "Both the Google icon and review CTA should use the official-color logo");
+const googleLogo = readFileSync(new URL("../public/images/google-g-color.svg", import.meta.url), "utf8");
+for (const color of ["#4285F4", "#34A853", "#FBBC05", "#EA4335"]) assert.ok(googleLogo.includes(color), "Google multicolor G logo is incomplete: " + color);
+
 assert.ok(reviewsStyles.includes("@media(max-width:850px)") && reviewsStyles.includes("@media(max-width:480px)"), "Reviews mobile responsive design missing");
 for (const langCode of locales) {
   const txt = googleReviewsLocales[langCode];

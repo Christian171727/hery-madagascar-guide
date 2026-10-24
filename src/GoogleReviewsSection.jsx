@@ -21,11 +21,14 @@ export default function GoogleReviewsSection({ lang = "en" }) {
         <div className="google-reviews-layout">
           <div className="google-reviews-callout">
             <span className="google-reviews-platform"><MapPin size={16} aria-hidden="true" /> {t.platform}</span>
-            <div className="google-reviews-quote" aria-hidden="true"><MessageSquareQuote size={40} /></div>
+            <a className="google-reviews-quote" href={HERY_GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer" aria-label={t.action} title={t.action}>
+              <img src="/images/google-g-color.svg" alt="" width="46" height="46" loading="lazy" decoding="async" />
+            </a>
             <h3>{t.cardTitle}</h3>
             <p>{t.cardText}</p>
             <a className="google-reviews-button" href={HERY_GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">
-              {t.action} <ArrowUpRight size={19} aria-hidden="true" />
+              <span className="google-reviews-button-logo" aria-hidden="true"><img src="/images/google-g-color.svg" alt="" width="21" height="21" loading="lazy" decoding="async" /></span>
+              <span>{t.action}</span> <ArrowUpRight size={19} aria-hidden="true" />
             </a>
             <span className="google-reviews-help">{t.help}</span>
           </div>
