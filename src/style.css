@@ -8255,3 +8255,129 @@ html[data-theme="dark"] .header .language-picker-icon {
 @media(prefers-reduced-motion:reduce){
   .premium-photo-image--wildlife > img{animation:none!important}
 }
+
+/* HERY BLOG MOBILE IMAGE-FIRST CARDS — 2026-10-24 */
+/* Keep blog covers wide on phones/tablets: photograph first, text underneath.
+   Applies to regular, wildlife, photography and conservation cards.
+   Slideshow timers and the desktop layout are unchanged. */
+@media (max-width: 1024px) {
+  #blog .blog-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(18px, 4vw, 28px);
+  }
+
+  #blog .blog-grid .post,
+  #blog .blog-grid .post.featured {
+    min-width: 0;
+    width: 100%;
+    grid-column: 1 / -1;
+  }
+
+  #blog .blog-grid .post .post-click,
+  #blog .blog-grid .post.featured .post-click {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    align-items: stretch !important;
+    width: 100%;
+    min-width: 0;
+    height: auto;
+    text-align: left;
+  }
+
+  #blog .blog-grid .post .post-image,
+  #blog .blog-grid .post.featured .wildlife-feature-stage,
+  #blog .blog-grid .post .photography-feature-stage {
+    display: block;
+    position: relative;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    height: clamp(300px, 78vw, 440px) !important;
+    min-height: 300px !important;
+    aspect-ratio: auto !important;
+    overflow: hidden;
+  }
+
+  #blog .blog-grid .post .post-image > img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none;
+    object-position: center;
+  }
+
+  /* The baobab photographs should be visible in full, not cropped. */
+  #blog .blog-grid .post .photography-feature-stage > img.photography-feature-photo {
+    object-fit: contain !important;
+    object-position: center center !important;
+  }
+
+  #blog .blog-grid .post .post-body,
+  #blog .blog-grid .post.featured .wildlife-feature-content,
+  #blog .blog-grid .post .photography-feature-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 0;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: clamp(19px, 4.5vw, 29px) !important;
+    box-sizing: border-box;
+  }
+
+  #blog .blog-grid .post .post-body h3 {
+    max-width: 100%;
+    margin: 10px 0 15px !important;
+    font-size: clamp(27px, 4.7vw, 39px) !important;
+    line-height: 1.11 !important;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  #blog .blog-grid .post .photography-feature-detail,
+  #blog .blog-grid .post .wildlife-feature-dynamic {
+    min-height: 0;
+    width: 100%;
+  }
+
+  #blog .blog-grid .post .photography-feature-detail strong,
+  #blog .blog-grid .post .wildlife-feature-dynamic strong {
+    font-size: clamp(14px, 2vw, 17px);
+    line-height: 1.4;
+  }
+
+  #blog .blog-grid .post .photography-feature-detail p,
+  #blog .blog-grid .post .wildlife-feature-dynamic p {
+    font-size: clamp(13px, 1.8vw, 15px);
+    line-height: 1.7;
+  }
+
+  #blog .blog-grid .post .post-read {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  #blog .blog-grid .post .post-image,
+  #blog .blog-grid .post.featured .wildlife-feature-stage,
+  #blog .blog-grid .post .photography-feature-stage {
+    height: clamp(300px, 88vw, 380px) !important;
+  }
+
+  #blog .blog-grid .post .post-body h3 {
+    font-size: clamp(26px, 7.4vw, 33px) !important;
+  }
+
+  #blog .blog-grid .post .post-category {
+    max-width: calc(100% - 36px);
+    white-space: normal;
+    overflow-wrap: break-word;
+  }
+
+  #blog .blog-grid .post .post-meta {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+}
