@@ -68,6 +68,7 @@ import WildlifeArticleGallery from "./WildlifeArticleGallery.jsx";
 import WildlifeFeaturedPreview from "./WildlifeFeaturedPreview.jsx";
 import { ConservationFeaturedPreview, ConservationArticleGallery } from "./ConservationBlogGallery.jsx";
 import { PhotographyFeaturedPreview, PhotographyArticleHero, PhotographyArticleScenes } from "./PhotographyBlogGallery.jsx";
+import AstroFeaturedPreview from "./AstroFeaturedPreview.jsx";
 import {
   WhatsAppIcon,
   InstagramIcon,
@@ -1092,7 +1093,7 @@ const posts = [
     title: "Astrophotography in Madagascar: nights and landscapes",
     image: imgs.night,
     category: "Astrophotography",
-    duration: "6 min",
+    duration: "4 min",
     intro:
       "Madagascar's nights offer another way to discover its landscapes. Astrophotography combines the starry sky with the shapes and silhouettes of the landscape.",
     sections: [
@@ -3205,7 +3206,11 @@ function Blog({ t, lang, isMG, isFR }) {
             <motion.article
               key={post.id}
               className={
-                index === 0 || post.id === "conservation-terrain"
+                post.id === "photographier-baobabs"
+                  ? "post featured photography-editorial reveal"
+                  : post.id === "astrophotographie-madagascar"
+                  ? "post featured astro-editorial reveal"
+                  : index === 0 || post.id === "conservation-terrain"
                   ? "post featured reveal"
                   : "post reveal"
               }
@@ -3234,6 +3239,8 @@ function Blog({ t, lang, isMG, isFR }) {
                   <ConservationFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} lang={lang} />
                 ) : post.id === "photographier-baobabs" ? (
                   <PhotographyFeaturedPreview post={post} readLabel={t.readArticle} isMG={isMG} isFR={isFR} lang={lang} />
+                ) : post.id === "astrophotographie-madagascar" ? (
+                  <AstroFeaturedPreview post={post} readLabel={t.readArticle} lang={lang} />
                 ) : (
                   <>
                 {/* IMAGE */}
