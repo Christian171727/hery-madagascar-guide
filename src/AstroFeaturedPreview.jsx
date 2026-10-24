@@ -98,7 +98,7 @@ export default function AstroFeaturedPreview({ post, readLabel, lang = "en" }) {
       </div>
 
       <div className="post-body astro-feature-content">
-        <span className="post-meta"><Clock size={15} />{post.duration.replace(/\\s*min$/i, "")} {copy.read}</span>
+        <span className="post-meta"><Clock size={15} />{post.duration.replace(/\s*min$/i, "")} {copy.read}</span>
         <h3>{post.title}</h3>
         <div className="astro-feature-text-viewport" aria-live="off">
           <div key={lang + "-" + index} className="astro-feature-text-slide">
