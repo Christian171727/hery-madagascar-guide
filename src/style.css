@@ -8381,3 +8381,188 @@ html[data-theme="dark"] .header .language-picker-icon {
     line-height: 1.4;
   }
 }
+
+/* HERY PHOTOGRAPHY + ASTRO EDITORIAL CARDS — 2026-10-24 */
+/* Both articles receive wide, full-bleed photographs and the reading copy below.
+   Other blog articles, localization, modal readers and sliders are unchanged. */
+#blog .blog-grid .post.photography-editorial,
+#blog .blog-grid .post.astro-editorial {
+  grid-column: 1 / -1 !important;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+}
+#blog .blog-grid .post.photography-editorial > .post-click,
+#blog .blog-grid .post.astro-editorial > .post-click {
+  display: flex !important;
+  flex-direction: column !important;
+  grid-template-columns: none !important;
+  align-items: stretch !important;
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  text-align: left;
+}
+/* High image on desktop, large visible image on narrow devices. */
+#blog .blog-grid .post.photography-editorial .photography-feature-stage,
+#blog .blog-grid .post.astro-editorial .astro-feature-stage {
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  height: clamp(420px, 43vw, 560px) !important;
+  min-height: 0 !important;
+  flex: 0 0 auto !important;
+  aspect-ratio: auto !important;
+  overflow: hidden;
+  background: #122126;
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-stage img.photography-feature-photo {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  max-width: none !important;
+  filter: saturate(1.09) contrast(1.03) !important;
+  transform: none !important;
+}
+/* The title and scene description appear only beneath the image. */
+#blog .blog-grid .post.photography-editorial .photography-feature-caption,
+#blog .blog-grid .post.photography-editorial .photography-feature-shade {
+  display: none !important;
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-stage .post-category,
+#blog .blog-grid .post.astro-editorial .astro-feature-stage .post-category {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  bottom: auto;
+  z-index: 4;
+  max-width: calc(100% - 88px);
+  overflow-wrap: anywhere;
+  font-size: 11px;
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-count {
+  top: 18px;
+  right: 18px;
+  z-index: 5;
+  white-space: nowrap;
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-content,
+#blog .blog-grid .post.astro-editorial .astro-feature-content {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  width: 100%;
+  max-width: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  box-sizing: border-box;
+  padding: clamp(24px, 3.4vw, 42px) !important;
+  gap: 0;
+}
+#blog .blog-grid .post.photography-editorial .post-body h3,
+#blog .blog-grid .post.astro-editorial .post-body h3 {
+  font-size: clamp(30px, 3.6vw, 46px) !important;
+  line-height: 1.11 !important;
+  overflow-wrap: break-word;
+  word-break: normal;
+  max-width: none;
+  margin: 8px 0 18px !important;
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-detail,
+#blog .blog-grid .post.astro-editorial .astro-feature-text-viewport {
+  width: 100%;
+  min-height: 0;
+  max-width: 880px;
+  color: var(--text);
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-detail strong,
+#blog .blog-grid .post.astro-editorial .astro-feature-text-slide strong {
+  display: block;
+  margin: 0 0 7px;
+  font-size: clamp(16px, 1.75vw, 21px) !important;
+  font-weight: 800;
+  color: var(--ink);
+  line-height: 1.4;
+}
+#blog .blog-grid .post.photography-editorial .photography-feature-detail p,
+#blog .blog-grid .post.astro-editorial .astro-feature-text-slide p {
+  margin: 0;
+  font-size: clamp(14px, 1.4vw, 17px) !important;
+  line-height: 1.75 !important;
+  color: var(--text);
+  font-weight: 500;
+}
+#blog .blog-grid .post.photography-editorial .post-read,
+#blog .blog-grid .post.astro-editorial .post-read {
+  margin-top: 24px;
+}
+/* Do not crop the night sky: show the entire original picture. */
+#blog .blog-grid .post.astro-editorial .astro-feature-stage {
+  background: #07121d;
+}
+#blog .blog-grid .post.astro-editorial .astro-feature-stage img {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  object-position: center;
+  transform: none !important;
+  filter: saturate(1.07) contrast(1.05);
+}
+#blog .blog-grid .post.astro-editorial .astro-feature-text-viewport {
+  overflow: hidden;
+  padding: 0 0 5px;
+}
+#blog .blog-grid .post.astro-editorial .astro-feature-text-slide {
+  display: block;
+  animation: hery-astro-slide-up .8s cubic-bezier(.16,1,.3,1) both;
+}
+@keyframes hery-astro-slide-up {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 1024px) {
+  #blog .blog-grid .post.photography-editorial .photography-feature-stage,
+  #blog .blog-grid .post.astro-editorial .astro-feature-stage {
+    height: clamp(330px, 59vw, 480px) !important;
+  }
+}
+@media (max-width: 600px) {
+  #blog .blog-grid .post.photography-editorial .photography-feature-stage,
+  #blog .blog-grid .post.astro-editorial .astro-feature-stage {
+    height: clamp(300px, 92vw, 420px) !important;
+    min-height: 0 !important;
+  }
+  #blog .blog-grid .post.photography-editorial .photography-feature-content,
+  #blog .blog-grid .post.astro-editorial .astro-feature-content {
+    padding: 21px 19px 26px !important;
+  }
+  #blog .blog-grid .post.photography-editorial .post-body h3,
+  #blog .blog-grid .post.astro-editorial .post-body h3 {
+    font-size: clamp(26px, 7vw, 34px) !important;
+  }
+  #blog .blog-grid .post.photography-editorial .photography-feature-detail p,
+  #blog .blog-grid .post.astro-editorial .astro-feature-text-slide p {
+    font-size: 14px !important;
+  }
+  #blog .blog-grid .post.photography-editorial .photography-feature-stage .post-category,
+  #blog .blog-grid .post.astro-editorial .astro-feature-stage .post-category {
+    top: 12px;
+    left: 12px;
+    font-size: 10px;
+    padding: 6px 9px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #blog .blog-grid .post.astro-editorial .astro-feature-text-slide {
+    animation: none !important;
+  }
+}
