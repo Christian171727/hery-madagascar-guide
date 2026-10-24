@@ -1,1 +1,411 @@
-.hery-local-reviews{padding:clamp(55px,7vw,96px) 20px;background:var(--cream-100)}.hery-local-reviews-inner{max-width:1130px;margin:auto}.hery-review-header{max-width:750px}.hery-local-reviews h2{font:700 clamp(34px,4vw,55px)/1.07 'Cormorant Garamond',serif;color:var(--ink);margin:12px 0}.hery-local-reviews-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:26px}.hery-local-reviews form,.hery-review-results{border:1px solid var(--line);border-radius:24px;background:var(--surface-solid);padding:28px;box-shadow:var(--shadow-xs);min-width:0}.hery-local-reviews h3{color:var(--ink);font-size:21px;margin:0 0 20px}.hery-local-reviews form label:not(.hery-consent){display:grid;gap:9px;margin:15px 0;font-size:13px;font-weight:700}.hery-local-reviews input:not([type='checkbox']),.hery-local-reviews textarea{width:100%;background:var(--cream-50);border:1px solid var(--line);border-radius:12px;color:var(--ink);padding:13px;resize:vertical}.hery-rating{display:flex;gap:4px;color:#d1a04f}.hery-rating button{padding:8px;color:inherit;background:transparent}.hery-rating button:focus-visible{outline:3px solid var(--gold-500)}.hery-consent{display:flex;align-items:flex-start;gap:11px;margin:14px 0;color:var(--text);font-size:12px;line-height:1.6}.hery-consent input{margin-top:4px;accent-color:#315c44}.hery-submit{border-radius:28px;background:var(--forest-700);color:white;padding:13px 25px;display:flex;align-items:center;gap:9px;font-weight:800}.hery-submit:disabled{opacity:.5}.hery-review-results article{padding:14px 0;border-bottom:1px solid var(--line)}.hery-review-results article div{color:#c09342;margin:6px 0}.hery-review-results article p{line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}.hery-moderation{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px}.hery-review-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}@media(max-width:760px){.hery-local-reviews-grid{grid-template-columns:1fr}.hery-local-reviews form,.hery-review-results{padding:20px}}
+/* HERY Madagascar Local Guide — compact premium customer reviews.
+   Styles only: the existing submission, moderation and multilingual logic stay intact. */
+
+.hery-local-reviews {
+  position: relative;
+  isolation: isolate;
+  scroll-margin-top: 106px;
+  padding: clamp(32px, 4vw, 58px) 18px clamp(42px, 5vw, 66px);
+  background:
+    radial-gradient(circle at 96% 7%, rgba(205, 164, 84, .13), transparent 31%),
+    radial-gradient(circle at 2% 85%, rgba(36, 81, 61, .07), transparent 31%),
+    var(--cream-100);
+}
+
+.hery-local-reviews-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.hery-review-header {
+  max-width: 700px;
+  margin: 0 auto 22px;
+  text-align: center;
+}
+
+.hery-review-header .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--gold-600);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .15em;
+}
+
+.hery-local-reviews h2 {
+  margin: 9px 0 8px;
+  color: var(--ink);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 3.4vw, 44px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+}
+
+.hery-review-header > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.hery-local-reviews-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(0, .94fr);
+  align-items: start;
+  gap: 18px;
+  margin-top: 0;
+}
+
+.hery-local-reviews form,
+.hery-review-results {
+  position: relative;
+  min-width: 0;
+  margin: 0;
+  padding: clamp(20px, 2.4vw, 29px);
+  overflow: hidden;
+  border: 1px solid rgba(180, 136, 59, .21);
+  border-radius: 22px;
+  background: var(--surface-solid);
+  box-shadow: 0 10px 28px rgba(11, 24, 19, .055), 0 2px 7px rgba(11, 24, 19, .025);
+  transition: box-shadow .25s ease, border-color .25s ease, transform .25s ease;
+}
+
+.hery-local-reviews form::before,
+.hery-review-results::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--forest-700), var(--gold-500), var(--gold-300));
+  pointer-events: none;
+}
+
+.hery-review-results::before {
+  background: linear-gradient(90deg, var(--gold-500), var(--gold-300), var(--forest-700));
+}
+
+.hery-local-reviews form:hover,
+.hery-review-results:hover {
+  border-color: rgba(180, 136, 59, .34);
+  box-shadow: 0 14px 36px rgba(11, 24, 19, .08);
+}
+
+.hery-local-reviews h3 {
+  margin: 4px 0 17px;
+  color: var(--ink);
+  font-size: clamp(17px, 1.7vw, 20px);
+  font-weight: 800;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.hery-local-reviews form label:not(.hery-consent) {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 13px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.hery-local-reviews input:not([type="checkbox"]),
+.hery-local-reviews textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream-50);
+  padding: 11px 13px;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.hery-local-reviews input:not([type="checkbox"]) {
+  height: 43px;
+}
+
+.hery-local-reviews textarea {
+  min-height: 92px;
+  max-height: 240px;
+  resize: vertical;
+}
+
+.hery-local-reviews input:not([type="checkbox"]):focus,
+.hery-local-reviews textarea:focus {
+  border-color: var(--gold-500);
+  background: var(--surface-solid);
+  box-shadow: 0 0 0 3px rgba(205, 164, 84, .14);
+}
+
+.hery-rating {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 17px;
+}
+
+.hery-rating button {
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  padding: 0;
+  border: 1px solid rgba(205, 164, 84, .32);
+  border-radius: 12px;
+  background: rgba(205, 164, 84, .07);
+  color: var(--gold-600);
+  cursor: pointer;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+
+.hery-rating button svg {
+  width: 23px;
+  height: 23px;
+}
+
+.hery-rating button[aria-pressed="true"],
+.hery-rating button:hover {
+  border-color: var(--gold-500);
+  background: rgba(205, 164, 84, .18);
+  color: var(--gold-600);
+  transform: translateY(-2px);
+}
+
+.hery-rating button:focus-visible {
+  outline: 3px solid var(--gold-500);
+  outline-offset: 2px;
+}
+
+.hery-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 6px 0 15px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.hery-consent input {
+  flex: 0 0 auto;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--forest-700);
+  cursor: pointer;
+}
+
+.hery-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 999px;
+  background: linear-gradient(105deg, #24513d, #32664e 70%, #3d7359);
+  box-shadow: 0 6px 18px rgba(36, 81, 61, .18);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease;
+}
+
+.hery-submit:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.hery-submit:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(36, 81, 61, .27);
+  filter: brightness(1.06);
+}
+
+.hery-submit:focus-visible {
+  outline: 3px solid var(--gold-500);
+  outline-offset: 3px;
+}
+
+.hery-local-reviews form > p[role="status"] {
+  margin: 10px 0 0;
+  color: var(--forest-700);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.hery-local-reviews form > p[role="status"]:empty {
+  display: none;
+}
+
+.hery-review-results {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.hery-review-results h3 {
+  margin-bottom: 12px;
+}
+
+.hery-review-results > p:not(.hery-moderation) {
+  margin: 0 0 15px;
+  padding: 15px;
+  border: 1px dashed rgba(180, 136, 59, .4);
+  border-radius: 13px;
+  background: rgba(205, 164, 84, .07);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.hery-review-results article {
+  margin-bottom: 11px;
+  padding: 15px 15px 13px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--cream-50);
+}
+
+.hery-review-results article strong {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.hery-review-results article div {
+  margin: 6px 0;
+  color: var(--gold-600);
+  font-size: 17px;
+  letter-spacing: 2px;
+}
+
+.hery-review-results article p {
+  margin: 6px 0 0;
+  color: var(--text);
+  font-size: 12px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.hery-moderation {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 2px 0 0;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--cream-50);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.hery-moderation svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--forest-600);
+}
+
+.hery-review-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+html[data-theme="dark"] .hery-local-reviews form,
+html[data-theme="dark"] .hery-review-results {
+  border-color: rgba(205, 164, 84, .25);
+}
+
+html[data-theme="dark"] .hery-submit {
+  background: linear-gradient(105deg, #32664e, #24513d);
+  color: #fff;
+}
+
+html[data-theme="dark"] .hery-local-reviews form > p[role="status"] {
+  color: var(--gold-300);
+}
+
+html[data-theme="dark"] .hery-moderation svg {
+  color: var(--gold-400);
+}
+
+@media (max-width: 760px) {
+  .hery-local-reviews {
+    scroll-margin-top: 88px;
+    padding: 31px 14px 46px;
+  }
+
+  .hery-local-reviews-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 15px;
+  }
+
+  .hery-review-header {
+    margin-bottom: 18px;
+  }
+
+  .hery-local-reviews form,
+  .hery-review-results {
+    padding: 21px 19px;
+    border-radius: 19px;
+  }
+}
+
+@media (max-width: 420px) {
+  .hery-local-reviews {
+    padding-inline: 10px;
+  }
+
+  .hery-local-reviews form,
+  .hery-review-results {
+    padding: 19px 15px;
+  }
+
+  .hery-rating {
+    gap: 6px;
+  }
+
+  .hery-rating button {
+    width: 37px;
+    height: 37px;
+    min-width: 37px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hery-local-reviews form,
+  .hery-review-results,
+  .hery-rating button,
+  .hery-submit,
+  .hery-local-reviews input,
+  .hery-local-reviews textarea {
+    transition: none !important;
+    transform: none !important;
+  }
+}
