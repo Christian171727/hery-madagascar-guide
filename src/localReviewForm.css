@@ -355,7 +355,7 @@ html[data-theme="dark"] .hery-moderation svg {
   color: var(--gold-400);
 }
 
-@media (max-width: 760px) {
+@media (max-width:760px) {
   .hery-local-reviews {
     scroll-margin-top: 88px;
     padding: 31px 14px 46px;
