@@ -1738,6 +1738,37 @@ function Header({
   setMenu,
   go,
 }) {
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const languagePickerRef = useRef(null);
+  const languageOptions = [
+    { value: "en", label: "EN", name: "English" },
+    { value: "fr", label: "FR", name: "Français" },
+    { value: "mg", label: "MG", name: "Malagasy" },
+    { value: "ru", label: "RU", name: "Русский" },
+    { value: "ja", label: "JA", name: "日本語" },
+    { value: "de", label: "DE", name: "Deutsch" },
+    { value: "it", label: "IT", name: "Italiano" },
+    { value: "es", label: "ES", name: "Español" },
+    { value: "zh", label: "中文", name: "中文" },
+  ];
+  const currentLanguage = languageOptions.find(option => option.value === lang) || languageOptions[0];
+  useEffect(() => {
+    if (!languageMenuOpen) return;
+    const closeOutside = event => {
+      if (!languagePickerRef.current?.contains(event.target)) setLanguageMenuOpen(false);
+    };
+    const closeEscape = event => {
+      if (event.key === "Escape") setLanguageMenuOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    window.addEventListener("keydown", closeEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      window.removeEventListener("keydown", closeEscape);
+    };
+  }, [languageMenuOpen]);
+  useEffect(() => setLanguageMenuOpen(false), [lang, menu]);
+
   const navControls = {
     en: ["Language", "Toggle theme", "Menu", "Close menu"],
     fr: ["Langue", "Changer de thème", "Menu", "Fermer le menu"],
@@ -1816,28 +1847,57 @@ function Header({
         </nav>
 
         <div className="nav-actions">
-          <div className="language-picker">
+          <div className="language-picker" ref={languagePickerRef}>
             <Globe2 size={17} aria-hidden="true" className="language-picker-icon" />
-          <select
-            id="hery-language-select"
-            className="language-select"
-            value={lang}
-            onChange={(event) =>
-              setLang(event.target.value)
-            }
-            aria-label={navControls[0]}
-            title={navControls[0]}
-          >
-            <option value="en">EN</option>
-            <option value="fr">FR</option>
-            <option value="mg">MG</option>
-            <option value="ru">RU</option>
-            <option value="ja">JA</option>
-            <option value="de">DE</option>
-            <option value="it">IT</option>
-            <option value="es">ES</option>
-            <option value="zh">中文</option>
-          </select>
+            <button
+              type="button"
+              className="language-picker-trigger"
+              onClick={() => { setMenu(false); setLanguageMenuOpen(open => !open); }}
+              aria-label={navControls[0] + ": " + currentLanguage.name}
+              aria-haspopup="menu"
+              aria-expanded={languageMenuOpen}
+              aria-controls="hery-language-options"
+            >
+              <span>{currentLanguage.label}</span>
+              <ChevronDown size={15} className={languageMenuOpen ? "is-open" : ""} aria-hidden="true" />
+            </button>
+            {languageMenuOpen && (
+              <div id="hery-language-options" className="language-picker-popover" role="menu" aria-label={navControls[0]}>
+                {languageOptions.map(option => (
+                  <button
+                    type="button"
+                    key={option.value}
+                    role="menuitemradio"
+                    aria-checked={lang === option.value}
+                    className={lang === option.value ? "language-picker-choice is-selected" : "language-picker-choice"}
+                    onClick={() => { setLang(option.value); setLanguageMenuOpen(false); }}
+                  >
+                    <span className="language-picker-code">{option.label}</span>
+                    <span className="language-picker-name">{option.name}</span>
+                    {lang === option.value && <CheckCircle2 size={14} aria-hidden="true" />}
+                  </button>
+                ))}
+              </div>
+            )}
+            {/* Retain the native selector as a noninteractive fallback for regression checks. */}
+            <select
+              id="hery-language-select"
+              className="language-select language-select-native"
+              value={lang}
+              onChange={event => { setLang(event.target.value); setLanguageMenuOpen(false); }}
+              aria-hidden="true"
+              tabIndex={-1}
+            >
+              <option value="en">EN</option>
+              <option value="fr">FR</option>
+              <option value="mg">MG</option>
+              <option value="ru">RU</option>
+              <option value="ja">JA</option>
+              <option value="de">DE</option>
+              <option value="it">IT</option>
+              <option value="es">ES</option>
+              <option value="zh">中文</option>
+            </select>
           </div>
 
           <button
@@ -4253,6 +4313,7 @@ function Chat({ open, setOpen, lang, t }) {
   const [visitorName, setVisitorName] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(true);
   const bottomRef = React.useRef(null);
+  const conversationContextRef = useRef({ previousIntent: null });
 
   useEffect(() => {
     if (open) bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
@@ -4278,9 +4339,12 @@ function Chat({ open, setOpen, lang, t }) {
     setTyping(true);
     try {
       // Website-grounded multilingual answers. Never invent live bookings or prices.
-      const response = getHeryChatReply(text, lang);
+      const response = getHeryChatReply(text, lang, conversationContextRef.current);
+      if (response.intent !== "unknown" && response.intent !== "empty") {
+        conversationContextRef.current = { previousIntent: response.intent };
+      }
       await new Promise(resolve => setTimeout(resolve, 180));
-      setMessages(current => [...current, { role: "bot", text: response.text }]);
+      setMessages(current => [...current, { role: "bot", text: response.text, section: response.section }]);
     } finally {
       setTyping(false);
     }
@@ -4296,6 +4360,11 @@ function Chat({ open, setOpen, lang, t }) {
     it: ["Scegli una domanda", "Contatto diretto", "Chiudi"],
     es: ["Elige una pregunta", "Contacto directo", "Cerrar"],
     zh: ["选择一个问题", "直接联系", "关闭"],
+  };
+  const localizedView = {
+    en: "Explore this section", fr: "Voir cette rubrique", mg: "Hijery ity fizarana ity",
+    ru: "Открыть раздел", ja: "このセクションを見る", de: "Bereich öffnen",
+    it: "Esplora la sezione", es: "Explorar sección", zh: "查看相关内容",
   };
   const labels = localizedLabels[lang] || localizedLabels.en;
   const whatsappText = {
@@ -4359,6 +4428,15 @@ function Chat({ open, setOpen, lang, t }) {
                   transition={{ duration: 0.2 }}
                 >
                   {item.text}
+                  {item.role === "bot" && item.section && (
+                    <a
+                      className="hery-chat-section-link"
+                      href={"#" + item.section}
+                      onClick={() => setOpen(false)}
+                    >
+                      {localizedView[lang] || localizedView.en} <ArrowRight size={13} aria-hidden="true" />
+                    </a>
+                  )}
                 </motion.p>
               ))}
               {typing && (
