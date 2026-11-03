@@ -8566,3 +8566,220 @@ html[data-theme="dark"] .header .language-picker-icon {
     animation: none !important;
   }
 }
+
+/* HERY LANGUAGE POPOVER + SITE CHAT UX — 2026-11-03 */
+/* The language choices are controlled by click, not by permanent hover. */
+.header .language-picker {
+  position: relative;
+  z-index: 1230;
+  isolation: isolate;
+  gap: 5px;
+  padding-right: 6px;
+  border-color: rgba(180, 137, 65, .25);
+  background: linear-gradient(135deg, var(--surface-solid), var(--cream-50));
+  box-shadow: 0 4px 15px rgba(16, 40, 63, .075);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.header .language-picker:focus-within {
+  outline: none;
+  border-color: var(--gold-500);
+  box-shadow: 0 0 0 3px rgba(205, 164, 84, .13);
+}
+.header .nav-actions .language-picker .language-select.language-select-native {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+.header .language-picker-trigger {
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 7px;
+  min-width: 53px;
+  height: 36px;
+  margin: 0;
+  padding: 0 2px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 850;
+  cursor: pointer;
+}
+.header .language-picker-trigger svg {
+  flex: 0 0 15px;
+  transition: transform .2s ease;
+}
+.header .language-picker-trigger svg.is-open { transform: rotate(180deg); }
+.header .language-picker-trigger:focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: 1px;
+}
+.header .language-picker-popover {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1500;
+  width: 214px;
+  max-width: calc(100vw - 24px);
+  max-height: min(360px, 65dvh);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 7px;
+  border: 1px solid rgba(177, 142, 79, .29);
+  border-radius: 18px;
+  background: var(--surface-solid);
+  box-shadow: 0 18px 48px rgba(10, 35, 52, .19), 0 3px 12px rgba(10, 35, 52, .07);
+  animation: hery-language-menu-enter .2s ease-out both;
+}
+@keyframes hery-language-menu-enter {
+  from { opacity: 0; transform: translateY(-7px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.header .language-picker-choice {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 11px;
+  margin: 1px 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.header .language-picker-code {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 38px;
+  min-width: 38px;
+  padding: 5px 3px;
+  border-radius: 8px;
+  color: var(--forest-700);
+  background: var(--cream-100);
+  font-size: 10px;
+  font-weight: 850;
+}
+.header .language-picker-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 650;
+}
+.header .language-picker-choice svg { flex-shrink: 0; color: var(--gold-600); }
+.header .language-picker-choice.is-selected {
+  color: var(--forest-800);
+  background: rgba(205, 164, 84, .16);
+  font-weight: 800;
+}
+.header .language-picker-choice.is-selected .language-picker-code {
+  color: #17372a;
+  background: var(--gold-300);
+}
+@media (hover: hover) and (pointer: fine) {
+  .header .language-picker-choice:hover {
+    color: var(--forest-800);
+    background: rgba(205, 164, 84, .16);
+    transform: translateX(2px);
+  }
+  .header .nav button:hover {
+    color: var(--gold-600);
+    background: rgba(205, 164, 84, .095);
+    border-radius: 9px;
+  }
+}
+.header .language-picker-choice:focus-visible {
+  outline: 2px solid var(--gold-500);
+  outline-offset: -2px;
+  background: rgba(205, 164, 84, .15);
+}
+@media (hover: none) {
+  .header .language-picker-choice:hover,
+  .header .nav button:hover {
+    transform: none;
+    background: transparent;
+  }
+}
+html[data-theme="dark"] .header .language-picker {
+  border-color: rgba(219, 181, 103, .35);
+  background: var(--surface-solid);
+}
+html[data-theme="dark"] .header .language-picker-popover {
+  border-color: rgba(219, 181, 103, .31);
+  background: #122b24;
+}
+html[data-theme="dark"] .header .language-picker-code {
+  color: var(--gold-300);
+  background: #244234;
+}
+html[data-theme="dark"] .header .language-picker-choice.is-selected,
+html[data-theme="dark"] .header .language-picker-choice:hover {
+  color: #f6eedc;
+  background: rgba(205, 164, 84, .20);
+}
+html[data-theme="dark"] .header .language-picker-choice.is-selected .language-picker-code {
+  color: #152b20;
+  background: var(--gold-300);
+}
+@media (max-width: 700px) {
+  .header .language-picker {
+    min-width: 79px;
+    padding-left: 7px;
+    padding-right: 5px;
+  }
+  .header .language-picker-trigger {
+    min-width: 48px;
+    height: 36px;
+    padding: 0;
+    gap: 4px;
+  }
+  .header .language-picker-popover {
+    right: -10px;
+    width: min(214px, calc(100vw - 24px));
+  }
+}
+@media (max-width: 360px) {
+  .header .language-picker { min-width: 70px; }
+  .header .language-picker-trigger { min-width: 43px; font-size: 11px; }
+}
+/* Chat answers link to the relevant live section of this website. */
+.hery-chat-body p.b .hery-chat-section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding: 6px 10px;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid rgba(181, 137, 62, .34);
+  border-radius: 10px;
+  color: #124c6a;
+  background: rgba(205, 164, 84, .12);
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.45;
+  text-decoration: none;
+  white-space: normal;
+}
+.hery-chat-body p.b .hery-chat-section-link:hover,
+.hery-chat-body p.b .hery-chat-section-link:focus-visible {
+  border-color: var(--gold-500);
+  background: rgba(205, 164, 84, .25);
+  outline-offset: 2px;
+}
+html[data-theme="dark"] .hery-chat-body p.b .hery-chat-section-link {
+  color: #f3d997;
+  background: rgba(205, 164, 84, .12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .header .language-picker-popover { animation: none; }
+  .header .language-picker-choice, .header .language-picker-trigger svg { transition: none; }
+}
