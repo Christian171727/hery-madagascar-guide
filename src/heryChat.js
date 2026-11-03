@@ -197,6 +197,110 @@ const extraKnowledge = {
   },
 };
 
+
+/* Site-specific, verified help topics. These answers are informational;
+   the assistant does not see live availability, weather, payments or prices. */
+const siteKnowledge = {
+  smalltalk: {
+    en: "I'm doing well, thank you for asking! 😊 I'm HERY's virtual site guide. I can help you explore Madagascar destinations, tours, photography and contact options. What interests you?",
+    fr: "Je vais bien, merci ! 😊 Je suis l’assistant virtuel du site HERY. Je peux vous guider vers les destinations, circuits, photographies et contacts. Que souhaitez-vous découvrir ?",
+    mg: "Salama tsara, misaotra nanontany! 😊 Mpanampy virtoaly eto amin'ny site HERY aho. Afaka manampy anao hahita destinations, circuits, sary ary contact. Inona no tianao ho fantatra?",
+    ru: "Всё хорошо, спасибо! 😊 Я виртуальный помощник сайта HERY. Помогу найти маршруты, фотографии и контакты. Что вас интересует?",
+    ja: "元気です、ありがとうございます！😊 HERYサイトの案内役です。旅行先やツアー、写真、連絡方法をご案内できます。何に興味がありますか？",
+    de: "Danke, mir geht es gut! 😊 Ich bin der virtuelle Helfer auf der HERY-Website. Ich helfe bei Reisezielen, Touren, Fotos und Kontakt. Was interessiert Sie?",
+    it: "Sto bene, grazie! 😊 Sono l'assistente virtuale del sito HERY. Posso aiutarti con destinazioni, tour, foto e contatti. Cosa ti interessa?",
+    es: "¡Estoy bien, gracias! 😊 Soy el asistente virtual de HERY. Puedo ayudarte con destinos, rutas, fotografías y contacto. ¿Qué te interesa?",
+    zh: "我很好，谢谢关心！😊 我是 HERY 网站的虚拟向导，可帮助您了解目的地、行程、摄影和联系方法。您想了解什么？",
+  },
+  site: {
+    en: "This is HERY Madagascar Local Guide's website. Browse Destinations for places to visit; Photography and Astrophotography for photo experiences; Services for private guiding; Blog for field stories; and Contact to plan your trip.",
+    fr: "Bienvenue sur le site HERY Madagascar Local Guide. Consultez Destinations pour les lieux à visiter, Photographie et Astrophotographie pour les expériences photo, Services pour les circuits privés, Blog pour les récits et Contact pour organiser votre voyage.",
+    mg: "Ity no tranonkalan'ny HERY Madagascar Local Guide. Ao amin'ny Destinations ny toerana tsidihina; Photography sy Astrophotography ny fakàna sary; Services ny tolotra; Blog ny tantara; Contact ny fandaminana dia.",
+    ru: "Это сайт HERY Madagascar Local Guide. Раздел Destinations — места, Photography — фотопоездки, Services — частные туры, Blog — истории, Contact — связь.",
+    ja: "HERY Madagascar Local Guideのサイトです。Destinationsで旅行先、Photographyで撮影体験、Servicesでツアー、Blogで記事、Contactでお問い合わせをご覧ください。",
+    de: "Dies ist die Website von HERY Madagascar Local Guide. Unter Destinations finden Sie Reiseziele, unter Photography Fototouren, unter Services private Angebote, im Blog Geschichten und unter Contact die Kontaktmöglichkeiten.",
+    it: "Questo è il sito HERY Madagascar Local Guide. In Destinations trovi i luoghi, in Photography le esperienze fotografiche, in Services i tour privati, nel Blog i racconti e in Contact i contatti.",
+    es: "Este es el sitio de HERY Madagascar Local Guide. Destinations muestra los lugares, Photography las experiencias fotográficas, Services los circuitos privados, Blog los artículos y Contact las opciones de contacto.",
+    zh: "这是 HERY Madagascar Local Guide 网站。Destinations 介绍目的地，Photography 介绍摄影体验，Services 展示私人行程，Blog 提供文章，Contact 用于联系。",
+  },
+  reviews: {
+    en: "To share your experience, open the Customer Reviews section, choose 1–5 stars, enter your name and a comment of at least 20 characters, then consent and submit. Your review appears publicly only after approval. Site reviews are separate from Google Reviews.",
+    fr: "Pour laisser un avis, ouvrez Avis clients, choisissez 1 à 5 étoiles, indiquez votre nom et un commentaire d’au moins 20 caractères, acceptez la publication et envoyez. Votre avis sera publié après validation. Les avis du site sont distincts des avis Google.",
+    mg: "Raha hametraka avis: sokafy ny Customer Reviews, fidio ny kintana 1–5, soraty ny anarana sy commentaire 20 tarehintsoratra farafahakeliny, ekeo ny fepetra ary alefaso. Rehefa voamarina vao miseho ampahibemaso. Misaraka amin'ny avis Google ireo.",
+    ru: "Чтобы оставить отзыв, откройте Customer Reviews, поставьте 1–5 звёзд, укажите имя и комментарий не короче 20 символов, подтвердите согласие и отправьте. Отзыв появится после проверки. Отзывы сайта отдельно от Google.",
+    ja: "口コミは Customer Reviews から投稿できます。星1～5、名前、20文字以上のコメント、公開への同意を入力してください。承認後に公開されます。Googleの口コミとは別です。",
+    de: "Im Bereich Customer Reviews können Sie 1–5 Sterne, Ihren Namen und einen Kommentar mit mindestens 20 Zeichen eingeben und nach Zustimmung absenden. Die Veröffentlichung erfolgt erst nach Prüfung. Website-Bewertungen sind unabhängig von Google.",
+    it: "Per lasciare una recensione apri Customer Reviews, seleziona 1–5 stelle, inserisci il nome e almeno 20 caratteri, accetta la pubblicazione e invia. La recensione sarà visibile dopo l'approvazione. È separata dalle recensioni Google.",
+    es: "Para dejar una reseña abre Customer Reviews, elige 1–5 estrellas, introduce tu nombre y al menos 20 caracteres, acepta la publicación y envíala. Se publicará tras la aprobación. Es independiente de Google Reviews.",
+    zh: "在 Customer Reviews 可提交评价：选择1–5星，输入姓名及至少20个字符的评论，同意审核后公开并提交。审核通过后才会展示，站内评价与 Google 评价分开。",
+  },
+  blog: {
+    en: "The HERY Blog shares field stories about Kirindy wildlife, golden-hour baobab photography, night skies in Madagascar and conservation. Open Blog and choose 'Read article' to discover the full illustrated story.",
+    fr: "Le blog HERY présente des récits sur la faune de Kirindy, la photographie des baobabs à l’heure dorée, les nuits étoilées et la conservation. Ouvrez Blog puis « Lire l’article ».",
+    mg: "Ao amin'ny Blog HERY dia misy tantara momba ny bibidia ao Kirindy, fakàna sary baobab amin'ny golden hour, lanitra feno kintana ary fiarovana ny natiora. Tsindrio ny Blog sy « Read article ».",
+    ru: "В блоге HERY есть статьи о животных Кирindy, съёмке баобабов на закате, звёздном небе и охране природы. Откройте Blog и выберите статью.",
+    ja: "HERYのブログではKirindyの野生動物、夕暮れのバオバブ撮影、星空、自然保護について紹介しています。Blogから記事を開いてください。",
+    de: "Im HERY-Blog lesen Sie über Kirindy-Wildtiere, Baobab-Fotografie zur goldenen Stunde, Sternenhimmel und Naturschutz. Öffnen Sie Blog und wählen Sie einen Artikel.",
+    it: "Il Blog HERY racconta la fauna di Kirindy, la fotografia dei baobab all'ora dorata, il cielo stellato e la conservazione. Apri Blog e scegli un articolo.",
+    es: "El Blog HERY cuenta historias sobre la fauna de Kirindy, los baobabs en la hora dorada, el cielo nocturno y la conservación. Abre Blog y elige un artículo.",
+    zh: "HERY 博客介绍 Kirindy 野生动物、黄金时刻的猴面包树摄影、马达加斯加星空及自然保护。打开 Blog 并选择文章。",
+  },
+  languages: {
+    en: "Use the globe / language button at the top of the website to switch between English, French, Malagasy, Russian, Japanese, German, Italian, Spanish and Chinese. The menu closes as soon as you choose a language.",
+    fr: "Utilisez le bouton langue avec le globe en haut du site pour choisir parmi anglais, français, malgache, russe, japonais, allemand, italien, espagnol et chinois. Le menu se ferme après votre sélection.",
+    mg: "Tsindrio ny bouton misy globe eo an-tampon'ny site hanovana fiteny: EN, FR, MG, RU, JA, DE, IT, ES na 中文. Mihidy ho azy ny menu rehefa misafidy ianao.",
+    ru: "Нажмите значок глобуса вверху сайта, чтобы выбрать один из девяти языков. После выбора меню закрывается.",
+    ja: "サイト上部の地球アイコンから9言語を切り替えられます。言語を選ぶとメニューは自動で閉じます。",
+    de: "Oben auf der Website können Sie über das Globus-Symbol zwischen neun Sprachen wechseln. Nach der Auswahl schließt sich das Menü automatisch.",
+    it: "Con il pulsante a forma di globo in alto puoi scegliere tra nove lingue. Il menu si chiude appena selezioni una lingua.",
+    es: "Usa el botón del globo en la parte superior para elegir entre nueve idiomas. El menú se cierra al seleccionar uno.",
+    zh: "点击网站顶部的地球图标可选择九种语言。选定后语言菜单会自动关闭。",
+  },
+  planning: {
+    en: "HERY can help you plan a private Madagascar experience. Tell HERY which destinations interest you, your travel dates, how many people are coming and whether you prefer wildlife, photography, culture or a mix. Route feasibility and costs are confirmed directly.",
+    fr: "HERY peut vous aider à organiser un voyage privé à Madagascar. Précisez les destinations, les dates, le nombre de voyageurs et vos envies (faune, photo, culture ou circuit varié). Itinéraire et tarif sont à confirmer directement.",
+    mg: "Afaka manampy handamina voyage privé eto Madagasikara i HERY. Lazao ny toerana tianao, daty, isan'ny olona ary safidinao (bibidia, sary, kolontsaina). Mila hamarinina mivantana ny lalana sy ny sarany.",
+    ru: "HERY поможет обсудить частный маршрут по Мадагаскару. Сообщите места, даты, число участников и интересы. Возможность маршрута и стоимость подтверждаются напрямую.",
+    ja: "HERYはマダガスカルのプライベート旅行の相談に対応します。行き先、日程、人数、興味（動物・写真・文化）をお知らせください。行程と料金は直接ご確認ください。",
+    de: "HERY unterstützt Sie bei der Planung einer privaten Reise. Teilen Sie Reiseziele, Daten, Teilnehmerzahl und Interessen mit. Machbarkeit und Preise werden direkt bestätigt.",
+    it: "HERY può aiutarti a progettare un viaggio privato. Indica destinazioni, date, numero di persone e interessi (fauna, foto, cultura). Fattibilità e prezzi vanno confermati direttamente.",
+    es: "HERY puede ayudarte a planificar un viaje privado. Indica destinos, fechas, número de personas e intereses. La viabilidad y los precios se confirman directamente.",
+    zh: "HERY 可协助规划马达加斯加私人行程。请提供目的地、日期、人数及野生动物、摄影或文化偏好。具体路线和价格需直接确认。",
+  },
+  faq: {
+    en: "The FAQ section answers common questions about HERY, tours, photography and visiting Madagascar. For a personalized plan, use Contact or WhatsApp.",
+    fr: "La rubrique FAQ répond aux questions fréquentes sur HERY, les circuits, la photographie et Madagascar. Pour un programme personnalisé, utilisez Contact ou WhatsApp.",
+    mg: "Ao amin'ny FAQ no ahitana ny fanontaniana mahazatra momba ny HERY, tours, photographie ary Madagasikara. Raha mila fandaminana manokana dia Contact na WhatsApp.",
+    ru: "В разделе FAQ есть ответы о HERY, турах, фотографии и Мадагаскаре. Для персональной программы используйте Contact или WhatsApp.",
+    ja: "FAQにはHERY、ツアー、写真撮影、マダガスカル旅行に関するよくある質問があります。個別相談はContactまたはWhatsAppへ。",
+    de: "Unter FAQ finden Sie häufige Fragen zu HERY, Touren, Fotografie und Madagaskar. Für individuelle Pläne nutzen Sie Contact oder WhatsApp.",
+    it: "Nella sezione FAQ trovi le risposte su HERY, tour, fotografia e Madagascar. Per un programma personale usa Contact o WhatsApp.",
+    es: "FAQ responde preguntas habituales sobre HERY, rutas, fotografía y Madagascar. Para un plan personalizado usa Contact o WhatsApp.",
+    zh: "FAQ 有关于 HERY、旅游、摄影和马达加斯加的常见问题。个性化行程请通过 Contact 或 WhatsApp 咨询。",
+  },
+  help: {
+    en: "I can answer questions about HERY, destinations, private tours, Kirindy, baobabs, Tsingy, wildlife, photography, the Blog, site reviews, languages, contact and trip planning. Ask in any of the nine site languages; I will answer in the selected language.",
+    fr: "Je peux vous renseigner sur HERY, les destinations, circuits privés, Kirindy, baobabs, Tsingy, faune, photographie, blog, avis, langues, contact et préparation du voyage. Je réponds dans la langue sélectionnée sur le site.",
+    mg: "Afaka mamaly momba an'i HERY, destinations, circuits privés, Kirindy, baobab, Tsingy, bibidia, photographie, Blog, avis, langues, contact ary fandaminana dia aho. Amin'ilay fiteny nosafidinao no hamaliako.",
+    ru: "Я могу рассказать о HERY, маршрутах, Kirindy, баобабах, Tsingy, природе, фотографии, блоге, отзывах и контактах. Отвечаю на выбранном языке.",
+    ja: "HERY、目的地、ツアー、Kirindy、バオバブ、Tsingy、野生動物、写真、ブログ、レビュー、言語、連絡方法について回答できます。選択したサイトの言語で回答します。",
+    de: "Ich beantworte Fragen zu HERY, Reisezielen, Touren, Kirindy, Baobabs, Tsingy, Tieren, Fotografie, Blog, Bewertungen und Kontakt. Die Antwort erfolgt in Ihrer gewählten Sprache.",
+    it: "Posso rispondere su HERY, destinazioni, tour, Kirindy, baobab, Tsingy, fauna, fotografia, blog, recensioni, lingue e contatti. Rispondo nella lingua selezionata sul sito.",
+    es: "Puedo responder sobre HERY, destinos, tours, Kirindy, baobabs, Tsingy, fauna, fotografía, blog, reseñas, idiomas y contacto. Respondo en el idioma seleccionado.",
+    zh: "我可以介绍 HERY、目的地、私人行程、Kirindy、猴面包树、Tsingy、野生动物、摄影、博客、评论、语言及联系方式，并使用网站所选语言回答。",
+  },
+};
+
+const siteSections = {
+  who: "about", morondava: "destinations", wildlife: "destinations",
+  photo: "photography", astro: "astrophotography", destinations: "destinations",
+  services: "services", price: "contact", booking: "contact", contact: "contact",
+  conservation: "conservation", culture: "culture", tsingy: "destinations",
+  andasibe: "destinations", islands: "destinations", logistics: "services",
+  site: "home", reviews: "local-reviews", blog: "blog", languages: "home",
+  planning: "contact", faq: "faq", help: "services",
+};
+
 const fallback = {
   en: "I don't have confirmed details about that. I can help with HERY's destinations, wildlife, photography, astrophotography, local guiding and conservation. For anything specific, please ask HERY via WhatsApp or the contact form. What would you like to know?",
   fr: "Je n'ai pas d'information confirmée sur ce point. Je peux renseigner sur les destinations, la faune, la photographie, l'astrophotographie et les services HERY. Pour un détail précis, contactez HERY. Quelle est votre question ?",
@@ -258,12 +362,13 @@ export function getHeryVisitorName(text) {
   return result ? result[1].trim() : null;
 }
 
-export function getHeryChatReply(message, language = "en") {
+export function getHeryChatReply(message, language = "en", context = {}) {
   const lang = Object.hasOwn(fallback, language) ? language : "en";
   const q = clean(message);
   const reply = (key, source = knowledge) => ({
     intent: key,
     text: source[key]?.[lang] || source[key]?.en || fallback[lang],
+    section: siteSections[key] || null,
   });
 
   if (!q) return { intent: "empty", text: fallback[lang] };
@@ -299,6 +404,41 @@ export function getHeryChatReply(message, language = "en") {
   if (name) {
     return { intent: "name", name, text: personalWelcome[lang](name) };
   }
+
+  // Conversational follow-up: a short continuation remembers the last site topic.
+  // Never use this for prices, weather, or other unknown live information.
+  if (["tell me more", "more details", "can you explain more", "and what else", "en savoir plus", "plus de details",
+       "dis m en plus", "azavao bebe kokoa", "tohizo", "Подробнее", "もっと詳しく",
+       "mehr details", "dimmi di piu", "mas detalles", "更多信息"].some(term => clean(term) === q)) {
+    const previous = context?.previousIntent;
+    if (previous && Object.hasOwn(knowledge, previous)) return reply(previous);
+    if (previous && Object.hasOwn(extraKnowledge, previous)) return reply(previous, extraKnowledge);
+    if (previous && Object.hasOwn(siteKnowledge, previous)) return reply(previous, siteKnowledge);
+    return reply("help", siteKnowledge);
+  }
+
+  // Social expressions, website instructions and real site features.
+  if (matches(q, ["how are you", "how r u", "how is it going", "how do you do", "comment allez vous", "comment vas tu", "ca va",
+                  "manao ahoana ianao", "salama tsara ve", "come stai", "como estas", "wie geht es dir", "как дела", "お元気ですか", "你好吗"])) return reply("smalltalk", siteKnowledge);
+  if (matches(q, ["how to leave a review", "leave a review", "submit review", "customer review", "customer stories",
+                  "google reviews", "google review", "avis google", "avis clients", "laisser un avis", "donner un avis",
+                  "temoignages", "témoignages", "review", "reviews", "recensioni", "reseñas", "bewertungen", "отзывы", "口コミ", "评价",
+                  "avis eto", "avis ny client", "apetraka avis"])) return reply("reviews", siteKnowledge);
+  if (matches(q, ["blog", "articles", "article", "read article", "field stories", "stories", "stories section", "lahatsoratra",
+                  "histoire du site", "journal", "blogue", "блог", "ブログ", "博客"])) return reply("blog", siteKnowledge);
+  if (matches(q, ["change language", "switch language", "choose language", "languages", "language selector",
+                  "changer de langue", "changer la langue", "choisir une langue", "langue du site", "traduction", "traduire",
+                  "hanova fiteny", "fiteny ao amin ny site", "lingua", "idioma del sitio", "sprache andern", "言語切替", "切换语言"])) return reply("languages", siteKnowledge);
+  if (matches(q, ["faq", "frequently asked questions", "questions frequentes", "fanontaniana mahazatra", "よくある質問", "常见问题"])) return reply("faq", siteKnowledge);
+  if (matches(q, ["about the website", "about this site", "how does the website work", "navigate the site",
+                  "website sections", "what is on this site", "site internet", "tranonkala", "site web",
+                  "sitio web", "webseite", "сайт", "网站"])) return reply("site", siteKnowledge);
+  if (matches(q, ["what can you do", "what can i ask", "can you help me", "help me", "aidez moi", "que peux tu faire",
+                  "inona no azonao atao", "fanampiana", "hilfe", "aiuto", "ayuda", "помоги", "ヘルプ", "帮助"])) return reply("help", siteKnowledge);
+  if (matches(q, ["plan a trip", "plan my trip", "itinerary", "itineraries", "custom itinerary", "tailor made",
+                  "circuit personnalise", "organiser un voyage", "organiser mon voyage", "programme de voyage",
+                  "mandamina dia", "mandrafitra dia", "itinerario", "itinerario personalizado", "reiseplan",
+                  "маршрут", "行程规划", "旅程计划"])) return reply("planning", siteKnowledge);
 
   // Prioritise the action requested over any place mentioned in the message.
   // Example: "How much for astrophotography in Morondava?" -> pricing, not Morondava.
