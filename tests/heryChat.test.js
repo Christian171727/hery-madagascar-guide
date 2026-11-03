@@ -77,3 +77,38 @@ test("thanks followed by a real question is answered by topic", () => {
   assert.equal(getHeryChatReply("Thank you, how much for Kirindy?", "en").intent, "price");
   assert.equal(getHeryChatReply("Merci beaucoup, je veux réserver", "fr").intent, "booking");
 });
+
+test("site assistant handles polite questions and routes visitors to relevant sections", () => {
+  const hello = getHeryChatReply("How are you?", "en");
+  assert.equal(hello.intent, "smalltalk");
+  assert.match(hello.text, /doing well/i);
+  const review = getHeryChatReply("How can I leave a review?", "en");
+  assert.equal(review.intent, "reviews");
+  assert.equal(review.section, "local-reviews");
+  assert.match(review.text, /approval/i);
+  const article = getHeryChatReply("Where is the blog?", "fr");
+  assert.equal(article.intent, "blog");
+  assert.equal(article.section, "blog");
+});
+
+test("chat remembers a requested site topic for brief follow-up questions", () => {
+  const reply = getHeryChatReply("tell me more", "fr", { previousIntent: "reviews" });
+  assert.equal(reply.intent, "reviews");
+  assert.match(reply.text, /avis/);
+});
+
+test("language help and smalltalk work in nine selected site languages", () => {
+  for (const lang of ["en", "fr", "mg", "ru", "ja", "de", "it", "es", "zh"]) {
+    const language = getHeryChatReply("How do I change language?", lang);
+    assert.equal(language.intent, "languages");
+    assert.ok(language.text.length > 30);
+    const polite = getHeryChatReply("how are you", lang);
+    assert.equal(polite.intent, "smalltalk");
+    assert.ok(polite.text.length > 25);
+  }
+});
+
+test("prices remain unverified and weather is not invented after site improvements", () => {
+  assert.equal(getHeryChatReply("How much for a group in Morondava?", "en").intent, "price");
+  assert.equal(getHeryChatReply("Weather in Morondava tomorrow?", "en").intent, "unknown");
+});
