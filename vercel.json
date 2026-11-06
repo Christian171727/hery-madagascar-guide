@@ -9,6 +9,10 @@
       "destination": "/local-tour-guide-madagascar.html"
     },
     {
+      "source": "/guide-touristique-madagascar",
+      "destination": "/guide-touristique-madagascar.html"
+    },
+    {
       "source": "/morondava-tours",
       "destination": "/morondava-tours.html"
     },
