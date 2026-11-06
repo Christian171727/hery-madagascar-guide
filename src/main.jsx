@@ -936,6 +936,12 @@ const seoTourPages = [
     "image": "/images/tours/local-tour-guide-madagascar.webp"
   },
   {
+    "slug": "guide-touristique-madagascar",
+    "title": "Guide touristique Madagascar",
+    "desc": "Guide local à Morondava : baobabs, Kirindy, Tsingy et circuits privés adaptés à vos envies.",
+    "image": "/images/tours/local-tour-guide-madagascar.webp"
+  },
+  {
     "slug": "morondava-tours",
     "title": "Morondava Tours",
     "desc": "Discover unforgettable Morondava sunsets, majestic baobabs and the magic of western Madagascar.",
